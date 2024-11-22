@@ -10,9 +10,15 @@ $ npm i
 # /src/* のフロントエンドを静的ファイル（/build）に出力
 $ npm run build
 
-# バックエンドとフロントエンドをデプロイ
+# バックエンドとフロントエンドをデプロイするとき
 $ amplify publish
+# フロントエンドのみデプロイするとき
+$ amplify hosting push
+# バックエンドのみデプロイするとき
+$ amplify function push
+$ amplify api push
 ```
+※ publishしてもフロントの変更内容が更新されないときは、Cloudfrontのキャッシュを削除する
 
 ## ディレクトリ構成
 ```bash
@@ -20,9 +26,7 @@ project-root/
 ├── amplify/                       # Amplify CLIによるバックエンド管理ディレクトリ
 │   ├── backend/                   # バックエンドリソースの定義
 │   │   ├── api/                   # REST API の設定
-│   │   │   └── backendApi/        # API Gateway + Lambda
-│   │   │       ├── parameters.json
-│   │   │       └── template.json  # APIのCFNテンプレート
+│   │   ├── hosting/               # フロントエンドのホスティングの設定
 │   │   └── function/              # Lambda関数
 │   │   　   └── /lunchBuddyBackednApi
 │   │           └── src/           # Lambda関数のコード（ロジック）

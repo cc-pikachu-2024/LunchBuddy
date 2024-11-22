@@ -1,0 +1,25 @@
+@use "@/styles/globals.scss" as *;
+
+.Button {
+  width: 80%;
+  margin: 10px !important;
+  color: $g-font-color !important;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.SuccessColor {
+  background-color: $g-success-color !important;
+}
+.SecondaryColor {
+  background-color: $g-secondry-color !important;
+}
+.ErrorColor {
+  background-color: $g-error-color !important;
+}
+.InfoColor {
+  background-color: $g-info-color !important;
+}
+.SuccessSecondaryColor {
+  background-color: $g-success-secondary-color !important;
+}
