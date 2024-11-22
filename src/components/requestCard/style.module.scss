@@ -1,0 +1,15 @@
+@use "@/styles/globals.scss" as *;
+
+.Card {
+  margin: 10px 0 !important;
+  padding: 10px;
+}
+
+.Grid {
+  margin: 0 !important;
+}
+
+.CustomP {
+  margin: 0 10px !important;
+  text-align: left;
+}

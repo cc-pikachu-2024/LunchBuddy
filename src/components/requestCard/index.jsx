@@ -1,38 +1,46 @@
-import React from "react";
+import PropTypes from "prop-types";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import Grid from "@mui/material/Grid2";
-import { Typography } from "@mui/material";
+import style from "./style.module.scss";
+import clsx from "clsx";
 import StatusButton from "../StatusButton";
 
 const RequestCard = ({
+  request,
+  updateRequestList,
+  deleteRequestList,
   user,
-  floor,
-  sheet,
-  wants,
-  reward,
-  status,
-  onClick,
 }) => {
   return (
-    <Card>
-      <Grid container spacing={1}>
-        <Grid size={9} container>
-          <Grid size={12}>
-            <Typography>
-              {user} ： {floor} / {sheet}
-            </Typography>
+    <Card className={clsx(style.Card)}>
+      <Grid container className={clsx(style.Grid)}>
+        <Grid size={9} container className={clsx(style.Grid)}>
+          <Grid size={12} className={clsx(style.Grid)}>
+            <p className={clsx(style.CustomP)}>
+              {request.requesterName} ： {request.requesterFloor} /{" "}
+              {request.requesterSheet}
+            </p>
           </Grid>
-          <Grid size={12}>
-            <Typography>買ってきて欲しいもの：{wants.join(", ")}</Typography>
+          <Grid size={12} className={clsx(style.Grid)}>
+            <p className={clsx(style.CustomP)}>
+              買ってきて欲しいもの：{request.menu.join(", ")}
+            </p>
           </Grid>
-          <Grid size={12}>
-            <Typography>お礼：〜{reward}円</Typography>
+          <Grid size={12} className={clsx(style.Grid)}>
+            <p className={clsx(style.CustomP)}>
+              お礼：〜{request.gratitudePrice}円
+            </p>
           </Grid>
         </Grid>
-        <Grid size={3}>
+        <Grid size={3} className={clsx(style.Grid)}>
           <CardActions>
-            <StatusButton onClick={onClick} status={status} />
+            <StatusButton
+              request={request}
+              updateRequestList={updateRequestList}
+              deleteRequestList={deleteRequestList}
+              user={user}
+            />
           </CardActions>
         </Grid>
       </Grid>
@@ -41,3 +49,10 @@ const RequestCard = ({
 };
 
 export default RequestCard;
+
+RequestCard.propTypes = {
+  request: PropTypes.object,
+  updateRequestList: PropTypes.func,
+  deleteRequestList: PropTypes.func,
+  user: PropTypes.object,
+};
