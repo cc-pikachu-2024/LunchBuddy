@@ -22,6 +22,7 @@ exports.postUserInfo = async (req, res) => {
       tel_number: "xxx-xxx-xxx",
     };
     await signUpModel.postUserInfo(userInfo);
+    res.status(200).end();
   } catch (err) {
     console.log(err);
   }

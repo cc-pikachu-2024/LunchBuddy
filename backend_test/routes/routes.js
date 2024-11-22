@@ -11,8 +11,8 @@ router.get("/items", createRequestController.anyMethod);
 router.get("/gratitudes", createRequestController.anyMethod);
 router.post("/requests", createRequestController.anyMethod);
 
-router.get("/requestsList", listRequestsController.anyMethod);
-router.get("/gratitudesSum", listRequestsController.anyMethod);
-router.post("/statuses", listRequestsController.anyMethod);
+router.get("/requestsList", listRequestsController.getAllRequests);
+router.get("/gratitudesSum", listRequestsController.getGratitudesSum);
+router.post("/statuses", listRequestsController.postStatuses);
 
 module.exports = router;
