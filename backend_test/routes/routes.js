@@ -7,9 +7,9 @@ const listRequestsController = require("../controllers/listRequestsController");
 router.get("/offices", signUpController.getAllOffices);
 router.post("/users", signUpController.postUserInfo);
 
-router.get("/items", createRequestController.anyMethod);
-router.get("/gratitudes", createRequestController.anyMethod);
-router.post("/requests", createRequestController.anyMethod);
+router.get("/items", createRequestController.getItems);
+router.get("/gratitudes", createRequestController.getGratitudes);
+router.post("/requests", createRequestController.postRequests);
 
 router.get("/requestsList", listRequestsController.getAllRequests);
 router.get("/gratitudesSum", listRequestsController.getGratitudesSum);

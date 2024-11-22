@@ -1,3 +1,5 @@
 // const createRequestModel = require("../models/createRequestModel");
 
-exports.anyMethod = async (req, res) => {};
+exports.getItems = async (req, res) => {};
+exports.getGratitudes = async (req, res) => {};
+exports.postRequests = async (req, res) => {};

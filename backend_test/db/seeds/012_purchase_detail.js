@@ -7,14 +7,12 @@ exports.seed = async function (knex) {
   await knex("purchase_detail").del();
   await knex("purchase_detail").insert([
     {
-      purchase_detail_id: 1,
       purchase_id: 1,
       item_name: "xxx",
       input_price: 100,
       menu_flag: 0,
     },
     {
-      purchase_detail_id: 2,
       purchase_id: 1,
       item_name: "yyy",
       input_price: 200,

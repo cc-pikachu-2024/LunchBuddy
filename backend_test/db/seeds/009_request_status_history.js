@@ -7,12 +7,10 @@ exports.seed = async function (knex) {
   await knex("request_status_history").del();
   await knex("request_status_history").insert([
     {
-      request_history_id: 1,
       request_id: 1,
       status_id: 1,
     },
     {
-      request_history_id: 2,
       request_id: 1,
       status_id: 2,
     },

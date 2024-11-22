@@ -3,7 +3,10 @@ const signUpModel = require("../models/signUpModel");
 exports.getAllOffices = async (req, res) => {
   try {
     const offices = await signUpModel.getAllOffices();
-    res.status(200).json(offices);
+    convertedOffices = offices.map((office) => {
+      return { id: office.office_id, name: office.office_name };
+    });
+    res.status(200).json(convertedOffices);
   } catch (err) {
     console.log(err);
   }
@@ -21,7 +24,7 @@ exports.postUserInfo = async (req, res) => {
       tel_number: userInfo.phoneNumber,
     };
     await signUpModel.postUserInfo(convertedUserInfo);
-    res.status(200).end();
+    res.status(200).json(convertedUserInfo);
   } catch (err) {
     console.log(err);
   }

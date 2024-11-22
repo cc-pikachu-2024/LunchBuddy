@@ -7,11 +7,9 @@ exports.seed = async function (knex) {
   await knex("menu").del();
   await knex("menu").insert([
     {
-      menu_id: 1,
       total_price: 300,
     },
     {
-      menu_id: 2,
       total_price: 500,
     },
   ]);
