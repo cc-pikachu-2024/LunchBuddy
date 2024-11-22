@@ -11,17 +11,16 @@ exports.getAllOffices = async (req, res) => {
 
 exports.postUserInfo = async (req, res) => {
   try {
-    // const userInfo = req.body;
-    const userInfo = {
-      user_id: 1,
-      user_name: "taro",
-      password: "xxx",
-      office_id: 1,
-      floor: 10,
-      seat: 100,
-      tel_number: "xxx-xxx-xxx",
+    const userInfo = req.body;
+    const convertedUserInfo = {
+      user_name: userInfo.name,
+      password: userInfo.password,
+      office_id: userInfo.officeId,
+      floor: userInfo.floor,
+      seat: userInfo.seat,
+      tel_number: userInfo.phoneNumber,
     };
-    await signUpModel.postUserInfo(userInfo);
+    await signUpModel.postUserInfo(convertedUserInfo);
     res.status(200).end();
   } catch (err) {
     console.log(err);
