@@ -1,4 +1,4 @@
-import { useState, React, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/customeButton";
 import style from "./style.module.scss";
@@ -20,27 +20,28 @@ const RequestSend = () => {
 
     //MenuのGET
 
-    const tempMenuList = [
-      { item: "おにぎり & お茶", price: 100, image: "image1" },
-      { item: "おにぎり×2 & お茶", price: 200, image: "image2" },
-      { item: "おにぎり", price: 300, image: "image3" },
-      { item: "サンドイッチ", price: 400, image: "image4" },
-      { item: "コーヒー", price: 500, image: "image5" },
-      { item: "お茶", price: 600, image: "image6" },
-    ];
+    // const tempMenuList = [
+    //   { item: "おにぎり & お茶", price: 100, image: "image1" },
+    //   { item: "おにぎり×2 & お茶", price: 200, image: "image2" },
+    //   { item: "おにぎり", price: 300, image: "image3" },
+    //   { item: "サンドイッチ", price: 400, image: "image4" },
+    //   { item: "コーヒー", price: 500, image: "image5" },
+    //   { item: "お茶", price: 600, image: "image6" },
+    // ];
 
     //画像処理(sprint.react参照)
 
-    // const fetchMenuList = async() => {
-    //   try {
-    //     const response = await fetch("");
-    //     const data = await response.json()
-    //   } catch (error) {
-    //     console.log(error)
-    //   }
-    // }
-    //fetchMenuList()
-    setMenuList(tempMenuList);
+    const fetchMenuList = async() => {
+      try {
+        const response = await fetch("http://localhost:3000/requests/items");
+        const data = await response.json();
+        console.log(data);
+        setMenuList(data);
+      } catch (error) {
+        console.log(error)
+      }
+    };
+    fetchMenuList();
 
     //GratitudeのGET
     const tempGratitudeList = [150, 200, 300];
