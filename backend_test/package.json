@@ -10,6 +10,7 @@
     "migrate": "knex migrate:latest",
     "seed": "knex seed:run",
     "restore": "knex migrate:rollback --all && knex migrate:latest && knex seed:run",
+    "restore2": "knex migrate:rollback --all && knex migrate:latest",
     "start": "node ./index.js",
     "dev": "nodemon ./index.js"
   },

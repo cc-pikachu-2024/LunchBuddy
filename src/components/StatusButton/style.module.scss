@@ -2,9 +2,10 @@
 
 .Button {
   width: 80%;
-  margin: 10px !important;
+  margin: 0px !important;
+  padding: 1px !important;
   color: $g-font-color !important;
-  border-radius: 8px;
+  border-radius: 10px !important;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
