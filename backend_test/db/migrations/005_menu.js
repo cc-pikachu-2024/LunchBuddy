@@ -1,7 +1,7 @@
 exports.up = function (knex) {
   return knex.schema.createTable("menu", (table) => {
     table.increments("menu_id").primary();
-    table.integer("total_price");
+    table.integer("total_max_price");
   });
 };
 
