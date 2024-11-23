@@ -9,7 +9,6 @@ const OrderCard = ({menuList, gratitudeList, onClick, isMenuSelected, isGratitud
     return (<>
         <Grid container display="flex" justifyContent="space-between" alignItems="center">
             { menuList ? menuList.map ((menu) => {
-              console.log(menuList);
 
                 //選択された時に色を変える用
                 
@@ -30,20 +29,20 @@ const OrderCard = ({menuList, gratitudeList, onClick, isMenuSelected, isGratitud
                   </Grid>
                 )
               }) :
-              gratitudeList.map ((gratitude, index) => {
+              gratitudeList.map ((gratitude) => {
 
                 //選択された時に色を変える用
                 const selected = isGratitudeSelected.includes(gratitude);
 
                 return (
-                  <Grid item size={4}  key={index}>
+                  <Grid item size={4}  key={gratitude.gratitude_id}>
                     <Card 
                         className={clsx(style.GratitudeCard, {
                             [style.SelectedCard]: selected
                         })}
                         onClick={() => onClick(gratitude)}
                     > 
-                      { "~" + gratitude + "円"} 
+                      { "~" + gratitude.max_price + "円"} 
                   </Card>
                   </Grid>
                 )
