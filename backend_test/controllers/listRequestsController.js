@@ -1,4 +1,4 @@
-const listRequestsModel = require('../models/listRequestsModel');
+const listRequestsModel = require("../models/listRequestsModel");
 
 exports.getAllRequests = async (req, res) => {
   try {
@@ -11,7 +11,10 @@ exports.getAllRequests = async (req, res) => {
 
 exports.getGratitudesPriceSum = async (req, res) => {
   try {
-    const gratitudesPriceSum = await listRequestsModel.getGratitudesPriceSum();
+    const userId = req.query.userId;
+    const gratitudesPriceSum = await listRequestsModel.getGratitudesPriceSum(
+      userId
+    );
     res.status(200).json(gratitudesPriceSum);
   } catch (err) {
     console.log(err);
