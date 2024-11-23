@@ -8,13 +8,9 @@ module.exports = {
         "created_at = (SELECT MAX(created_at) FROM request_status_history AS rh2 WHERE rh2.request_id = request_status_history.request_id)"
       );
 
-    console.log(latestStatusIdsJson);
-
     const latestStatusIds = latestStatusIdsJson.map((record) => {
       return record.request_history_id;
     });
-
-    console.log(latestStatusIds);
 
     return knex("request")
       .join("menu", "request.menu_id", "menu.menu_id")

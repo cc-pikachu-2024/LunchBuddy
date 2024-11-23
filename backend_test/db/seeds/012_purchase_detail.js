@@ -21,7 +21,7 @@ exports.seed = async function (knex) {
     {
       purchase_id: 2,
       item_name: "zzz",
-      input_price: 200,
+      input_price: 300,
       menu_flag: false,
     },
   ]);
