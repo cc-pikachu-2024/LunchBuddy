@@ -12,5 +12,8 @@ exports.seed = async function (knex) {
     {
       max_price: 200,
     },
+    {
+      max_price: 300,
+    },
   ]);
 };

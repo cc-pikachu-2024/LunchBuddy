@@ -6,7 +6,7 @@ exports.seed = async function (knex) {
   // Deletes ALL existing entries
   await knex("office").del();
   await knex("office").insert([
-    { office_name: "test1" },
-    { office_name: "test2" },
+    { office_name: "office1" },
+    { office_name: "office2" },
   ]);
 };

@@ -13,10 +13,16 @@ exports.seed = async function (knex) {
       requester_comment: "hello",
     },
     {
-      user_id: 2,
+      user_id: 1,
       menu_id: 2,
       gratitude_id: 2,
-      requester_comment: "hello",
+      requester_comment: "good morning",
+    },
+    {
+      user_id: 2,
+      menu_id: 3,
+      gratitude_id: 2,
+      requester_comment: "",
     },
   ]);
 };

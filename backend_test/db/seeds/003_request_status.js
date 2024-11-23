@@ -12,5 +12,8 @@ exports.seed = async function (knex) {
     {
       status_name: "status2",
     },
+    {
+      status_name: "status3",
+    },
   ]);
 };

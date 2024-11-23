@@ -9,7 +9,7 @@ exports.seed = async function (knex) {
     {
       purchase_id: 1,
       item_name: "xxx",
-      input_price: 100,
+      input_price: 150,
       menu_flag: false,
     },
     {
@@ -20,7 +20,7 @@ exports.seed = async function (knex) {
     },
     {
       purchase_id: 2,
-      item_name: "xxx",
+      item_name: "zzz",
       input_price: 200,
       menu_flag: false,
     },
