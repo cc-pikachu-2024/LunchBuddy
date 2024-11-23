@@ -8,14 +8,14 @@ const OrderCard = ({menuList, gratitudeList, onClick, isMenuSelected, isGratitud
 
     return (<>
         <Grid container display="flex" justifyContent="space-between" alignItems="center">
-            { menuList ? menuList.map ((menu, index) => {
+            { menuList ? menuList.map ((menu) => {
 
                 //選択された時に色を変える用
                 
                 const selected = isMenuSelected.includes(menu);
               
                 return (
-                  <Grid item size={6}  key={index}>
+                  <Grid item size={6}  key={menu.item_id}>
                     {/* 選択されたら色を変える */}
                     <Card 
                         className={clsx(style.MenuCard, {
@@ -23,26 +23,26 @@ const OrderCard = ({menuList, gratitudeList, onClick, isMenuSelected, isGratitud
                         })}
                         onClick={() => onClick(menu)}
                     > 
-                      { menu.item }<br></br>
-                      { menu.image }
+                      { menu.item_name }<br></br>
+                      { menu.item_image_name }
                   </Card>
                   </Grid>
                 )
               }) :
-              gratitudeList.map ((gratitude, index) => {
+              gratitudeList.map ((gratitude) => {
 
                 //選択された時に色を変える用
                 const selected = isGratitudeSelected.includes(gratitude);
 
                 return (
-                  <Grid item size={4}  key={index}>
+                  <Grid item size={4}  key={gratitude.gratitude_id}>
                     <Card 
                         className={clsx(style.GratitudeCard, {
                             [style.SelectedCard]: selected
                         })}
                         onClick={() => onClick(gratitude)}
                     > 
-                      { "~" + gratitude + "円"} 
+                      { "~" + gratitude.max_price + "円"} 
                   </Card>
                   </Grid>
                 )
