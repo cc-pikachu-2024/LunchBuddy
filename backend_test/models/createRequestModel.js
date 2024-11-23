@@ -1,13 +1,13 @@
 const knex = require("../db/knex");
 
 module.exports = {
-  async getItems() {},
-};
+  async getAllItems() {
+    return knex.select("*").from("item_master");
+  },
 
-module.exports = {
-  async getGratitudes() {},
-};
+  async getAllGratitudes() {
+    return knex.select("*").from("gratitude");
+  },
 
-module.exports = {
-  async postRequests() {},
+  async postRequest() {},
 };

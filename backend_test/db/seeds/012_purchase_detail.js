@@ -10,13 +10,19 @@ exports.seed = async function (knex) {
       purchase_id: 1,
       item_name: "xxx",
       input_price: 100,
-      menu_flag: 0,
+      menu_flag: false,
     },
     {
       purchase_id: 1,
       item_name: "yyy",
       input_price: 200,
-      menu_flag: 1,
+      menu_flag: true,
+    },
+    {
+      purchase_id: 2,
+      item_name: "xxx",
+      input_price: 200,
+      menu_flag: false,
     },
   ]);
 };

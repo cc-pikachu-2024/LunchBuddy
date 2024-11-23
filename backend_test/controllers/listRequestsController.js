@@ -9,13 +9,23 @@ exports.getAllRequests = async (req, res) => {
   }
 };
 
-exports.getGratitudesSum = async (req, res) => {};
+exports.getGratitudesPriceSum = async (req, res) => {
+  try {
+    const userId = req.query.userId;
+    const gratitudesPriceSum = await listRequestsModel.getGratitudesPriceSum(
+      userId
+    );
+    res.status(200).json(gratitudesPriceSum);
+  } catch (err) {
+    console.log(err);
+  }
+};
 
-exports.postStatuses = async (req, res) => {
+exports.postStatus = async (req, res) => {
   try {
     const status = req.body;
-    await listRequestsModel.postStatuses(status);
-    res.status(200).end();
+    const latestStatus = await listRequestsModel.postStatus(status);
+    res.status(200).json(latestStatus);
   } catch (err) {
     console.log(err);
   }
