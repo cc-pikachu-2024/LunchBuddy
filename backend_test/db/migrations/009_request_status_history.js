@@ -6,6 +6,7 @@ exports.up = function (knex) {
       .integer("status_id")
       .references("status_id")
       .inTable("request_status");
+    table.integer("user_id").references("user_id").inTable("user");
     table.timestamp("created_at").defaultTo(knex.fn.now());
   });
 };

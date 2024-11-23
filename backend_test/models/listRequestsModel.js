@@ -46,6 +46,7 @@ module.exports = {
         "request_history_id",
         "request_id",
         "status_id",
+        "user_id",
         "created_at",
       ])
       .then(() => {
