@@ -24,7 +24,12 @@ exports.getGratitudesPriceSum = async (req, res) => {
 exports.postStatus = async (req, res) => {
   try {
     const status = req.body;
-    const latestStatus = await listRequestsModel.postStatus(status);
+    const convertedStatus = {
+      request_id: status.requestId,
+      status_id: status.statusId,
+      user_id: status.userId,
+    };
+    const latestStatus = await listRequestsModel.postStatus(convertedStatus);
     res.status(200).json(latestStatus);
   } catch (err) {
     console.log(err);

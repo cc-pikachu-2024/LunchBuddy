@@ -2,11 +2,19 @@ const knex = require("../db/knex");
 
 module.exports = {
   async getAllRequests() {
-    const latestStatusIds = await knex("request_status_history")
+    const latestStatusIdsJson = await knex("request_status_history")
       .select("request_history_id")
       .whereRaw(
         "created_at = (SELECT MAX(created_at) FROM request_status_history AS rh2 WHERE rh2.request_id = request_status_history.request_id)"
       );
+
+    console.log(latestStatusIdsJson);
+
+    const latestStatusIds = latestStatusIdsJson.map((record) => {
+      return record.request_history_id;
+    });
+
+    console.log(latestStatusIds);
 
     return knex("request")
       .join("menu", "request.menu_id", "menu.menu_id")
@@ -18,7 +26,7 @@ module.exports = {
         "request.request_id",
         "request_status_history.request_id"
       )
-      .leftjoin("responder", "request.request_id", "responder.request_id")
+      .leftJoin("responder", "request.request_id", "responder.request_id")
       .whereIn("request_status_history.request_history_id", latestStatusIds)
       .select("*");
   },
@@ -40,7 +48,7 @@ module.exports = {
   },
 
   async postStatus(status) {
-    knex("request_status_history")
+    await knex("request_status_history")
       .insert(status)
       .returning([
         "request_history_id",
@@ -54,9 +62,6 @@ module.exports = {
       })
       .catch((err) => {
         console.error("Insert failed:", err);
-      })
-      .finally(() => {
-        knex.destroy();
       });
   },
 };

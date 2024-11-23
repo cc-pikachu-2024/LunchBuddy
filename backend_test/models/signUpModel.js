@@ -13,9 +13,6 @@ module.exports = {
       })
       .catch((err) => {
         console.error("Insert failed:", err);
-      })
-      .finally(() => {
-        knex.destroy();
       });
   },
 };
