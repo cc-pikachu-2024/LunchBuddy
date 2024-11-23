@@ -8,13 +8,23 @@ exports.getAllRequests = async (req, res) => {
       let existingEntry = acc.find(
         (entry) => entry.request_id === current.request_id
       );
+      const itemList = {
+        itemId: current.item_id,
+        itemImageName: current.item_image_name,
+        itemName: current.item_name,
+        maxPrice: current.max_price,
+      };
       if (existingEntry) {
-        if (!Array.isArray(existingEntry.item_id)) {
-          existingEntry.item_id = [existingEntry.item_id];
-        }
-        existingEntry.item_id.push(current.item_id);
+        existingEntry.itemList.push(itemList);
       } else {
-        acc.push({ ...current, item_id: [current.item_id] });
+        const {
+          item_id,
+          item_image_name,
+          item_name,
+          max_price,
+          ...target_data
+        } = current;
+        acc.push({ ...target_data, itemList: [itemList] });
       }
       return acc;
     }, []);
@@ -24,6 +34,31 @@ exports.getAllRequests = async (req, res) => {
     console.log(err);
   }
 };
+
+// exports.getAllRequests = async (req, res) => {
+//   try {
+//     const requestsList = await listRequestsModel.getAllRequests();
+
+//     const convertedRequestsList = requestsList.reduce((acc, current) => {
+//       let existingEntry = acc.find(
+//         (entry) => entry.request_id === current.request_id
+//       );
+//       if (existingEntry) {
+//         if (!Array.isArray(existingEntry.item_id)) {
+//           existingEntry.item_id = [existingEntry.item_id];
+//         }
+//         existingEntry.item_id.push(current.item_id);
+//       } else {
+//         acc.push({ ...current, item_id: [current.item_id] });
+//       }
+//       return acc;
+//     }, []);
+
+//     res.status(200).json(convertedRequestsList);
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
 
 exports.getGratitudesPriceSum = async (req, res) => {
   try {

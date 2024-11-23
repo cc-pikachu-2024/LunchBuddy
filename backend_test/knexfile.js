@@ -3,7 +3,7 @@ module.exports = {
     client: "postgresql",
     connection: {
       // host: "HOST_NAME",
-      user: "shiobaraakira",
+      user: "tatsuya",
       // password: "PASSWORD",
       database: "lunchbuddy",
       // port: 5432,
