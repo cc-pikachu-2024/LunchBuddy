@@ -2,7 +2,7 @@ const createRequestModel = require('../models/createRequestModel');
 
 exports.getAllItems = async (req, res) => {
   try {
-    const items = createRequestModel.getItems();
+    const items = await createRequestModel.getItems();
     res.status(200).json(items);
   } catch (err) {
     console.log(err);
@@ -11,7 +11,7 @@ exports.getAllItems = async (req, res) => {
 
 exports.getAllGratitudes = async (req, res) => {
   try {
-    const gratitudes = createRequestModel.getGratitudes();
+    const gratitudes = await createRequestModel.getGratitudes();
     res.status(200).json(gratitudes);
   } catch (err) {
     console.log(err);

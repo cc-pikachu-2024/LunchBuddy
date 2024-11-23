@@ -7,12 +7,23 @@ module.exports = {
 };
 
 module.exports = {
-  async getGratitudesSum() {},
+  async getGratitudesPriceSum(user_id) {
+    return knex
+      .select('purchase')
+      .join(
+        'purchase_detail',
+        'purchase.purchase_id',
+        'purchase_detail.purchase_id'
+      )
+      .where('purchase.user_id', user_id)
+      .andWhere('purchase_detail.menu_flag', false)
+      .sum('purchase_detail.input_price');
+  },
 };
 
 module.exports = {
   async postStatus(status) {
-    await knex('request_status_history')
+    knex('request_status_history')
       .insert(status)
       .returning([
         'request_history_id',

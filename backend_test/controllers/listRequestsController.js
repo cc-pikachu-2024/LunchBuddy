@@ -9,7 +9,14 @@ exports.getAllRequests = async (req, res) => {
   }
 };
 
-exports.getGratitudesSum = async (req, res) => {};
+exports.getGratitudesPriceSum = async (req, res) => {
+  try {
+    const gratitudesPriceSum = await listRequestsModel.getGratitudesPriceSum();
+    res.status(200).json(gratitudesPriceSum);
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 exports.postStatus = async (req, res) => {
   try {
