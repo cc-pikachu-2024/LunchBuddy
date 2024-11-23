@@ -15,35 +15,28 @@ const Signup = () => {
   const [seat, setSeat] = useState(""); //座席
   const [phoneNumber, setPhoneNumber] = useState(""); //電話番号
 
-  useEffect(() => {
-    setOffices([
-      { id: 1, name: "MMオフィス" },
-      { id: 2, name: "九段下オフィス" },
-      { id: 3, name: "大手町オフィス" },
-    ]);
-  }, []);
 
   const navigate = useNavigate();
 
-  // const fetchOffices = async () => {
-  //   try {
-  //     const response = await fetch("/api/offices");
-  //     if (!response.ok) {
-  //       throw new Error("オフィス取得に失敗");
-  //     }
-  //     const data = await response.json();
-  //     setOffices(data);
-  //     if (data.length > 0) {
-  //       setOfficeId(data[0].value);
-  //     }
-  //   } catch (error) {
-  //     console.error("オフィスが0件です:", error);
-  //   }
-  // };
+  const fetchOffices = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/requests/offices");
+      if (!response.ok) {
+        throw new Error("オフィス取得に失敗");
+      }
+      const data = await response.json();
+      setOffices(data);
+      if (data.length > 0) {
+        setOfficeId(data[0].value);
+      }
+    } catch (error) {
+      console.error("オフィスが0件です:", error);
+    }
+  };
 
-  // useEffect(() => {
-  //   fetchOffices();
-  // }, []);
+  useEffect(() => {
+    fetchOffices();
+  }, []);
 
   const handleSubmit = async () => {
     if (!name) return;
@@ -57,8 +50,9 @@ const Signup = () => {
       seat,
       phoneNumber,
     };
+
     try {
-      const response = await fetch("/requests/signup", {
+      const response = await fetch("http://localhost:3000/requests/users", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
