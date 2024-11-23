@@ -93,6 +93,14 @@ exports.postStatus = async (req, res) => {
       user_id: status.userId,
     };
     const latestStatus = await listRequestsModel.postStatus(convertedStatus);
+
+    // 「任せて」ステータス(※仮に2とする)への変更の場合にはresponderテーブルへのinsertも実行
+    if (status.statusId === 2) {
+      await listRequestsModel.postResponder({
+        request_id: status.requestId,
+        user_id: status.userId,
+      });
+    }
     res.status(200).json(latestStatus);
   } catch (err) {
     console.log(err);
