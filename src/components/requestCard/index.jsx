@@ -12,6 +12,7 @@ const RequestCard = ({
   deleteRequestList,
   user,
 }) => {
+  const itemList = request.itemList.map((item) => item.itemName);
   return (
     <Card className={clsx(style.Card)}>
       <Grid container className={clsx(style.Grid)}>
@@ -19,17 +20,17 @@ const RequestCard = ({
           <Grid size={12} className={clsx(style.Grid)}>
             <p className={clsx(style.CustomP)}>
               {request.requesterName} ： {request.requesterFloor} /{" "}
-              {request.requesterSheet}
+              {request.requesterSeat}
             </p>
           </Grid>
           <Grid size={12} className={clsx(style.Grid)}>
             <p className={clsx(style.CustomP)}>
-              買ってきて欲しいもの：{request.menu.join(", ")}
+              買ってきて欲しいもの：{itemList.join(", ")}
             </p>
           </Grid>
           <Grid size={12} className={clsx(style.Grid)}>
             <p className={clsx(style.CustomP)}>
-              お礼：〜{request.gratitudePrice}円
+              お礼：〜{request.gratitudeMaxPrice}円
             </p>
           </Grid>
         </Grid>

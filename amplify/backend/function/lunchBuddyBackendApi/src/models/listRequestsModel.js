@@ -17,6 +17,7 @@ module.exports = {
       .join("menu_detail", "menu.menu_id", "menu_detail.menu_id")
       .join("item_master", "menu_detail.item_id", "item_master.item_id")
       .join("gratitude", "request.gratitude_id", "gratitude.gratitude_id")
+      .join("user", "request.user_id", "user.user_id")
       .join(
         "request_status_history",
         "request.request_id",
@@ -24,7 +25,26 @@ module.exports = {
       )
       .leftJoin("responder", "request.request_id", "responder.request_id")
       .whereIn("request_status_history.request_history_id", latestStatusIds)
-      .select("*");
+      .select(
+        "request.request_id as request_id",
+        "request.requester_comment as requester_comment",
+        "user.user_id as requester_id",
+        "user.user_name as requester_name",
+        "user.floor as requester_floor",
+        "user.seat as requester_seat",
+        "menu.menu_id as menu_id",
+        "menu.total_max_price as total_max_price",
+        "gratitude.gratitude_id as gratitude_id",
+        "gratitude.max_price as gratitude_max_price",
+        "menu_detail.menu_detail_id as menu_detail_id",
+        "request_status_history.request_history_id as request_history_id",
+        "request_status_history.status_id as status_id",
+        "request_status_history.created_at as created_at",
+        "item_master.item_id as item_id",
+        "item_master.item_image_name as item_image_name",
+        "item_master.item_name as item_name",
+        "item_master.max_price as item_max_price"
+      );
   },
   //INFO: 各リクエストごとにmenu_detailの数だけレコードができる。
   //      item_nameをまとめて出すためにはこうするしかないか？
@@ -40,7 +60,8 @@ module.exports = {
       )
       .where("purchase.user_id", userId)
       .andWhere("purchase_detail.menu_flag", false)
-      .sum("purchase_detail.input_price");
+      .sum("purchase_detail.input_price")
+      .first();
   },
 
   async postStatus(status) {

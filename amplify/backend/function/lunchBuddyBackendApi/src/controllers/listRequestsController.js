@@ -5,9 +5,7 @@ exports.getAllRequests = async (req, res) => {
     const requestsList = await listRequestsModel.getAllRequests();
 
     const convertedRequestsList = requestsList.reduce((acc, current) => {
-      let existingEntry = acc.find(
-        (entry) => entry.requestId === current.request_id
-      );
+      let existingEntry = acc.find((entry) => entry.id === current.request_id);
       const itemList = {
         itemId: current.item_id,
         itemImageName: current.item_image_name,
@@ -25,10 +23,14 @@ exports.getAllRequests = async (req, res) => {
           ...target_data
         } = current;
         const convertedTargetData = {
-          requestId: target_data.request_id,
-          userId: target_data.user_id,
+          id: target_data.request_id,
+          requesterId: target_data.requester_id,
+          requesterName: target_data.requester_name,
+          requesterFloor: target_data.requester_floor,
+          requesterSeat: target_data.requester_seat,
           menuId: target_data.menu_id,
           gratitudeId: target_data.gratitude_id,
+          gratitudeMaxPrice: target_data.gratitude_max_price,
           requesterComment: target_data.requester_comment,
           totalMaxPrice: target_data.total_max_price,
           menuDetailId: target_data.menu_detail_id,
@@ -75,10 +77,9 @@ exports.getAllRequests = async (req, res) => {
 exports.getGratitudesPriceSum = async (req, res) => {
   try {
     const userId = req.query.userId;
-    const gratitudesPriceSum = await listRequestsModel.getGratitudesPriceSum(
-      userId
-    );
-    res.status(200).json(gratitudesPriceSum);
+    const gratitudesPriceSum =
+      (await listRequestsModel.getGratitudesPriceSum(userId)).sum || 0;
+    res.status(200).json({ sum: gratitudesPriceSum });
   } catch (err) {
     console.log(err);
   }

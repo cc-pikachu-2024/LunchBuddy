@@ -10,7 +10,7 @@ export const createButtonStatus = (
   const isRequester = request.requesterId == user.id;
   const isResponder = request?.responderId == user.id;
   switch (request.statusId) {
-    case 0: // 状態が「waiting」
+    case 1: // 状態が「waiting」
       if (isRequester) {
         // 「取り下げ」ボタンの想定
         text = "取り下げ";
@@ -34,7 +34,7 @@ export const createButtonStatus = (
         };
       }
       break;
-    case 1: // 状態が「progress」
+    case 2: // 状態が「progress」
       if (isRequester) {
         // 「金額入力待ち」ボタンの想定
         text = "金額入力待ち";
@@ -63,7 +63,7 @@ export const createButtonStatus = (
         onClick = () => alert("現在進行中のリクエストです");
       }
       break;
-    case 2: // 状態が「settlement」
+    case 3: // 状態が「settlement」
       if (isRequester) {
         // 「金額確認」ボタンの想定
         // TODO: 「金額確認」ボタンにtext修正
