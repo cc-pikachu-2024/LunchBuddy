@@ -25,7 +25,6 @@ const RequestSend = () => {
       try {
         const response = await fetch("http://localhost:3000/requests/items");
         const data = await response.json();
-        console.log(data);
         setMenuList(data);
       } catch (error) {
         console.log(error)
@@ -40,7 +39,6 @@ const RequestSend = () => {
       try {
          const response = await fetch("http://localhost:3000/requests/gratitudes");
          const data = await response.json();
-         console.log(data);
          setGratitudeList(data);
       } catch (error) {
         console.log(error);
@@ -63,7 +61,7 @@ const RequestSend = () => {
     if (selectedGratitude.includes(selected)) {
       setSelectedGratitude(selectedGratitude.filter(price => price !== selected)); //セレクト解除
     } else {
-      setSelectedGratitude([...selectedGratitude, selected]); //セレクト
+      setSelectedGratitude([selected]); //セレクト
     }
   };
 
@@ -96,10 +94,8 @@ const RequestSend = () => {
     console.log("menu", selectedMenu);
     console.log("gratitude", selectedGratitude);
 
-
     const userId = localStorage.getItem("userId");
     console.log("取得した userId:", userId);
-
     //リクエストのPost、status更新
 // TODO: localStrageに保存したuserIdをセットする。
     const requestBody = {

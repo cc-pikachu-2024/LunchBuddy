@@ -7,7 +7,7 @@ const InfoCard = ({ user }) => {
   return (
     <Card className={clsx(style.InfoCard)}>
       <h2>
-        {user.name}さんは今まで{user.totalGratitude}
+        {user.user_name}さんは今まで{user.totalGratitude}
         円分の
         <br />
         お礼をもらいました。

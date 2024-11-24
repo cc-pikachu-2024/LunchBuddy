@@ -3,11 +3,10 @@ const listRequestsModel = require("../models/listRequestsModel");
 exports.getAllRequests = async (req, res) => {
   try {
     const requestsList = await listRequestsModel.getAllRequests();
+    console.log(requestsList);
 
     const convertedRequestsList = requestsList.reduce((acc, current) => {
-      let existingEntry = acc.find(
-        (entry) => entry.requestId === current.request_id
-      );
+      let existingEntry = acc.find((entry) => entry.id === current.request_id);
       const itemList = {
         itemId: current.item_id,
         itemImageName: current.item_image_name,
@@ -25,14 +24,19 @@ exports.getAllRequests = async (req, res) => {
           ...target_data
         } = current;
         const convertedTargetData = {
-          requestId: target_data.request_id,
-          userId: target_data.user_id,
+          id: target_data.request_id,
+          requesterId: target_data.requester_id,
+          requesterName: target_data.requester_name,
+          requesterFloor: target_data.requester_floor,
+          requesterSeat: target_data.requester_seat,
           menuId: target_data.menu_id,
           gratitudeId: target_data.gratitude_id,
+          gratitudeMaxPrice: target_data.gratitude_max_price,
           requesterComment: target_data.requester_comment,
           totalMaxPrice: target_data.total_max_price,
           menuDetailId: target_data.menu_detail_id,
-          requestHistoryId: target_data.request_history_id,
+          requestStatusHistoryId: target_data.request_status_history_id,
+          responderId: target_data.responder_id,
           statusId: target_data.status_id,
           createdAt: target_data.created_at,
         };
@@ -75,10 +79,9 @@ exports.getAllRequests = async (req, res) => {
 exports.getGratitudesPriceSum = async (req, res) => {
   try {
     const userId = req.query.userId;
-    const gratitudesPriceSum = await listRequestsModel.getGratitudesPriceSum(
-      userId
-    );
-    res.status(200).json(gratitudesPriceSum);
+    const gratitudesPriceSum =
+      (await listRequestsModel.getGratitudesPriceSum(userId)).sum || 0;
+    res.status(200).json({ sum: gratitudesPriceSum });
   } catch (err) {
     console.log(err);
   }
@@ -92,13 +95,21 @@ exports.postStatus = async (req, res) => {
       status_id: status.statusId,
       user_id: status.userId,
     };
+
     const latestStatus = await listRequestsModel.postStatus(convertedStatus);
     // 「任せて」ステータス(※仮に2とする)への変更の場合にはresponderテーブルへのinsertも実行
-    if (status.statusId === 2) {
-      await listRequestsModel.postResponder({
-        request_id: status.requestId,
-        user_id: status.userId,
-      });
+    if (status.statusId === 2 && !status.isCancel && status.responderId) {
+      const responderId = await listRequestsModel.postResponder(
+        status.requestId,
+        status.responderId
+      );
+      latestStatus["responder_id"] = responderId;
+    } else if (status.statusId === 1 && status.isCancel && status.responderId) {
+      await listRequestsModel.deleteResponder(
+        status.requestId,
+        status.responderId
+      );
+      latestStatus["responder_id"] = "";
     }
     res.status(200).json(latestStatus);
   } catch (err) {
