@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import "./styles/App.css";
-import Login from "./pages/login";
+// import Login from "./pages/login";
 import Signup from "./pages/signup";
 import RequestList from "./pages/requestList";
 import RequestDetail from "./pages/requestDetail";
@@ -11,7 +11,9 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Login />} />
+        {/* // TODO: ルートパスをLoginへ変更*/}
+        {/* <Route path="/" element={<Login />} /> */}
+        <Route path="/" element={<Signup />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/requestList" element={<RequestList />} />
         <Route path="/requestDetail" element={<RequestDetail />} />
