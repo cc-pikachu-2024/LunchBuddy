@@ -6,7 +6,7 @@ import clsx from "clsx";
 const InfoCard = ({ user }) => {
   return (
     <Card className={clsx(style.InfoCard)}>
-      <h2>
+      <h2 className={style.CustomeCardH2}>
         {user.name}さんは今まで{user.totalGratitude}
         円分の
         <br />
