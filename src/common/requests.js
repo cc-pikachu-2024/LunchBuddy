@@ -24,7 +24,7 @@ export const updateRequest = async (
       statusId: requests[0].status_id,
       requestStatusHistoryId: requests[0].rerequest_history_id,
       createdAt: requests[0].created_at,
-      responderId: requests[0].responder_id,
+      responderId: responderId,
     };
     if ([1, 2, 3].includes(statusId)) {
       updateRequestList(request.id, newRequest, false);

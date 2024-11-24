@@ -15,7 +15,6 @@ const Signup = () => {
   const [seat, setSeat] = useState(""); //座席
   const [phoneNumber, setPhoneNumber] = useState(""); //電話番号
 
-
   const navigate = useNavigate();
 
   const fetchOffices = async () => {
@@ -62,11 +61,9 @@ const Signup = () => {
       if (!response.ok) {
         throw new Error("登録に失敗しました");
       }
-    
-      const result = await response.json();
-      console.log("登録結果:", result);
-      const userId = result[0]?.user_id; 
-      localStorage.setItem('userId', userId);
+
+      const result = (await response.json())[0];
+      sessionStorage.setItem("user", JSON.stringify(result));
       navigate("/requestList");
     } catch (error) {
       console.error("登録に失敗しました:", error);

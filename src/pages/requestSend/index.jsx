@@ -8,68 +8,68 @@ import OrderCard from "../../components/orderCard";
 const RequestSend = () => {
   const navigate = useNavigate();
 
-  const [menuList, setMenuList] = useState([])
-  const [gratitudeList, setGratitudeList] = useState([])
-  const [selectedMenu, setSelectedMenu] = useState([])
-  const [selectedGratitude, setSelectedGratitude] = useState([])
-  const [totalMenuPrice, setTotalMenuPrice] = useState()
-  const [totalGratitudePrice, setTotalGratitudePrice] = useState()
-  const [totalPrice, setTotalPrice] = useState()
+  const [menuList, setMenuList] = useState([]);
+  const [gratitudeList, setGratitudeList] = useState([]);
+  const [selectedMenu, setSelectedMenu] = useState([]);
+  const [selectedGratitude, setSelectedGratitude] = useState([]);
+  const [totalMenuPrice, setTotalMenuPrice] = useState();
+  const [totalGratitudePrice, setTotalGratitudePrice] = useState();
+  const [totalPrice, setTotalPrice] = useState();
 
   useEffect(() => {
-
     //todo:画像処理(sprint.react参照)
 
-
-    const fetchMenuList = async() => {
+    const fetchMenuList = async () => {
       try {
         const response = await fetch("http://localhost:3000/requests/items");
         const data = await response.json();
         setMenuList(data);
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
     };
     fetchMenuList();
-  
 
     //GratitudeのGET
 
-    const fetchGratitude = async() => {
+    const fetchGratitude = async () => {
       try {
-         const response = await fetch("http://localhost:3000/requests/gratitudes");
-         const data = await response.json();
-         setGratitudeList(data);
+        const response = await fetch(
+          "http://localhost:3000/requests/gratitudes"
+        );
+        const data = await response.json();
+        setGratitudeList(data);
       } catch (error) {
         console.log(error);
       }
-    }
+    };
     fetchGratitude();
   }, []);
 
   //menuクリック時
   const selectMenu = (selected) => {
     if (selectedMenu.includes(selected)) {
-      setSelectedMenu(selectedMenu.filter(item => item !== selected));  //セレクト解除
+      setSelectedMenu(selectedMenu.filter((item) => item !== selected)); //セレクト解除
     } else {
-      setSelectedMenu([...selectedMenu, selected]);  //セレクト
+      setSelectedMenu([...selectedMenu, selected]); //セレクト
     }
   };
 
   //お礼クリック時
   const selectGratitude = (selected) => {
     if (selectedGratitude.includes(selected)) {
-      setSelectedGratitude(selectedGratitude.filter(price => price !== selected)); //セレクト解除
+      setSelectedGratitude(
+        selectedGratitude.filter((price) => price !== selected)
+      ); //セレクト解除
     } else {
       setSelectedGratitude([selected]); //セレクト
     }
   };
 
   useEffect(() => {
-
     //メニューの最大金額計算
     const menuPrice = selectedMenu.reduce((acc, menuItem) => {
-      if (menuItem) { 
+      if (menuItem) {
         acc += menuItem.maxPrice;
       }
       return acc;
@@ -80,74 +80,67 @@ const RequestSend = () => {
       if (gratitude) {
         acc += gratitude.maxPrice;
       }
-      return acc; 
+      return acc;
     }, 0);
-    
+
     setTotalMenuPrice(menuPrice);
     setTotalGratitudePrice(gratitudePrice);
     setTotalPrice(menuPrice + gratitudePrice);
-
   }, [selectedMenu, selectedGratitude, menuList]);
 
-  
-  const sendRequest = async() => {
-    console.log("menu", selectedMenu);
-    console.log("gratitude", selectedGratitude);
-
-    const userId = localStorage.getItem("userId");
-    console.log("取得した userId:", userId);
-    //リクエストのPost、status更新
-// TODO: localStrageに保存したuserIdをセットする。
+  const sendRequest = async () => {
+    const userId = JSON.parse(sessionStorage.getItem("user"))?.user_id;
     const requestBody = {
-      userId: userId, 
+      userId: userId,
       gratitudeId: selectedGratitude[0].gratitudeId,
       requesterComment: "テスト",
       totalMaxPrice: totalPrice,
-      itemIds: selectedMenu.map(item => item.itemId)
+      itemIds: selectedMenu.map((item) => item.itemId),
     };
-
-    console.log(requestBody);
 
     const param = {
       method: "POST",
       headers: {
-        "Content-Type": "application/json; charset=utf-8"
+        "Content-Type": "application/json; charset=utf-8",
       },
-      body: JSON.stringify(requestBody)
+      body: JSON.stringify(requestBody),
     };
 
-    try{
-      const response = await fetch("http://localhost:3000/requests/requests", param);
+    try {
+      const response = await fetch(
+        "http://localhost:3000/requests/requests",
+        param
+      );
       if (!response.ok) {
         throw new Error("ネットワークに問題があります");
       }
       const data = response.json();
       console.log("作成内容:", data);
       showRequestList();
-    }catch(error){
-      console.log("リクエスト送信エラー：",error);
-    };
-
-  }
+    } catch (error) {
+      console.log("リクエスト送信エラー：", error);
+    }
+  };
 
   const showRequestList = () => {
-    navigate("../requestList")
-  }
+    navigate("../requestList");
+  };
 
-  return <>
+  return (
+    <>
       <h2>メニュー</h2>
-      
+
       <OrderCard
-        menuList={ menuList }
-        onClick={ selectMenu }
+        menuList={menuList}
+        onClick={selectMenu}
         isMenuSelected={selectedMenu}
       />
 
       <h2>お礼</h2>
 
       <OrderCard
-        gratitudeList = { gratitudeList }
-        onClick={ selectGratitude }
+        gratitudeList={gratitudeList}
+        onClick={selectGratitude}
         isGratitudeSelected={selectedGratitude}
       />
 
@@ -156,21 +149,14 @@ const RequestSend = () => {
           メニュー最大金額 + お礼最大金額 = 合計支払い最大金額
         </div>
         <div className={clsx(style.maxPriceNum)}>
-          {totalMenuPrice}円 +  {totalGratitudePrice}円 = {totalPrice}円
+          {totalMenuPrice}円 + {totalGratitudePrice}円 = {totalPrice}円
         </div>
       </div>
 
-      <Button 
-        text="リクエスト登録"
-        onClick={sendRequest}
-      >
-      </Button>
-      <Button 
-        text="リストへ戻る"
-        onClick={showRequestList}
-      ></Button>
-
-  </>
+      <Button text="リクエスト登録" onClick={sendRequest}></Button>
+      <Button text="リストへ戻る" onClick={showRequestList}></Button>
+    </>
+  );
 };
 
 export default RequestSend;

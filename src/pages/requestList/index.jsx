@@ -14,34 +14,26 @@ const RequestList = () => {
     // 一旦 sessionStorageに格納しているデータを参照
     (async () => {
       const sessionUser = JSON.parse(sessionStorage.getItem("user"));
-      // TODO: userの情報取得
-      console.log(sessionUser);
-      // const totalGratitude = (
-      //   await fetch(
-      //     `http://localhost:3000/requests/gratitudesSum?userId=${user_id}`
-      //   ).then((res) => res.json())
-      // )?.sum;
+      const totalGratitude = (
+        await fetch(
+          `http://localhost:3000/requests/gratitudesSum?userId=${sessionUser.user_id}`
+        ).then((res) => res.json())
+      )?.sum;
       setUser({
-        id: 1,
-        totalGratitude: 12000,
-        ...sessionUser,
+        id: sessionUser.user_id,
+        name: sessionUser.user_name,
+        office_id: sessionUser.office_id,
+        floor: sessionUser.floor,
+        totalGratitude,
       });
-      // setUser({
-      //   id: user_id,
-      //   totalGratitude,
-      //   ...sessionUser,
-      // });
     })();
   }, []);
 
   useEffect(() => {
-    // TODO: リクエスト情報取得のAPIに置き換え
-    // TODO: GET /requests/ は以下の形で欲しいかも
     (async () => {
       const requests = await fetch(
         "http://localhost:3000/requests/requestsList"
       ).then((res) => res.json());
-      console.log(requests);
       setRequestList(requests);
     })();
   }, []);
