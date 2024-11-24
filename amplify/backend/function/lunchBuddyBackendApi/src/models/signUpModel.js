@@ -8,6 +8,15 @@ module.exports = {
   async postUserInfo(userInfo) {
     await knex("user")
       .insert(userInfo)
+      .returning([
+        "user_id",
+        "user_name",
+        "password",
+        "office_id",
+        "floor",
+        "seat",
+        "tel_number",
+      ])
       .then(() => {
         console.log("Insert successful");
       })
