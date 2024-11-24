@@ -44,27 +44,27 @@ module.exports = {
   },
 
   async postStatus(status) {
-    await knex("request_status_history")
-      .insert(status)
-      .returning([
-        "request_history_id",
-        "request_id",
-        "status_id",
-        "user_id",
-        "created_at",
-      ])
-      .then(() => {
-        console.log("Insert successful");
-      })
-      .catch((err) => {
-        console.error("Insert failed:", err);
-      });
+    try {
+      const result = await knex("request_status_history")
+        .insert(status)
+        .returning([
+          "request_history_id",
+          "request_id",
+          "status_id",
+          "user_id",
+          "created_at",
+        ]);
+      return result;
+    } catch (err) {
+      console.error("Insert failed:", err);
+    }
   },
   async postResponder(obj) {
     try {
       const result = await knex("responder")
         .insert(obj)
         .returning(["request_id", "user_id"]);
+      return result;
     } catch (err) {
       console.error("Insert failed:", err);
     }
