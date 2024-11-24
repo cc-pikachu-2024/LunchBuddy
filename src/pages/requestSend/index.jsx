@@ -97,7 +97,7 @@ const RequestSend = () => {
     console.log("gratitude", selectedGratitude)
 
     //リクエストのPost、status更新
-
+// TODO: localStrageに保存したuserIdをセットする。
     const requestBody = {
       userId: "1", 
       gratitudeId: selectedGratitude[0].gratitudeId,
