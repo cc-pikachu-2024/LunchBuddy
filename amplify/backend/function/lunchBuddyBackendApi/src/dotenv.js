@@ -4,9 +4,9 @@ const dotenv = require("dotenv");
 const envFile = (() => {
   switch (process.env.NODE_ENV) {
     case "production":
-      return ".env.prod";
+      return ".env.production";
     case "development":
-      return ".env.dev";
+      return ".env.development";
     default:
       return "";
   }
