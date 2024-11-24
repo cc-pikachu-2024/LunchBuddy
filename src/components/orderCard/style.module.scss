@@ -21,3 +21,15 @@
     background-color: white !important;
     box-shadow:  0px 0px 5px 5px #bbb inset !important; 
 }
+
+.cardContent {
+    display: flex;
+    flex-direction: column; //子要素を縦に並べる用
+    align-items: center;
+    justify-content: center;
+}
+
+.image{
+    height: 100px;
+    width: 100px;
+}

@@ -6,6 +6,7 @@ import clsx from "clsx";
 const OrderCard = ({menuList, gratitudeList, onClick, isMenuSelected, isGratitudeSelected}) => {
 
 
+
     return (<>
         <Grid container display="flex" justifyContent="space-between" alignItems="center">
             { menuList ? menuList.map ((menu) => {
@@ -23,8 +24,11 @@ const OrderCard = ({menuList, gratitudeList, onClick, isMenuSelected, isGratitud
                         })}
                         onClick={() => onClick(menu)}
                     > 
-                      { menu.item_name }<br></br>
-                      { menu.item_image_name }
+
+                      <div className={clsx(style.cardContent)}>
+                        <div>{menu.item_name}</div> 
+                        <img className={clsx(style.image)} src={menu.item_image_name} alt={menu.item_name} />
+                      </div>
                   </Card>
                   </Grid>
                 )
