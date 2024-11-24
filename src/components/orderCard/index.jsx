@@ -23,8 +23,10 @@ const OrderCard = ({menuList, gratitudeList, onClick, isMenuSelected, isGratitud
                         })}
                         onClick={() => onClick(menu)}
                     > 
-                      { menu.itemName }<br></br>
-                      { menu.itemImageName }
+                      <div className={clsx(style.cardContent)}>
+                        <div>{menu.itemName}</div> 
+                        <img className={clsx(style.image)} src={menu.itemImageName} alt={menu.itemName} />
+                      </div>
                   </Card>
                   </Grid>
                 )
