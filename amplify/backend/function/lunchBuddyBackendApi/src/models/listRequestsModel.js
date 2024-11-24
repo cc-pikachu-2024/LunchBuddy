@@ -77,18 +77,16 @@ module.exports = {
         "created_at",
       ]);
   },
-  
-  async postResponder({ request_id, user_id }) {
+
+  async postResponder(request_id, user_id) {
+    console.log(request_id, user_id);
     try {
-      return knex("responder")
-        .insert({ request_id, user_id })
-        .returning(["request_id", "user_id"])
-        .first();
+      return knex("responder").insert({ request_id, user_id });
     } catch (err) {
       console.error("Insert failed:", err);
     }
   },
-  
+
   async deleteResponder(request_id, user_id) {
     try {
       await knex("responder").where({ request_id, user_id }).del();
