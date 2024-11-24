@@ -47,14 +47,4 @@ module.exports = {
       console.error("Insert failed:", err);
     }
   },
-
-  async postResponder(obj) {
-    try {
-      const result = await knex("responder")
-        .insert(obj)
-        .returning(["request_id", "user_id"]);
-    } catch (err) {
-      console.error("Insert failed:", err);
-    }
-  },
 };

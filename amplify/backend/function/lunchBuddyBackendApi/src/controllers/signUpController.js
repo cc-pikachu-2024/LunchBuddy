@@ -23,8 +23,8 @@ exports.postUserInfo = async (req, res) => {
       seat: userInfo.seat,
       tel_number: userInfo.phoneNumber,
     };
-    await signUpModel.postUserInfo(convertedUserInfo);
-    res.status(200).json(convertedUserInfo);
+    const createdUserInfo = await signUpModel.postUserInfo(convertedUserInfo);
+    res.status(200).json(createdUserInfo);
   } catch (err) {
     console.log(err);
   }

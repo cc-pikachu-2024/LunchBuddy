@@ -58,11 +58,6 @@ exports.postRequest = async (req, res) => {
       requester_comment: reqBodyObj.requesterComment,
     });
 
-    await createRequestModel.postResponder({
-      request_id: requestResult[0].request_id,
-      user_id: reqBodyObj.responderId,
-    });
-
     await listRequestsModel.postStatus({
       request_id: requestResult[0].request_id,
       status_id: 1,
