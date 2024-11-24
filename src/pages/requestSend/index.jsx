@@ -25,7 +25,6 @@ const RequestSend = () => {
       try {
         const response = await fetch("http://localhost:3000/requests/items");
         const data = await response.json();
-        console.log(data);
         setMenuList(data);
       } catch (error) {
         console.log(error)
@@ -40,7 +39,6 @@ const RequestSend = () => {
       try {
          const response = await fetch("http://localhost:3000/requests/gratitudes");
          const data = await response.json();
-         console.log(data);
          setGratitudeList(data);
       } catch (error) {
         console.log(error);
@@ -73,7 +71,6 @@ const RequestSend = () => {
     const menuPrice = selectedMenu.reduce((acc, menuItem) => {
       if (menuItem) { 
         acc += menuItem.maxPrice;
-        acc += menuItem.maxPrice;
       }
       return acc;
     }, 0);
@@ -81,7 +78,6 @@ const RequestSend = () => {
     //お礼の最大金額計算
     const gratitudePrice = selectedGratitude.reduce((acc, gratitude) => {
       if (gratitude) {
-        acc += gratitude.maxPrice;
         acc += gratitude.maxPrice;
       }
       return acc; 
