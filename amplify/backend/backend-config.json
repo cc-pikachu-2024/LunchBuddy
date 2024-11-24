@@ -30,7 +30,55 @@
     }
   },
   "parameters": {
+    "AMPLIFY_function_lunchBuddyBackendApi_dbHost": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "lunchBuddyBackendApi"
+        }
+      ]
+    },
+    "AMPLIFY_function_lunchBuddyBackendApi_dbName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "lunchBuddyBackendApi"
+        }
+      ]
+    },
+    "AMPLIFY_function_lunchBuddyBackendApi_dbPassword": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "lunchBuddyBackendApi"
+        }
+      ]
+    },
+    "AMPLIFY_function_lunchBuddyBackendApi_dbPort": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "lunchBuddyBackendApi"
+        }
+      ]
+    },
+    "AMPLIFY_function_lunchBuddyBackendApi_dbUser": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "lunchBuddyBackendApi"
+        }
+      ]
+    },
     "AMPLIFY_function_lunchBuddyBackendApi_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "lunchBuddyBackendApi"
+        }
+      ]
+    },
+    "AMPLIFY_function_lunchBuddyBackendApi_nodeEnv": {
       "usedBy": [
         {
           "category": "function",

@@ -16,9 +16,9 @@ const RequestList = () => {
       const sessionUser = JSON.parse(sessionStorage.getItem("user"));
       const totalGratitude = (
         await fetch(
-          `${import.meta.env.VITE_API_HOST}:${
-            import.meta.env.VITE_API_PORT
-          }/requests/gratitudesSum?userId=${sessionUser.user_id}`
+          `${import.meta.env.VITE_API_HOST}/requests/gratitudesSum?userId=${
+            sessionUser.user_id
+          }`
         ).then((res) => res.json())
       )?.sum;
       setUser({
@@ -34,9 +34,7 @@ const RequestList = () => {
   useEffect(() => {
     (async () => {
       const requests = await fetch(
-        `${import.meta.env.VITE_API_HOST}:${
-          import.meta.env.VITE_API_PORT
-        }/requests/requestsList`
+        `${import.meta.env.VITE_API_HOST}/requests/requestsList`
       ).then((res) => res.json());
       setRequestList(requests);
     })();

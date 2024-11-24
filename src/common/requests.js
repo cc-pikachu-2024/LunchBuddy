@@ -7,9 +7,7 @@ export const updateRequest = async (
 ) => {
   try {
     const requests = await fetch(
-      `${import.meta.env.VITE_API_HOST}:${
-        import.meta.env.VITE_API_PORT
-      }/requests/statuses`,
+      `${import.meta.env.VITE_API_HOST}/requests/statuses`,
       {
         method: "POST",
         headers: {
@@ -18,8 +16,7 @@ export const updateRequest = async (
         body: JSON.stringify({
           requestId: request.id,
           statusId: statusId,
-          userId: request.requesterId,
-          responderId: responderId,
+          userId: responderId,
           isCancel: isCancel,
         }),
       }

@@ -97,17 +97,14 @@ exports.postStatus = async (req, res) => {
 
     const latestStatus = await listRequestsModel.postStatus(convertedStatus);
     // 「任せて」 -> 「キャンセル」 status_id= 1-> 2への変更の場合にはresponderテーブルへのinsertも実行
-    if (status.statusId === 2 && !status.isCancel && status.responderId) {
+    if (status.statusId === 2 && !status.isCancel) {
       const responder = await listRequestsModel.postResponder(
         status.requestId,
-        status.responderId
+        status.userId
       );
       latestStatus["responder_id"] = responder.user_id;
-    } else if (status.statusId === 1 && status.isCancel && status.responderId) {
-      await listRequestsModel.deleteResponder(
-        status.requestId,
-        status.responderId
-      );
+    } else if (status.statusId === 1 && status.isCancel) {
+      await listRequestsModel.deleteResponder(status.requestId, status.userId);
       latestStatus["responder_id"] = "";
     }
     res.status(200).json(latestStatus);

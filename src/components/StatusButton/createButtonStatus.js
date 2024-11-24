@@ -14,7 +14,7 @@ export const createButtonStatus = (request, user, updateRequestList) => {
         color = "ErrorColor";
         onClick = async () => {
           // status_id を 1 -> 5 に更新
-          await updateRequest(request, updateRequestList, 5, null, false);
+          await updateRequest(request, updateRequestList, 5, user.id, false);
         };
       } else {
         // 「まかせて」ボタン
@@ -42,13 +42,7 @@ export const createButtonStatus = (request, user, updateRequestList) => {
         onClick = async () => {
           // status_id を 2 -> 1 に更新
           // responder レコード削除
-          await updateRequest(
-            request,
-            updateRequestList,
-            1,
-            request.responderId,
-            true
-          );
+          await updateRequest(request, updateRequestList, 1, user.id, true);
         };
       } else {
         // 「進行中」ボタン
@@ -68,13 +62,7 @@ export const createButtonStatus = (request, user, updateRequestList) => {
           const res = confirm("品物を受け取りましたか？");
           if (res) {
             // status_id を 3 -> 4 に更新
-            await updateRequest(
-              request,
-              updateRequestList,
-              4,
-              request.responderId,
-              false
-            );
+            await updateRequest(request, updateRequestList, 4, user.id, false);
           }
         };
       } else if (isResponder) {

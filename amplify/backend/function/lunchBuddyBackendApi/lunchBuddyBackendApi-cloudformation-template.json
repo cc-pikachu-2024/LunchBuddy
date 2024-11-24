@@ -15,6 +15,24 @@
     },
     "s3Key": {
       "Type": "String"
+    },
+    "dbUser": {
+      "Type": "String"
+    },
+    "dbHost": {
+      "Type": "String"
+    },
+    "dbPassword": {
+      "Type": "String"
+    },
+    "dbName": {
+      "Type": "String"
+    },
+    "dbPort": {
+      "Type": "String"
+    },
+    "nodeEnv": {
+      "Type": "String"
     }
   },
   "Conditions": {
@@ -69,6 +87,24 @@
             },
             "REGION": {
               "Ref": "AWS::Region"
+            },
+            "DB_USER": {
+              "Ref": "dbUser"
+            },
+            "DB_HOST": {
+              "Ref": "dbHost"
+            },
+            "DB_PASSWORD": {
+              "Ref": "dbPassword"
+            },
+            "DB_NAME": {
+              "Ref": "dbName"
+            },
+            "DB_PORT": {
+              "Ref": "dbPort"
+            },
+            "NODE_ENV": {
+              "Ref": "nodeEnv"
             }
           }
         },
