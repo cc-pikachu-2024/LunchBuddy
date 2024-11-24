@@ -1,4 +1,5 @@
-const _ = require("./dotenv");
+//const _ = require("./dotenv");
+require('dotenv').config({ path: './.env.development'})
 
 module.exports = {
   development: {

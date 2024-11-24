@@ -6,7 +6,6 @@ import clsx from "clsx";
 const OrderCard = ({menuList, gratitudeList, onClick, isMenuSelected, isGratitudeSelected}) => {
 
 
-
     return (<>
         <Grid container display="flex" justifyContent="space-between" alignItems="center">
             { menuList ? menuList.map ((menu) => {
@@ -16,7 +15,7 @@ const OrderCard = ({menuList, gratitudeList, onClick, isMenuSelected, isGratitud
                 const selected = isMenuSelected.includes(menu);
               
                 return (
-                  <Grid item size={6}  key={menu.item_id}>
+                  <Grid item size={6}  key={menu.itemId}>
                     {/* 選択されたら色を変える */}
                     <Card 
                         className={clsx(style.MenuCard, {
@@ -24,10 +23,9 @@ const OrderCard = ({menuList, gratitudeList, onClick, isMenuSelected, isGratitud
                         })}
                         onClick={() => onClick(menu)}
                     > 
-
                       <div className={clsx(style.cardContent)}>
-                        <div>{menu.item_name}</div> 
-                        <img className={clsx(style.image)} src={menu.item_image_name} alt={menu.item_name} />
+                        <div>{menu.itemName}</div> 
+                        <img className={clsx(style.image)} src={menu.itemImageName} alt={menu.itemName} />
                       </div>
                   </Card>
                   </Grid>
@@ -39,14 +37,14 @@ const OrderCard = ({menuList, gratitudeList, onClick, isMenuSelected, isGratitud
                 const selected = isGratitudeSelected.includes(gratitude);
 
                 return (
-                  <Grid item size={4}  key={gratitude.gratitude_id}>
+                  <Grid item size={4}  key={gratitude.gratitudeId}>
                     <Card 
                         className={clsx(style.GratitudeCard, {
                             [style.SelectedCard]: selected
                         })}
                         onClick={() => onClick(gratitude)}
                     > 
-                      { "~" + gratitude.max_price + "円"} 
+                      { "~" + gratitude.maxPrice + "円"} 
                   </Card>
                   </Grid>
                 )

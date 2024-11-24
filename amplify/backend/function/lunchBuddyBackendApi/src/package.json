@@ -9,7 +9,7 @@
     "migrate:prod": "NODE_ENV=production knex migrate:latest",
     "seed:dev": "NODE_ENV=development knex seed:run",
     "seed:prod": "NODE_ENV=production knex seed:run",
-    "start:dev": "NODE_ENV=development nodemon app.js",
+    "start": "cross-env NODE_ENV=development nodemon app.js",
     "start:prod": "NODE_ENV=production nodemon app.js"
   },
   "dependencies": {
@@ -23,6 +23,7 @@
   "devDependencies": {
     "@types/aws-lambda": "^8.10.92",
     "chai": "^5.1.2",
+    "cross-env": "^7.0.3",
     "mocha": "^10.8.2",
     "nodemon": "^3.1.7"
   }
