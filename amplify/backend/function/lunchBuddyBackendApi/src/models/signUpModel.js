@@ -6,22 +6,21 @@ module.exports = {
   },
 
   async postUserInfo(userInfo) {
-    await knex("user")
-      .insert(userInfo)
-      .returning([
-        "user_id",
-        "user_name",
-        "password",
-        "office_id",
-        "floor",
-        "seat",
-        "tel_number",
-      ])
-      .then(() => {
-        console.log("Insert successful");
-      })
-      .catch((err) => {
-        console.error("Insert failed:", err);
-      });
+    try {
+      const result = await knex("user")
+        .insert(userInfo)
+        .returning([
+          "user_id",
+          "user_name",
+          "password",
+          "office_id",
+          "floor",
+          "seat",
+          "tel_number",
+        ]);
+      return result;
+    } catch (err) {
+      console.error("Insert failed:", err);
+    }
   },
 };
