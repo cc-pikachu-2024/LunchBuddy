@@ -4,7 +4,15 @@ const listRequestsModel = require("../models/listRequestsModel");
 exports.getAllItems = async (req, res) => {
   try {
     const items = await createRequestModel.getAllItems();
-    res.status(200).json(items);
+    const convertedItems = items.map((item) => {
+      return {
+        itemId: item.item_id,
+        itemImageName: item.item_image_name,
+        itemName: item.item_name,
+        maxPrice: item.max_price,
+      };
+    });
+    res.status(200).json(convertedItems);
   } catch (err) {
     console.log(err);
   }
@@ -13,7 +21,13 @@ exports.getAllItems = async (req, res) => {
 exports.getAllGratitudes = async (req, res) => {
   try {
     const gratitudes = await createRequestModel.getAllGratitudes();
-    res.status(200).json(gratitudes);
+    const convertedGratitudes = gratitudes.map((gratitude) => {
+      return {
+        gratitudeId: gratitude.gratitude_id,
+        maxPrice: gratitude.max_price,
+      };
+    });
+    res.status(200).json(convertedGratitudes);
   } catch (err) {
     console.log(err);
   }

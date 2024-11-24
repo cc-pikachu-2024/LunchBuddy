@@ -6,7 +6,7 @@ exports.getAllRequests = async (req, res) => {
 
     const convertedRequestsList = requestsList.reduce((acc, current) => {
       let existingEntry = acc.find(
-        (entry) => entry.request_id === current.request_id
+        (entry) => entry.requestId === current.request_id
       );
       const itemList = {
         itemId: current.item_id,
@@ -24,7 +24,19 @@ exports.getAllRequests = async (req, res) => {
           max_price,
           ...target_data
         } = current;
-        acc.push({ ...target_data, itemList: [itemList] });
+        const convertedTargetData = {
+          requestId: target_data.request_id,
+          userId: target_data.user_id,
+          menuId: target_data.menu_id,
+          gratitudeId: target_data.gratitude_id,
+          requesterComment: target_data.requester_comment,
+          totalMaxPrice: target_data.total_max_price,
+          menuDetailId: target_data.menu_detail_id,
+          requestHistoryId: target_data.request_history_id,
+          statusId: target_data.status_id,
+          createdAt: target_data.created_at,
+        };
+        acc.push({ ...convertedTargetData, itemList: [itemList] });
       }
       return acc;
     }, []);
