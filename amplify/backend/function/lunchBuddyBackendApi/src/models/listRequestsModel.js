@@ -77,6 +77,7 @@ module.exports = {
         "created_at",
       ]);
   },
+  
   async postResponder({ request_id, user_id }) {
     try {
       return knex("responder")
@@ -87,6 +88,7 @@ module.exports = {
       console.error("Insert failed:", err);
     }
   },
+  
   async deleteResponder(request_id, user_id) {
     try {
       await knex("responder").where({ request_id, user_id }).del();

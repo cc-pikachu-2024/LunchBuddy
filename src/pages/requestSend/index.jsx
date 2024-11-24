@@ -25,7 +25,6 @@ const RequestSend = () => {
       try {
         const response = await fetch("http://localhost:3000/requests/items");
         const data = await response.json();
-        console.log(data);
         setMenuList(data);
       } catch (error) {
         console.log(error)
@@ -40,7 +39,6 @@ const RequestSend = () => {
       try {
          const response = await fetch("http://localhost:3000/requests/gratitudes");
          const data = await response.json();
-         console.log(data);
          setGratitudeList(data);
       } catch (error) {
         console.log(error);
@@ -63,7 +61,7 @@ const RequestSend = () => {
     if (selectedGratitude.includes(selected)) {
       setSelectedGratitude(selectedGratitude.filter(price => price !== selected)); //セレクト解除
     } else {
-      setSelectedGratitude([...selectedGratitude, selected]); //セレクト
+      setSelectedGratitude([selected]); //セレクト
     }
   };
 
@@ -72,7 +70,7 @@ const RequestSend = () => {
     //メニューの最大金額計算
     const menuPrice = selectedMenu.reduce((acc, menuItem) => {
       if (menuItem) { 
-        acc += menuItem.max_price;
+        acc += menuItem.maxPrice;
       }
       return acc;
     }, 0);
@@ -80,7 +78,7 @@ const RequestSend = () => {
     //お礼の最大金額計算
     const gratitudePrice = selectedGratitude.reduce((acc, gratitude) => {
       if (gratitude) {
-        acc += gratitude.max_price;
+        acc += gratitude.maxPrice;
       }
       return acc; 
     }, 0);
@@ -93,20 +91,38 @@ const RequestSend = () => {
 
   
   const sendRequest = async() => {
-    console.log("menu", selectedMenu)
-    console.log("gratitude", selectedGratitude)
-
     //リクエストのPost、status更新
-    // const param = {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json; charset=utf-8"
-    //   },
-    //   body: JSON.stringify(selectedMenuとselectedGratitudeのデータ)
-    // };
-    // const response = await fetch ("", param)
+// TODO: localStrageに保存したuserIdをセットする。
+    const requestBody = {
+      userId: "1", 
+      gratitudeId: selectedGratitude[0].gratitudeId,
+      requesterComment: "テスト",
+      totalMaxPrice: totalPrice,
+      itemIds: selectedMenu.map(item => item.itemId)
+    };
 
-    showRequestList()
+    console.log(requestBody);
+
+    const param = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8"
+      },
+      body: JSON.stringify(requestBody)
+    };
+
+    try{
+      const response = await fetch("http://localhost:3000/requests/requests", param);
+      if (!response.ok) {
+        throw new Error("ネットワークに問題があります");
+      }
+      const data = response.json();
+      console.log("作成内容:", data);
+      showRequestList();
+    }catch(error){
+      console.log("リクエスト送信エラー：",error);
+    };
+
   }
 
   const showRequestList = () => {

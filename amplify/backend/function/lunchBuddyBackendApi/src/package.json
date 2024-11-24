@@ -5,8 +5,10 @@
   "main": "index.js",
   "license": "Apache-2.0",
   "scripts": {
-    "migrate": "knex migrate:latest",
-    "seed": "knex seed:run",
+    "migrate:dev": "NODE_ENV=development knex migrate:latest",
+    "migrate:prod": "NODE_ENV=production knex migrate:latest",
+    "seed:dev": "NODE_ENV=development knex seed:run",
+    "seed:prod": "NODE_ENV=production knex seed:run",
     "start:dev": "NODE_ENV=development nodemon app.js",
     "start:prod": "NODE_ENV=production nodemon app.js"
   },
