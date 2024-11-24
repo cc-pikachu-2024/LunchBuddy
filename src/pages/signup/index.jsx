@@ -19,7 +19,11 @@ const Signup = () => {
 
   const fetchOffices = async () => {
     try {
-      const response = await fetch("http://localhost:3000/requests/offices");
+      const response = await fetch(
+        `${import.meta.env.VITE_API_HOST}:${
+          import.meta.env.VITE_API_PORT
+        }/requests/offices`
+      );
       if (!response.ok) {
         throw new Error("オフィス取得に失敗");
       }
@@ -51,13 +55,18 @@ const Signup = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:3000/requests/users", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newUser),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_HOST}:${
+          import.meta.env.VITE_API_PORT
+        }/requests/users`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newUser),
+        }
+      );
       if (!response.ok) {
         throw new Error("登録に失敗しました");
       }

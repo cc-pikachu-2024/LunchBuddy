@@ -6,19 +6,24 @@ export const updateRequest = async (
   isCancel
 ) => {
   try {
-    const requests = await fetch("http://localhost:3000/requests/statuses", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        requestId: request.id,
-        statusId: statusId,
-        userId: request.requesterId,
-        responderId: responderId,
-        isCancel: isCancel,
-      }),
-    }).then((res) => res.json());
+    const requests = await fetch(
+      `${import.meta.env.VITE_API_HOST}:${
+        import.meta.env.VITE_API_PORT
+      }/requests/statuses`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          requestId: request.id,
+          statusId: statusId,
+          userId: request.requesterId,
+          responderId: responderId,
+          isCancel: isCancel,
+        }),
+      }
+    ).then((res) => res.json());
     const newRequest = {
       ...request,
       statusId: requests[0].status_id,

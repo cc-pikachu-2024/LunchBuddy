@@ -21,7 +21,11 @@ const RequestSend = () => {
 
     const fetchMenuList = async () => {
       try {
-        const response = await fetch("http://localhost:3000/requests/items");
+        const response = await fetch(
+          `${import.meta.env.VITE_API_HOST}:${
+            import.meta.env.VITE_API_PORT
+          }/requests/items`
+        );
         const data = await response.json();
         setMenuList(data);
       } catch (error) {
@@ -35,7 +39,9 @@ const RequestSend = () => {
     const fetchGratitude = async () => {
       try {
         const response = await fetch(
-          "http://localhost:3000/requests/gratitudes"
+          `${import.meta.env.VITE_API_HOST}:${
+            import.meta.env.VITE_API_PORT
+          }/requests/gratitudes`
         );
         const data = await response.json();
         setGratitudeList(data);
@@ -89,7 +95,7 @@ const RequestSend = () => {
   }, [selectedMenu, selectedGratitude, menuList]);
 
   const sendRequest = async () => {
-    const userId = JSON.parse(sessionStorage.getItem("user"))?.user_id;
+    const userId = localStorage.getItem("userId");
     const requestBody = {
       userId: userId,
       gratitudeId: selectedGratitude[0].gratitudeId,
@@ -108,7 +114,9 @@ const RequestSend = () => {
 
     try {
       const response = await fetch(
-        "http://localhost:3000/requests/requests",
+        `${import.meta.env.VITE_API_HOST}:${
+          import.meta.env.VITE_API_PORT
+        }/requests/requests`,
         param
       );
       if (!response.ok) {
