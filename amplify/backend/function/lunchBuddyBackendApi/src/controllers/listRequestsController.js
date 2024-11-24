@@ -3,7 +3,6 @@ const listRequestsModel = require("../models/listRequestsModel");
 exports.getAllRequests = async (req, res) => {
   try {
     const requestsList = await listRequestsModel.getAllRequests();
-    console.log(requestsList);
 
     const convertedRequestsList = requestsList.reduce((acc, current) => {
       let existingEntry = acc.find((entry) => entry.id === current.request_id);

@@ -79,7 +79,6 @@ module.exports = {
   },
 
   async postResponder(request_id, user_id) {
-    console.log(request_id, user_id);
     try {
       return knex("responder").insert({ request_id, user_id });
     } catch (err) {
