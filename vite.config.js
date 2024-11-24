@@ -12,7 +12,7 @@ export default defineConfig({
       includeAssets: ["favicon.ico", "apple-touch-icon.png"],
       manifest: {
         name: "PWA Sample Apps",
-        short_name: "PWAApps",
+        short_name: "Lunch Buddy",
         description: "PWAサンプルアプリ",
         theme_color: "#ffffff",
         icons: [
@@ -56,5 +56,8 @@ export default defineConfig({
         api: "modern-compiler",
       },
     },
+  },
+  optimizeDeps: {
+    exclude: ["amplify/*"], // amplify を依存解析から除外
   },
 });
