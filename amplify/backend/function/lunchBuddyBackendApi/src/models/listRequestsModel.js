@@ -25,6 +25,7 @@ module.exports = {
       )
       .leftJoin("responder", "request.request_id", "responder.request_id")
       .whereIn("request_status_history.request_history_id", latestStatusIds)
+      .whereIn("request_status_history.status_id", [1, 2, 3])
       .select(
         "request.request_id as request_id",
         "request.requester_comment as requester_comment",
@@ -37,9 +38,10 @@ module.exports = {
         "gratitude.gratitude_id as gratitude_id",
         "gratitude.max_price as gratitude_max_price",
         "menu_detail.menu_detail_id as menu_detail_id",
-        "request_status_history.request_history_id as request_history_id",
+        "request_status_history.request_history_id as request_status_history_id",
         "request_status_history.status_id as status_id",
         "request_status_history.created_at as created_at",
+        "responder.user_id as responder_id",
         "item_master.item_id as item_id",
         "item_master.item_image_name as item_image_name",
         "item_master.item_name as item_name",
@@ -65,7 +67,7 @@ module.exports = {
   },
 
   async postStatus(status) {
-    await knex("request_status_history")
+    return knex("request_status_history")
       .insert(status)
       .returning([
         "request_history_id",
@@ -73,12 +75,23 @@ module.exports = {
         "status_id",
         "user_id",
         "created_at",
-      ])
-      .then(() => {
-        console.log("Insert successful");
-      })
-      .catch((err) => {
-        console.error("Insert failed:", err);
-      });
+      ]);
+  },
+  async postResponder({ request_id, user_id }) {
+    try {
+      return knex("responder")
+        .insert({ request_id, user_id })
+        .returning(["request_id", "user_id"])
+        .first();
+    } catch (err) {
+      console.error("Insert failed:", err);
+    }
+  },
+  async deleteResponder(request_id, user_id) {
+    try {
+      await knex("responder").where({ request_id, user_id }).del();
+    } catch (err) {
+      console.error("Insert failed:", err);
+    }
   },
 };

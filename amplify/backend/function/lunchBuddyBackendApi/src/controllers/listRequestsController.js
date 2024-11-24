@@ -3,6 +3,7 @@ const listRequestsModel = require("../models/listRequestsModel");
 exports.getAllRequests = async (req, res) => {
   try {
     const requestsList = await listRequestsModel.getAllRequests();
+    console.log(requestsList);
 
     const convertedRequestsList = requestsList.reduce((acc, current) => {
       let existingEntry = acc.find((entry) => entry.id === current.request_id);
@@ -34,7 +35,8 @@ exports.getAllRequests = async (req, res) => {
           requesterComment: target_data.requester_comment,
           totalMaxPrice: target_data.total_max_price,
           menuDetailId: target_data.menu_detail_id,
-          requestHistoryId: target_data.request_history_id,
+          requestStatusHistoryId: target_data.request_status_history_id,
+          responderId: target_data.responder_id,
           statusId: target_data.status_id,
           createdAt: target_data.created_at,
         };
@@ -93,7 +95,22 @@ exports.postStatus = async (req, res) => {
       status_id: status.statusId,
       user_id: status.userId,
     };
+
     const latestStatus = await listRequestsModel.postStatus(convertedStatus);
+    // 「任せて」ステータス(※仮に2とする)への変更の場合にはresponderテーブルへのinsertも実行
+    if (status.statusId === 2 && !status.isCancel && status.responderId) {
+      const responderId = await listRequestsModel.postResponder(
+        status.requestId,
+        status.responderId
+      );
+      latestStatus["responder_id"] = responderId;
+    } else if (status.statusId === 1 && status.isCancel && status.responderId) {
+      await listRequestsModel.deleteResponder(
+        status.requestId,
+        status.responderId
+      );
+      latestStatus["responder_id"] = "";
+    }
     res.status(200).json(latestStatus);
   } catch (err) {
     console.log(err);
