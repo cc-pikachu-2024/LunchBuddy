@@ -101,7 +101,7 @@ const RequestSend = () => {
     const requestBody = {
       userId: "1", 
       gratitudeId: selectedGratitude[0].gratitudeId,
-      requesterComment: "コメント",
+      requesterComment: "テスト",
       totalMaxPrice: totalPrice,
       itemIds: selectedMenu.map(item => item.itemId)
     };
@@ -121,7 +121,7 @@ const RequestSend = () => {
       if (!response.ok) {
         throw new Error("ネットワークに問題があります");
       }
-      const data = await response.json();
+      const data = response.json();
       console.log("作成内容:", data);
       showRequestList();
     }catch(error){
