@@ -93,13 +93,17 @@ const RequestSend = () => {
 
   
   const sendRequest = async() => {
-    console.log("menu", selectedMenu)
-    console.log("gratitude", selectedGratitude)
+    console.log("menu", selectedMenu);
+    console.log("gratitude", selectedGratitude);
+
+
+    const userId = localStorage.getItem("userId");
+    console.log("取得した userId:", userId);
 
     //リクエストのPost、status更新
 // TODO: localStrageに保存したuserIdをセットする。
     const requestBody = {
-      userId: "1", 
+      userId: userId, 
       gratitudeId: selectedGratitude[0].gratitudeId,
       requesterComment: "テスト",
       totalMaxPrice: totalPrice,

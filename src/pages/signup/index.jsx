@@ -60,10 +60,13 @@ const Signup = () => {
         body: JSON.stringify(newUser),
       });
       if (!response.ok) {
-        throw new Error("POSTに失敗");
+        throw new Error("登録に失敗しました");
       }
-      const data = await response.json();
-      console.log("登録内容:", data);
+    
+      const result = await response.json();
+      console.log("登録結果:", result);
+      const userId = result[0]?.user_id; 
+      localStorage.setItem('userId', userId);
       navigate("/requestList");
     } catch (error) {
       console.error("登録に失敗しました:", error);
