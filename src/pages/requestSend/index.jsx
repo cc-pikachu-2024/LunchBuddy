@@ -73,6 +73,7 @@ const RequestSend = () => {
     const menuPrice = selectedMenu.reduce((acc, menuItem) => {
       if (menuItem) { 
         acc += menuItem.maxPrice;
+        acc += menuItem.maxPrice;
       }
       return acc;
     }, 0);
@@ -80,6 +81,7 @@ const RequestSend = () => {
     //お礼の最大金額計算
     const gratitudePrice = selectedGratitude.reduce((acc, gratitude) => {
       if (gratitude) {
+        acc += gratitude.maxPrice;
         acc += gratitude.maxPrice;
       }
       return acc; 
@@ -94,7 +96,7 @@ const RequestSend = () => {
   
   const sendRequest = async() => {
     //リクエストのPost、status更新
-
+// TODO: localStrageに保存したuserIdをセットする。
     const requestBody = {
       userId: "1", 
       gratitudeId: selectedGratitude[0].gratitudeId,

@@ -16,6 +16,7 @@ const OrderCard = ({menuList, gratitudeList, onClick, isMenuSelected, isGratitud
               
                 return (
                   <Grid item size={6}  key={menu.itemId}>
+                  <Grid item size={6}  key={menu.itemId}>
                     {/* 選択されたら色を変える */}
                     <Card 
                         className={clsx(style.MenuCard, {
@@ -38,12 +39,14 @@ const OrderCard = ({menuList, gratitudeList, onClick, isMenuSelected, isGratitud
 
                 return (
                   <Grid item size={4}  key={gratitude.gratitudeId}>
+                  <Grid item size={4}  key={gratitude.gratitudeId}>
                     <Card 
                         className={clsx(style.GratitudeCard, {
                             [style.SelectedCard]: selected
                         })}
                         onClick={() => onClick(gratitude)}
                     > 
+                      { "~" + gratitude.maxPrice + "円"} 
                       { "~" + gratitude.maxPrice + "円"} 
                   </Card>
                   </Grid>
