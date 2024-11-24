@@ -11,20 +11,16 @@ exports.seed = async function (knex) {
       item_id: 1,
     },
     {
-      menu_id: 1,
-      item_id: 2,
-    },
-    {
-      menu_id: 2,
-      item_id: 1,
-    },
-    {
       menu_id: 2,
       item_id: 2,
     },
     {
       menu_id: 3,
-      item_id: 1,
+      item_id: 4,
+    },
+    {
+      menu_id: 3,
+      item_id: 5,
     },
   ]);
 };

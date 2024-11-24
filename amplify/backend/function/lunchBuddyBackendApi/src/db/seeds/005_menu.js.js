@@ -7,13 +7,13 @@ exports.seed = async function (knex) {
   await knex("menu").del();
   await knex("menu").insert([
     {
-      total_max_price: 300,
+      total_max_price: 400,
+    },
+    {
+      total_max_price: 600,
     },
     {
       total_max_price: 500,
-    },
-    {
-      total_max_price: 200,
     },
   ]);
 };

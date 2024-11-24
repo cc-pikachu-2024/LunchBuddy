@@ -10,18 +10,18 @@ exports.seed = async function (knex) {
       user_id: 1,
       menu_id: 1,
       gratitude_id: 1,
-      requester_comment: "hello",
-    },
-    {
-      user_id: 1,
-      menu_id: 2,
-      gratitude_id: 2,
-      requester_comment: "good morning",
+      requester_comment: "",
     },
     {
       user_id: 2,
-      menu_id: 3,
+      menu_id: 2,
       gratitude_id: 2,
+      requester_comment: "",
+    },
+    {
+      user_id: 4,
+      menu_id: 3,
+      gratitude_id: 3,
       requester_comment: "",
     },
   ]);
