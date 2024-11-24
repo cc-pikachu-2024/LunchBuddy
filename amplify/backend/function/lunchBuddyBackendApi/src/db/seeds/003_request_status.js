@@ -7,13 +7,19 @@ exports.seed = async function (knex) {
   await knex("request_status").del();
   await knex("request_status").insert([
     {
-      status_name: "status1",
+      status_name: "waiting",
     },
     {
-      status_name: "status2",
+      status_name: "progress",
     },
     {
-      status_name: "status3",
+      status_name: "settlement",
+    },
+    {
+      status_name: "done",
+    },
+    {
+      status_name: "abandoned",
     },
   ]);
 };
