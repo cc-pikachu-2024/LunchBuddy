@@ -93,6 +93,19 @@ describe("", async () => {
       expect(res).to.have.status(200);
       expect(res.body).to.deep.equal(mock);
     });
+    it("参照に失敗したら500のステータスコードを返す。", async () => {
+      // Setup
+      sandbox
+        .stub(createRequestModel, "getAllItems")
+        .rejects(new Error("Database Error"));
+
+      // Execute
+      const res = await request.get("/requests/items");
+
+      // Assert
+      expect(res).to.have.status(500);
+      expect(res.body).to.have.property("error", "Failed to get items");
+    });
   });
   describe("get gratitudes", () => {
     it("参照に成功したら200のステータスコードを返す。", async () => {
@@ -118,12 +131,74 @@ describe("", async () => {
       expect(res).to.have.status(200);
       expect(res.body).to.deep.equal(mock);
     });
-  });
-  xdescribe("post requests", () => {
-    xit("", async () => {
+    it("参照に失敗したら500のステータスコードを返す。", async () => {
       // Setup
+      sandbox
+        .stub(createRequestModel, "getAllGratitudes")
+        .rejects(new Error("Database Error"));
+
       // Execute
+      const res = await request.get("/requests/gratitudes");
+
       // Assert
+      expect(res).to.have.status(500);
+      expect(res.body).to.have.property("error", "Failed to get gratitudes");
+    });
+  });
+  describe("post requests", () => {
+    it("登録に成功したら200のステータスコードを返す。", async () => {
+      // Setup
+      const reqBody = {
+        userId: 1,
+        gratitudeId: 3,
+        requesterComment: "nice to meet you!",
+        totalMaxPrice: 500,
+        itemIds: [1, 2],
+      };
+      // Execute
+      const res = await request.post("/requests/requests").send(reqBody);
+      const maxMenuId = await knex("menu").max("menu_id as maxId").first();
+      const menuIdObj = await knex
+        .select("item_id")
+        .from("menu_detail")
+        .where("menu_id", maxMenuId.maxId);
+      const menuIdArray = menuIdObj.map((value) => {
+        return value.item_id;
+      });
+      const requestObj = await knex
+        .select("*")
+        .from("request")
+        .where("request_id", res.body[0].request_id);
+      const mock = {
+        request_id: res.body[0].request_id,
+        user_id: 1,
+        menu_id: maxMenuId.maxId,
+        gratitude_id: 3,
+        requester_comment: "nice to meet you!",
+      };
+      const historyObj = await knex
+        .select("*")
+        .from("request_status_history")
+        .where("request_id", res.body[0].request_id);
+
+      // Assert
+      expect(res).to.have.status(200);
+      expect(menuIdArray).to.deep.equal(reqBody.itemIds);
+      expect(requestObj[0]).to.deep.equal(mock);
+      expect(historyObj[0].status_id).to.equal(1);
+    });
+    it("登録に失敗したら500のステータスコードを返す。", async () => {
+      // Setup
+      sandbox
+        .stub(createRequestModel, "postRequest")
+        .rejects(new Error("Database Error"));
+
+      // Execute
+      const res = await request.post("/requests/requests");
+
+      // Assert
+      expect(res).to.have.status(500);
+      expect(res.body).to.have.property("error", "Failed to post request");
     });
   });
 });

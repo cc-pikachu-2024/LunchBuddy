@@ -92,6 +92,10 @@ describe("", async () => {
 
       // Execute
       const res = await request.post("/requests/users").send(reqBody);
+      const user = await knex
+        .select("*")
+        .from("user")
+        .where("user_id", res.body[0].user_id);
       const mock = {
         user_id: res.body[0].user_id,
         user_name: "test1",
@@ -104,10 +108,6 @@ describe("", async () => {
 
       // Assert
       expect(res).to.have.status(200);
-      const user = await knex
-        .select("*")
-        .from("user")
-        .where("user_id", res.body[0].user_id);
       expect(user[0]).to.deep.equal(mock);
     });
 
