@@ -5,12 +5,15 @@
   "main": "index.js",
   "license": "Apache-2.0",
   "scripts": {
+    "test": "NODE_ENV=development mocha tests/*.test.js",
     "migrate:dev": "NODE_ENV=development knex migrate:latest",
     "migrate:prod": "NODE_ENV=production knex migrate:latest",
     "seed:dev": "NODE_ENV=development knex seed:run",
     "seed:prod": "NODE_ENV=production knex seed:run",
     "start:dev": "NODE_ENV=development nodemon app.js",
-    "start:prod": "NODE_ENV=production nodemon app.js"
+    "start:prod": "NODE_ENV=production nodemon app.js",
+    "restore:dev": "NODE_ENV=development knex migrate:rollback --all && NODE_ENV=development knex migrate:latest && NODE_ENV=development knex seed:run",
+    "restore:prod": "NODE_ENV=production knex migrate:rollback --all && NODE_ENV=production knex migrate:latest && NODE_ENV=production knex seed:run"
   },
   "dependencies": {
     "aws-serverless-express": "^3.3.5",
@@ -22,8 +25,10 @@
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.92",
-    "chai": "^5.1.2",
+    "chai": "^4.5.0",
+    "chai-http": "^4.4.0",
     "mocha": "^10.8.2",
-    "nodemon": "^3.1.7"
+    "nodemon": "^3.1.7",
+    "sinon": "^19.0.2"
   }
 }

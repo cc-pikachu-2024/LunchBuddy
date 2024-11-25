@@ -14,7 +14,7 @@ exports.getAllItems = async (req, res) => {
     });
     res.status(200).json(convertedItems);
   } catch (err) {
-    console.log(err);
+    res.status(500).json({ error: "Failed to get items" });
   }
 };
 
@@ -29,7 +29,7 @@ exports.getAllGratitudes = async (req, res) => {
     });
     res.status(200).json(convertedGratitudes);
   } catch (err) {
-    console.log(err);
+    res.status(500).json({ error: "Failed to get gratitudes" });
   }
 };
 
@@ -66,6 +66,6 @@ exports.postRequest = async (req, res) => {
 
     res.status(200).json(requestResult);
   } catch (err) {
-    console.log(err);
+    res.status(500).json({ error: "Failed to post request" });
   }
 };
