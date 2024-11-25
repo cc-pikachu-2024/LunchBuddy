@@ -8,7 +8,7 @@ exports.getAllOffices = async (req, res) => {
     });
     res.status(200).json(convertedOffices);
   } catch (err) {
-    console.log(err);
+    res.status(500).json({ error: "Failed to get offices" });
   }
 };
 
@@ -26,6 +26,6 @@ exports.postUserInfo = async (req, res) => {
     const createdUserInfo = await signUpModel.postUserInfo(convertedUserInfo);
     res.status(200).json(createdUserInfo);
   } catch (err) {
-    console.log(err);
+    res.status(500).json({ error: "Failed to post users" });
   }
 };
