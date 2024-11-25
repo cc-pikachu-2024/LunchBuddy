@@ -4,7 +4,7 @@ const sinon = require("sinon");
 const expect = chai.expect;
 const app = require("../app");
 // const signUpModel = require("../models/signUpModel");
-// const listRequestsModel = require("../models/listRequestsModel");
+const listRequestsModel = require("../models/listRequestsModel");
 // const createRequestModel = require("../models/createRequestModel");
 const knex = require("../db/knex");
 
@@ -22,65 +22,38 @@ describe("", async () => {
     request.close();
   });
 
-  beforeEach(() => {
-    sandbox = sinon.createSandbox();
+  beforeEach(async () => {
+    try {
+      await knex.migrate.rollback(null, true);
+      await knex.migrate.latest();
+      await knex.seed.run();
+      sandbox = sinon.createSandbox();
+    } catch (err) {
+      console.error("Error during setup:", err);
+      throw err;
+    }
   });
 
   afterEach(() => {
     sandbox.restore();
   });
 
-  describe("get offices", () => {
-    it("", async () => {
+  xdescribe("get requestsList", () => {
+    xit("", async () => {
       // Setup
       // Execute
       // Assert
     });
   });
-  describe("post users", () => {
-    it("", async () => {
+  xdescribe("get gratitudesSum", () => {
+    xit("", async () => {
       // Setup
       // Execute
       // Assert
     });
   });
-  describe("get items", () => {
-    it("", async () => {
-      // Setup
-      // Execute
-      // Assert
-    });
-  });
-  describe("get gratitudes", () => {
-    it("", async () => {
-      // Setup
-      // Execute
-      // Assert
-    });
-  });
-  describe("post requests", () => {
-    it("", async () => {
-      // Setup
-      // Execute
-      // Assert
-    });
-  });
-  describe("get requestsList", () => {
-    it("", async () => {
-      // Setup
-      // Execute
-      // Assert
-    });
-  });
-  describe("get gratitudesSum", () => {
-    it("", async () => {
-      // Setup
-      // Execute
-      // Assert
-    });
-  });
-  describe("post statuses", () => {
-    it("", async () => {
+  xdescribe("post statuses", () => {
+    xit("", async () => {
       // Setup
       // Execute
       // Assert

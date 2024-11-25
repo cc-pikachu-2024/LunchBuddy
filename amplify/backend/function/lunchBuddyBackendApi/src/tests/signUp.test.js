@@ -22,8 +22,16 @@ describe("", async () => {
     request.close();
   });
 
-  beforeEach(() => {
-    sandbox = sinon.createSandbox();
+  beforeEach(async () => {
+    try {
+      await knex.migrate.rollback(null, true);
+      await knex.migrate.latest();
+      await knex.seed.run();
+      sandbox = sinon.createSandbox();
+    } catch (err) {
+      console.error("Error during setup:", err);
+      throw err;
+    }
   });
 
   afterEach(() => {
