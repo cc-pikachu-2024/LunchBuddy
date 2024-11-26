@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
-import RequestCard from "../../components/requestCard";
-import CustomeButton from "../../components/customeButton";
-import { useNavigate } from "react-router-dom";
-import InfoCard from "../../components/infoCard";
+// import RequestCard from "../../components/requestCard";
+// import CustomeButton from "../../components/customeButton";
+// import { useNavigate } from "react-router-dom";
+// import InfoCard from "../../components/infoCard";
 import CustomeTab from "../../components/customeTab";
+import ReceivedRequest from "../../components/receivedRequest";
+import RequestMyList from "../../components/requestMyList";
+import RequestWaitingList from "../../components/requestWaitingList";
 
 const RequestList = () => {
   const [requestList, setRequestList] = useState([]);
   const [user, setUser] = useState({});
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   useEffect(() => {
     // TODO: 認証基盤（Cognito）を使ったAPIにリプレイス
@@ -62,11 +65,23 @@ const RequestList = () => {
   return (
     <>
       <CustomeTab>
-        <a>TODO: リクエストリスト受注待ち画面</a>
-        <a>TODO: リクエストリスト自分の依頼画面</a>
-        <a>TODO: リクエストリスト受注した依頼画面</a>
+        <RequestWaitingList
+          user={user}
+          requestList={requestList}
+          updateRequestList={updateRequestList}
+        />
+        <RequestMyList
+          user={user}
+          requestList={requestList}
+          updateRequestList={updateRequestList}
+        />
+        <ReceivedRequest
+          user={user}
+          requestList={requestList}
+          updateRequestList={updateRequestList}
+        />
       </CustomeTab>
-      <h1>おねがいリスト</h1>
+      {/* <h1>おねがいリスト</h1>
       <InfoCard user={user} />
       {requestList?.length ? (
         requestList.map((request) => (
@@ -84,7 +99,7 @@ const RequestList = () => {
         onClick={() => navigate("/requestSend/")}
         text={"リクエスト作成"}
         fixed={true}
-      />
+      /> */}
     </>
   );
 };
