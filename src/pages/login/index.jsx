@@ -51,7 +51,7 @@ const Login = () => {
   return (
     <div className={style.container}>
       <h1 className={style.title}>LunchBuddy</h1>
-      <Paper elevation={4} className={style.formContainer}>
+      <Paper className={style.formContainer}>
         <h1>ログイン</h1>
         <CustomeTextField
           label="電話番号"
