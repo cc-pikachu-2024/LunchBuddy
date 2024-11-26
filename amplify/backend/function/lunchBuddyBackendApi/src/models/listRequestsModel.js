@@ -48,10 +48,6 @@ module.exports = {
         "item_master.max_price as item_max_price"
       );
   },
-  //INFO: 各リクエストごとにmenu_detailの数だけレコードができる。
-  //      item_nameをまとめて出すためにはこうするしかないか？
-  //      この場合、controllerでいい感じにまとめて返してあげる必要があるか。
-  //TODO: とりあえずselect('*')にしてしまっているが、列を絞る必要があるか要検討。
 
   async getGratitudesPriceSum(userId) {
     return knex("purchase")

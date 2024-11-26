@@ -1,4 +1,5 @@
 const listRequestsModel = require("../models/listRequestsModel");
+const { format } = require("date-fns-tz");
 
 exports.getAllRequests = async (req, res) => {
   try {
@@ -37,16 +38,22 @@ exports.getAllRequests = async (req, res) => {
           requestStatusHistoryId: target_data.request_status_history_id,
           responderId: target_data.responder_id,
           statusId: target_data.status_id,
-          createdAt: target_data.created_at,
+          createdAt: format(
+            target_data.created_at,
+            "yyyy-MM-dd HH:mm:ss.SSSXXX",
+            {
+              timeZone: "Asia/Tokyo",
+            }
+          ),
         };
         acc.push({ ...convertedTargetData, itemList: [itemList] });
       }
       return acc;
     }, []);
-
     res.status(200).json(convertedRequestsList);
   } catch (err) {
     console.log(err);
+    res.status(500).json({ error: "Failed to get requests" });
   }
 };
 
