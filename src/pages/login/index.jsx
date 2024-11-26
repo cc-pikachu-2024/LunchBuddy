@@ -37,7 +37,7 @@ const Login = () => {
       const result = (await response.json())[0];
       const { loginFlag, ...userWithoutLoginFlag } = result;
 
-      if (loginFlag === 1) {
+      if (loginFlag === true) {
         sessionStorage.setItem("user", JSON.stringify(userWithoutLoginFlag));
         navigate("/requestList");
       } else {
