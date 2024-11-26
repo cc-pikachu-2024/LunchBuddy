@@ -1,8 +1,74 @@
+import { useState } from "react";
+import CustomeButton from "../../components/customeButton";
+import CustomeTextField from "../../components/customeTextField";
+import { useNavigate } from "react-router-dom";
+import Paper from "@mui/material/Paper";
+import style from "./style.module.scss";
+
 const Login = () => {
+  const [password, setPassword] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+
+  const navigate = useNavigate();
+
+  const handleSubmit = async () => {
+    if (!phoneNumber || !password) return;
+
+    const loginUser = {
+      phoneNumber,
+      password,
+    };
+
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_HOST}/requests/loginUser`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(loginUser),
+        }
+      );
+      if (!response.ok) {
+        throw new Error("ログインに失敗しました");
+      }
+
+      const result = (await response.json())[0];
+      const { loginFlag, ...userWithoutLoginFlag } = result;
+
+      if (loginFlag === 1) {
+        sessionStorage.setItem("user", JSON.stringify(userWithoutLoginFlag));
+        navigate("/requestList");
+      } else {
+        throw new Error("ログインに失敗しました");
+      }
+    } catch (error) {
+      console.error("ログインに失敗しました:", error);
+    }
+  };
+
   return (
-    <>
-      <div>Login</div>
-    </>
+    <div className={style.container}>
+      <h1 className={style.title}>LunchBuddy</h1>
+      <Paper elevation={4} className={style.formContainer}>
+        <h1>ログイン</h1>
+        <CustomeTextField
+          label="電話番号"
+          value={phoneNumber}
+          onChange={setPhoneNumber}
+          required={true}
+        />
+        <CustomeTextField
+          label="パスワード"
+          value={password}
+          type="password"
+          onChange={setPassword}
+          required={true}
+        />
+        <CustomeButton text="ログイン" onClick={() => handleSubmit()} />
+      </Paper>
+    </div>
   );
 };
 
