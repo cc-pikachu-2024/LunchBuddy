@@ -115,15 +115,64 @@ describe("", async () => {
     });
   });
 
-  xdescribe("get gratitudesSum", () => {
-    xit("参照に成功したら200のステータスコードを返す。", async () => {
+  describe("get gratitudesSum", () => {
+    it("参照に成功したら200のステータスコードを返す。", async () => {
+      // Setup
+      const expected = { sum: "560" };
+
+      // Execute
+      const res = await request.get("/requests//gratitudesSum?userId=1");
+
+      // Assert
+      expect(res).to.have.status(200);
+      expect(res.body).to.be.an("object");
+      expect(res.body).to.have.property("sum");
+      expect(res.body.sum).to.equal(expected.sum);
+    });
+    it("参照して集計対象がなかったら200のステータスコードと{sum: '0'}を返す。", async () => {
+      // Setup
+      const expected = { sum: 0 };
+
+      // Execute
+      const res = await request.get("/requests//gratitudesSum?userId=2");
+
+      // Assert
+      expect(res).to.have.status(200);
+      expect(res.body).to.be.an("object");
+      expect(res.body).to.have.property("sum");
+      expect(res.body.sum).to.equal(expected.sum);
+    });
+    it("参照に失敗したら500のステータスコードを返す。", async () => {
+      // Setup
+      sandbox
+        .stub(listRequestsModel, "getGratitudesPriceSum")
+        .rejects(new Error("Database Error"));
+
+      // Execute
+      const res = await request.get("/requests//gratitudesSum?userId=1");
+
+      // Assert
+      expect(res).to.have.status(500);
+    });
+  });
+
+  describe("post statuses", () => {
+    it("登録に成功したら200のステータスコードを返す", async () => {
       // Setup
       // Execute
       // Assert
     });
-  });
-  xdescribe("post statuses", () => {
-    xit("", async () => {
+    it("登録に失敗したら500のステータスコードを返す", async () => {
+      // Setup
+      // Execute
+      // Assert
+    });
+    it("post responder が想定通りに動作している", async () => {
+      // Setup
+      // Execute
+      // Assert
+    });
+    it("delete responder が想定通りに動作している", async () => {
       // Setup
       // Execute
       // Assert

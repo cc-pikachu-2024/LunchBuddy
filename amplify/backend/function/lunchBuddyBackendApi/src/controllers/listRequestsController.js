@@ -52,7 +52,6 @@ exports.getAllRequests = async (req, res) => {
     }, []);
     res.status(200).json(convertedRequestsList);
   } catch (err) {
-    console.log(err);
     res.status(500).json({ error: "Failed to get requests" });
   }
 };
@@ -65,6 +64,7 @@ exports.getGratitudesPriceSum = async (req, res) => {
     res.status(200).json({ sum: gratitudesPriceSum });
   } catch (err) {
     console.log(err);
+    res.status(500).json({ error: "Failed to get gratitudes price sum" });
   }
 };
 
@@ -92,5 +92,6 @@ exports.postStatus = async (req, res) => {
     res.status(200).json(latestStatus);
   } catch (err) {
     console.log(err);
+    res.status(500).json({ error: "Failed to post status" });
   }
 };
