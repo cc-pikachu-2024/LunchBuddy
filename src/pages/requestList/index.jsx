@@ -3,6 +3,7 @@ import RequestCard from "../../components/requestCard";
 import CustomeButton from "../../components/customeButton";
 import { useNavigate } from "react-router-dom";
 import InfoCard from "../../components/infoCard";
+import CustomeTab from "../../components/customeTab";
 
 const RequestList = () => {
   const [requestList, setRequestList] = useState([]);
@@ -60,6 +61,11 @@ const RequestList = () => {
 
   return (
     <>
+      <CustomeTab>
+        <a>TODO: リクエストリスト受注待ち画面</a>
+        <a>TODO: リクエストリスト自分の依頼画面</a>
+        <a>TODO: リクエストリスト受注した依頼画面</a>
+      </CustomeTab>
       <h1>おねがいリスト</h1>
       <InfoCard user={user} />
       {requestList?.length ? (
@@ -77,6 +83,7 @@ const RequestList = () => {
       <CustomeButton
         onClick={() => navigate("/requestSend/")}
         text={"リクエスト作成"}
+        fixed={true}
       />
     </>
   );

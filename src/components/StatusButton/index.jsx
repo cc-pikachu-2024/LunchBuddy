@@ -4,7 +4,12 @@ import style from "./style.module.scss";
 import clsx from "clsx";
 import { createButtonStatus } from "./createButtonStatus";
 
-const StatusButton = ({ request, updateRequestList, user }) => {
+const StatusButton = ({
+  request,
+  updateRequestList,
+  user,
+  color = "success",
+}) => {
   const buttonContent = createButtonStatus(request, user, updateRequestList);
 
   const changeContent = (e) => {
@@ -14,11 +19,21 @@ const StatusButton = ({ request, updateRequestList, user }) => {
 
   return (
     <Button
-      variant="contained"
+      variant="outlined"
       onClick={changeContent}
-      className={clsx(style.Button, style[buttonContent.color])}
+      className={clsx(
+        color == "success" ? style.SuccessStatusButton : style.ErrorStatusButton
+      )}
     >
-      <p>{buttonContent.text}</p>
+      <p
+        className={
+          color == "success"
+            ? style.SuccessCustomeButtonText
+            : style.ErrorCustomeButtonText
+        }
+      >
+        {buttonContent.text}
+      </p>
     </Button>
   );
 };
@@ -29,4 +44,5 @@ StatusButton.propTypes = {
   request: PropTypes.object,
   updateRequestList: PropTypes.func,
   user: PropTypes.object,
+  color: PropTypes.string,
 };

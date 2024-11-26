@@ -1,12 +1,31 @@
 @use "@/styles/globals.scss" as *;
 
-.Button {
+.StatusButton {
+  max-width: 80px;
   width: 80%;
   margin: 0px !important;
   padding: 1px !important;
-  color: $g-font-color !important;
-  border-radius: 10px !important;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 5px !important;
+}
+
+.SuccessStatusButton {
+  @extend .StatusButton;
+  border: solid 1px $g-success-color !important;
+}
+
+.ErrorStatusButton {
+  @extend .StatusButton;
+  border: solid 1px $g-error-color !important;
+}
+
+.SuccessCustomeButtonText {
+  @extend .g-font-p;
+  color: $g-success-color;
+}
+
+.ErrorCustomeButtonText {
+  @extend .g-font-p;
+  color: $g-error-color;
 }
 
 .SuccessColor {

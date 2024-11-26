@@ -1,10 +1,23 @@
 @use "@/styles/globals.scss" as *;
 
 .Button {
+  @extend .g-font-h2;
   background-color: $g-primary-color !important;
-  width: 80%;
   margin: 10px !important;
-  color: $g-font-color !important;
-  border-radius: 8px;
+  border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  height: 40px;
+  cursor: pointer;
+}
+
+.FixedButton {
+  position: fixed !important;
+  bottom: 10px;
+  right: 10px;
+  height: 40px;
+  z-index: 1000;
+}
+
+.NotFixedButton {
+  width: 80%;
 }
