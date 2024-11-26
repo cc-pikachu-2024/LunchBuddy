@@ -11,10 +11,11 @@
     "seed:dev": "NODE_ENV=development knex seed:run",
     "seed:prod": "NODE_ENV=production knex seed:run",
     "start:dev": "NODE_ENV=development nodemon app.js",
-    "start:prod": "NODE_ENV=production nodemon app.js"
+    "start:prod": "NODE_ENV=production nodemon app.js",
+    "restore:dev": "NODE_ENV=development knex migrate:rollback --all && NODE_ENV=development knex migrate:latest && NODE_ENV=development knex seed:run",
+    "restore:prod": "NODE_ENV=production knex migrate:rollback --all && NODE_ENV=production knex migrate:latest && NODE_ENV=production knex seed:run"
   },
   "dependencies": {
-    "@aws-sdk/client-sns": "^3.699.0",
     "aws-serverless-express": "^3.3.5",
     "body-parser": "^1.17.1",
     "date-fns": "^4.1.0",
@@ -26,8 +27,8 @@
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.92",
-    "aws-sdk": "^2.1692.0",
-    "chai": "^5.1.2",
+    "chai": "^4.5.0",
+    "chai-http": "^4.4.0",
     "mocha": "^10.8.2",
     "nodemon": "^3.1.7",
     "sinon": "^19.0.2"
