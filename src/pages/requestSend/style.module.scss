@@ -1,24 +1,65 @@
 @use "@/styles/globals.scss" as *;
 
-:root {
-    background-color: $g-background-color;
-    padding: 0rem !important; 
+body{
+    margin: 7%;
+    height: fit-content;
 }
-
 
 h2 {
     display: flex;
     justify-content: flex-start;
     margin: 0 !important;
+    font-size: 20px;
+    color: black;
+    width: 20vw;
+    border-bottom: solid 1px #BD8451
 }
 
-.maxPrice{
-    background-color: rgb(242, 225, 191);
+.MaxPrice{
     margin-top: 5%;
+    border: 1px solid #BD8451 !important;
+    border-radius: 5px;
 }
 
-.maxPriceTag {
-    font-size: 10px;
+.PriceTagHelpIcon {
+    display: flex;
+    justify-content: space-between;
+    padding: 1% 1%;
 }
 
+.MaxPriceTag {
+    font-size: 12px;
+    padding-left: 8%;
+}
 
+.CalculatedPrice{
+    display: flex;
+    justify-content: space-between;
+    padding-left: 10%;
+    padding-right: 15%;
+}
+
+.Help {
+    display: flex;
+    align-items: flex-start;
+}
+.HelpIcon {
+    font-size: 10px !important;
+}
+
+.RequestButton {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+.RequestButton div {
+    flex-grow: 1; /* 各ボタンを均等に広げる */
+    margin: 0 5px; /* ボタンの間隔を調整 */
+}
+
+.BackButton {
+    background-color: #EFEFEF !important;
+    color: black !important;
+    box-shadow: none !important;
+  }
