@@ -1,20 +1,22 @@
 .MenuCard{
-    width: 140px;
-    height: 140px;
-    margin: 15px;
+    width:  32vw;
+    height: 30vw;
+    margin: 5vw;
     display: flex;
     justify-content: center;
-    background-color: white;
-    box-shadow: 5px 5px 10px #b2b2b2 !important;
+    background-color: transparent;
+    box-shadow: none !important;
 }
 
 .GratitudeCard{
-    width: 100px;
-    height: 35px;
-    margin: 5px;
+    width: 25vw;
+    height: 10vw;
+    margin: 3vw;
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: #F5F5F5 !important;
+    box-shadow: none !important;
 }
 
 .SelectedCard {
@@ -30,6 +32,10 @@
 }
 
 .image{
-    height: 100px;
-    width: 100px;
+    height: 25vw;
+    width: 25vw;
+}
+
+.Divider {
+    width: 90%;
 }

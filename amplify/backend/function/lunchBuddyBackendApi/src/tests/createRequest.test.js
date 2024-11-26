@@ -171,7 +171,7 @@ describe("", async () => {
         .where("request_id", res.body[0].request_id);
       const mock = {
         request_id: res.body[0].request_id,
-        user_id: 1,
+        requester_id: 1,
         menu_id: maxMenuId.maxId,
         gratitude_id: 3,
         requester_comment: "nice to meet you!",

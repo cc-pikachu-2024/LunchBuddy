@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Button from "../../components/customeButton";
+import CustomeButton from "../../components/customeButton";
 import style from "./style.module.scss";
 import clsx from "clsx";
 import OrderCard from "../../components/orderCard";
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 
 const RequestSend = () => {
   const navigate = useNavigate();
@@ -130,33 +131,67 @@ const RequestSend = () => {
 
   return (
     <>
-      <h2>メニュー</h2>
-
-      <OrderCard
-        menuList={menuList}
-        onClick={selectMenu}
-        isMenuSelected={selectedMenu}
-      />
-
-      <h2>お礼</h2>
-
-      <OrderCard
-        gratitudeList={gratitudeList}
-        onClick={selectGratitude}
-        isGratitudeSelected={selectedGratitude}
-      />
-
-      <div className={clsx(style.maxPrice)}>
-        <div className={clsx(style.maxPriceTag)}>
-          メニュー最大金額 + お礼最大金額 = 合計支払い最大金額
-        </div>
-        <div className={clsx(style.maxPriceNum)}>
-          {totalMenuPrice}円 + {totalGratitudePrice}円 = {totalPrice}円
-        </div>
+      <div>
+        <h2>メニュー</h2>
+        <OrderCard
+          menuList={menuList}
+          onClick={selectMenu}
+          isMenuSelected={selectedMenu}
+        />
+      </div>
+      <br></br>
+      <div>
+        <h2>お礼</h2>
+        <OrderCard
+          gratitudeList={gratitudeList}
+          onClick={selectGratitude}
+          isGratitudeSelected={selectedGratitude}
+        />
       </div>
 
-      <Button text="リクエスト登録" onClick={sendRequest}></Button>
-      <Button text="リストへ戻る" onClick={showRequestList}></Button>
+      <div className={clsx(style.MaxPrice)}>
+        <div className={clsx(style.PriceTagHelpIcon)}>
+          <div className={clsx(style.MaxPriceTag)}>
+            メニュー金額
+          </div>
+          <div className={clsx(style.MaxPriceTag)}>
+            お礼金額
+          </div>
+          <div className={clsx(style.MaxPriceTag)}>
+            お支払い金額
+          </div>
+          <div className={clsx(style.Help)}>
+            <HelpOutlineIcon className={clsx(style.HelpIcon)}>
+            </HelpOutlineIcon>
+          </div>
+        </div>
+        <div className={clsx(style.CalculatedPrice)}>
+            <div>
+              ~{totalMenuPrice}円 
+            </div>
+            <div>
+              +
+            </div>
+            <div>
+              ~{totalGratitudePrice}円 
+            </div>
+            <div>
+              =
+            </div>
+            <div>
+              ~{totalPrice}円
+            </div>
+        </div>
+      </div>
+      <br></br>
+      <div className={clsx(style.RequestButton)}>
+        <div>
+          <CustomeButton text="戻る" onClick={showRequestList} buttonColor={clsx(style.BackButton)} ></CustomeButton>
+        </div>
+        <div>
+          <CustomeButton text="登録" onClick={sendRequest}></CustomeButton>
+        </div>
+      </div>
     </>
   );
 };

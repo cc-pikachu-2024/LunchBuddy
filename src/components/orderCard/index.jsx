@@ -2,6 +2,7 @@ import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid2";
 import style from "./style.module.scss";
 import clsx from "clsx";
+import { Divider } from '@mui/material';
 
 const OrderCard = ({menuList, gratitudeList, onClick, isMenuSelected, isGratitudeSelected}) => {
 
@@ -22,12 +23,13 @@ const OrderCard = ({menuList, gratitudeList, onClick, isMenuSelected, isGratitud
                             [style.SelectedCard]: selected
                         })}
                         onClick={() => onClick(menu)}
-                    > 
-                      <div className={clsx(style.cardContent)}>
-                        <div>{menu.itemName}</div> 
-                        <img className={clsx(style.image)} src={menu.itemImageName} alt={menu.itemName} />
-                      </div>
-                  </Card>
+                      > 
+                        <div className={clsx(style.cardContent)}>
+                          <div>{menu.itemName}</div> 
+                          <img className={clsx(style.image)} src={menu.itemImageName} alt={menu.itemName} />
+                        </div>
+                    </Card>
+                    <Divider className={clsx(style.Divider)}></Divider>
                   </Grid>
                 )
               }) :
