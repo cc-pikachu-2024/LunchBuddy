@@ -149,7 +149,7 @@ describe("", async () => {
         .rejects(new Error("Database Error"));
 
       // Execute
-      const res = await request.get("/requests//gratitudesSum?userId=1");
+      const res = await request.get("/requests/gratitudesSum?userId=1");
 
       // Assert
       expect(res).to.have.status(500);
@@ -159,23 +159,135 @@ describe("", async () => {
   describe("post statuses", () => {
     it("登録に成功したら200のステータスコードを返す", async () => {
       // Setup
+      const sampleStatus = {
+        requestId: 1,
+        statusId: 2,
+        userId: 2,
+      };
+
       // Execute
+      const res = await request.post("/requests/statuses").send(sampleStatus);
       // Assert
+      expect(res).to.have.status(200);
     });
+    it("登録に成功したらINSERTしたレコードを返す", async () => {
+      // Setup
+      const sampleStatus = {
+        requestId: 1,
+        statusId: 2,
+        userId: 2,
+      };
+      // const expected = {
+      //   request_history_id: 11,
+      //   request_id: 1,
+      //   status_id: 2,
+      //   status_changed_user_id: 2,
+      //   created_at: ここはDBで生成されるため事前には決まらない
+      // };
+
+      // Execute
+      const res = await request.post("/requests/statuses").send(sampleStatus);
+
+      // Assert
+      const historyObj = await knex
+        .select("*")
+        .from("request_status_history")
+        .where("request_id", res.body[0].request_id);
+      console.log(historyObj);
+
+      expect(res).to.have.status(200);
+      expect(res.body).to.be.an("array");
+      expect(res.body[0]).to.have.property("created_at");
+
+      // created_at以外の要素が期待通りであることを確認
+      expect(res.body[0].request_history_id).to.deep.equal(11);
+      expect(res.body[0].request_id).to.deep.equal(1);
+      expect(res.body[0].status_id).to.deep.equal(2);
+      expect(res.body[0].status_changed_user_id).to.deep.equal(2);
+
+      // created_atが有効な日時であることを検証
+      const createdAt = new Date(res.body[0].created_at);
+      expect(createdAt).to.be.an.instanceof(Date);
+      expect(createdAt.toString()).to.not.equal("Invalid Date");
+    });
+
     it("登録に失敗したら500のステータスコードを返す", async () => {
       // Setup
+      sandbox
+        .stub(listRequestsModel, "postStatus")
+        .rejects(new Error("Database Error"));
+
       // Execute
+      const res = await request.post("/requests/statuses");
+
       // Assert
+      expect(res).to.have.status(500);
     });
+
     it("post responder が想定通りに動作している", async () => {
       // Setup
+      const sampleStatus = {
+        requestId: 1,
+        statusId: 2,
+        userId: 2,
+      };
+      const expected = {
+        request_id: 1,
+        responder_id: 2,
+      };
+
       // Execute
+      const res = await request.post("/requests/statuses").send(sampleStatus);
+
       // Assert
+      const responderObj = await knex
+        .select("*")
+        .from("responder")
+        .where("request_id", res.body[0].request_id);
+
+      expect(responderObj[0]).to.deep.equal(expected);
     });
+
     it("delete responder が想定通りに動作している", async () => {
       // Setup
+      const sampleStatus1 = {
+        requestId: 1,
+        statusId: 2,
+        userId: 2,
+      };
+      const expected1 = {
+        request_id: 1,
+        responder_id: 2,
+      };
+
+      const sampleStatus2 = {
+        requestId: 1,
+        statusId: 1,
+        userId: 2,
+        isCancel: true,
+      };
+      const expected2 = undefined;
+
       // Execute
+      const res1 = await request.post("/requests/statuses").send(sampleStatus1);
+
       // Assert
+      const responderObj1 = await knex
+        .select("*")
+        .from("responder")
+        .where("request_id", res1.body[0].request_id);
+      expect(responderObj1[0]).to.deep.equal(expected1);
+
+      // Execute
+      const res2 = await request.post("/requests/statuses").send(sampleStatus2);
+
+      // Assert
+      const responderObj2 = await knex
+        .select("*")
+        .from("responder")
+        .where("request_id", res2.body[0].request_id);
+
+      expect(responderObj2[0]).to.deep.equal(expected2);
     });
   });
 });

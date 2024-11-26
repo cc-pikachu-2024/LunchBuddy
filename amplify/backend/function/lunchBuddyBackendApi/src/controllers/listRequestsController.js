@@ -74,7 +74,7 @@ exports.postStatus = async (req, res) => {
     const convertedStatus = {
       request_id: status.requestId,
       status_id: status.statusId,
-      user_id: status.userId,
+      status_changed_user_id: status.userId,
     };
 
     const latestStatus = await listRequestsModel.postStatus(convertedStatus);
