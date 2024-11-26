@@ -8,6 +8,7 @@ $g-error-color: #ff5949; // 「取り下げ」　ボタン
 
 $g-grey: #f8f8f8;
 $g-secondary-grey: #f3f3f2;
+$g-dark-grey: #ccc;
 
 $g-background-color: #ffffff; // 背景色
 
@@ -31,4 +32,9 @@ $g-font-white-color: #ffffff;
 .g-font-p {
   color: $g-font-color;
   font-size: 12px;
+}
+.g-font-p-highlight {
+  color: $g-font-color;
+  font-size: 15px;
+  font-weight: bold !important;
 }

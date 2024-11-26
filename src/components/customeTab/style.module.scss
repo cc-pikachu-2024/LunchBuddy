@@ -1,0 +1,16 @@
+@use "@/styles/globals.scss" as *;
+
+.CustomeTabBox {
+  width: 100% !important;
+}
+
+.CustomeTabs {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  border-bottom: 1;
+  border-color: divider;
+  background-color: $g-background-color;
+  z-index: 1000;
+}
