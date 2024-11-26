@@ -37,7 +37,7 @@ module.exports = {
         .insert(obj)
         .returning([
           "request_id",
-          "user_id",
+          "requester_id",
           "menu_id",
           "gratitude_id",
           "requester_comment",
