@@ -1,31 +1,34 @@
 const loginModel = require("../models/loginModel");
-const bcrypt = require("bcrypt");
+// const bcrypt = require("bcrypt");
 
 exports.postLogin = async (req, res) => {
-    const { tel, password } = req.body;
+    const { phoneNumber, password } = req.body;
 
         try {
-            const user = await loginModel.findByTelNumber(tel);
+            const user = await loginModel.findByPhoneNumber(phoneNumber);
+            console.log(user);
 
-            if (!tel) {
-                return res.status(401).json({ message: "Invalid credentials" });
+            if (!user) {
+                return res.status(401).json({ message: "ユーザーが見つかりませんでした"});
             }
 
             // パスワード照合
-            const isPasswordCorrect = await bcrypt.compare(password, user.password);
-
-            if (!isPasswordCorrect) {
-                return res.status(401).json({ message: "Invalid credentials" });
+            if (password != user.password) {
+                return res.status(401).json({ message: "パスワードが一致しません" });
             }
 
             // 認証成功時のレスポンス
             res.status(200).json({
-                isAuthenticated: true,
-                user_id: user.id,
-                user_name: user.user_name,
-                office_id: user.office_id,
+                loginFlag: true,
+                userId: user.user_id,
+                userName: user.user_name,
+                password: user.password,
+                officeId: user.office_id,
                 floor: user.floor,
+                seat: user.seat,
+                phoneNumber: user.tel_number,
             });
+            console.log(res.body);
         } catch (error) {
             console.error(error);
             res.status(500).json({ message: 'Internal server error' });

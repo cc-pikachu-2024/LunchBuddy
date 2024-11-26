@@ -7,7 +7,9 @@ const knex = require("../db/knex");
 const loginModel = require("../models/loginModel");
 const bcrypt = require("bcrypt");
 
-describe("", async () => {
+chai.use(chaiHttp);
+
+describe("Login API", async () => {
     let sandbox;
     let request;
   
@@ -21,34 +23,61 @@ describe("", async () => {
       sandbox.restore(); 
     });
 
-    beforeEach(async () => {
-        const hashedPassword = await bcrypt.hash("testpassword", 10);
-        await knex("user").insert({
-            user_name: 'testuser',
-            password: hashedPassword,
-            office_id: 1,
-            floor: "5",
-            seat: "A10",
-            tel_number: '1234567890',
+    // beforeEach(async () => {
+    //     await knex("user").insert({
+    //         user_name: "testuser",
+    //         password: "testpassword",
+    //         office_id: 1,
+    //         floor: "5",
+    //         seat: "A10",
+    //         tel_number: '1234567890',
+    //     });
+    // });
+
+    // afterEach(async () => {
+    //     await knex("user").where({ tel_number: '1234567890' }).del();
+    // });
+
+    it("ログインに成功したときステータス:200,レスポンスを返却する",async () =>{
+        const res = await request.post("/requests/loginUser")
+        .send({
+            phoneNumber:"111-1111-1111",
+            password:"yyy",
         });
+
+            expect(res).to.have.status(200);
+            expect(res.body).to.be.an("object");
+            expect(res.body).to.have.property("loginFlag",true);
+            expect(res.body).to.have.property("userId",2);
+            expect(res.body).to.have.property("userName","田中太郎");
+            expect(res.body).to.have.property("officeId",1);
+            expect(res.body).to.have.property("floor","2");
+            expect(res.body).to.have.property("seat","2A-11");
+            expect(res.body).to.have.property("password","yyy");
     });
-    afterEach(async () => {
-        await knex('users').where({ tel_number: '1234567890' }).del();
+
+    it("存在しない電話番号のときステータス:401,レスポンスを返却する",async () =>{
+        const res = await request.post("/requests/loginUser")
+        .send({
+            phoneNumber:"phone-number",
+            password:"yyy",
+        });
+
+            expect(res).to.have.status(401);
+            expect(res.body).to.have.property("message","ユーザーが見つかりませんでした");
     });
 
+    it("電話番号はあるがPWが一致しないときステータス:401,レスポンスを返却する",async () =>{
+        const res = await request.post("/requests/loginUser")
+        .send({
+            phoneNumber:"111-1111-1111",
+            password:"xxx",
+        });
 
-
-
+            expect(res).to.have.status(401);
+            expect(res.body).to.have.property("message","パスワードが一致しません");
+    });
 }
-
-
-
-
-
-
-
-
-
 
 
 )

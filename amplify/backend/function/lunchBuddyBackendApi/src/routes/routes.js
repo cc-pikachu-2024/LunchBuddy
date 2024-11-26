@@ -8,7 +8,7 @@ const loginController = require("../controllers/loginController");
 router.get("/offices", signUpController.getAllOffices);
 router.post("/users", signUpController.postUserInfo);
 
-router.get("/login", loginController.postLogin);
+router.post("/loginUser", loginController.postLogin);
 
 router.get("/items", createRequestController.getAllItems);
 router.get("/gratitudes", createRequestController.getAllGratitudes);
