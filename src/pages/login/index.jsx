@@ -34,24 +34,27 @@ const Login = () => {
         throw new Error("ログインに失敗しました");
       }
 
-      const result = (await response.json())[0];
-      const { loginFlag, ...userWithoutLoginFlag } = result;
-
-      if (loginFlag === 1) {
-        sessionStorage.setItem("user", JSON.stringify(userWithoutLoginFlag));
-        navigate("/requestList");
-      } else {
-        throw new Error("ログインに失敗しました");
+      try {
+        const result = await response.json();
+        const { loginFlag, ...userWithoutLoginFlag } = result;
+        if (loginFlag === true) {
+          sessionStorage.setItem("user", JSON.stringify(userWithoutLoginFlag));
+          navigate("/requestList");
+        } else {
+          throw new Error();
+        }
+      } catch {
+        throw new Error("パスワード認証に失敗しました");
       }
     } catch (error) {
-      console.error("ログインに失敗しました:", error);
+      console.error(error);
     }
   };
 
   return (
     <div className={style.container}>
       <h1 className={style.title}>LunchBuddy</h1>
-      <Paper elevation={4} className={style.formContainer}>
+      <Paper elevation={0} className={style.formContainer}>
         <h1>ログイン</h1>
         <CustomeTextField
           label="電話番号"
