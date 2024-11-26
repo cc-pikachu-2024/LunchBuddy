@@ -11,5 +11,8 @@ export default createTheme({
     error: {
       main: "#ff5949",
     },
+    grey: {
+      [700]: "#ccc",
+    },
   },
 });
