@@ -5,7 +5,7 @@ import Signup from "./pages/signup";
 import RequestList from "./pages/requestList";
 import RequestDetail from "./pages/requestDetail";
 import RequestSend from "./pages/requestSend";
-import PurchasingDetail from "./pages/purchasingDeetail";
+import PurchasingDetail from "./pages/purchasingDetail";
 
 function App() {
   return (
