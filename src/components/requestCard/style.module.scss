@@ -1,8 +1,10 @@
 @use "@/styles/globals.scss" as *;
 
-.Card {
+.RequestCard {
   margin: 10px 0 !important;
   padding: 10px;
+  border-radius: 0px !important;
+  border-bottom: solid 1px $g-secondary-grey !important;
 }
 
 .Grid {

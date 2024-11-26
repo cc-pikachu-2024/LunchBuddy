@@ -33,16 +33,20 @@ body {
 }
 
 h1 {
-  font-size: $g-font-h1-size;
+  @extend .g-font-h1;
   line-height: 1.1;
 }
 
 h2 {
-  font-size: $g-font-h2-size;
+  @extend .g-font-h2;
+}
+
+h3 {
+  @extend .g-font-h3;
 }
 
 p {
-  font-size: $g-font-p-size;
+  @extend .g-font-p;
 }
 
 button {

@@ -8,20 +8,26 @@ exports.seed = async function (knex) {
   await knex("purchase_detail").insert([
     {
       purchase_id: 1,
-      item_name: "xxx",
+      item_name: "おにぎり",
       input_price: 150,
-      menu_flag: false,
+      menu_flag: true,
     },
     {
       purchase_id: 1,
-      item_name: "yyy",
+      item_name: "パン",
       input_price: 200,
       menu_flag: true,
     },
     {
-      purchase_id: 2,
-      item_name: "zzz",
-      input_price: 300,
+      purchase_id: 1,
+      item_name: "水",
+      input_price: 110,
+      menu_flag: false,
+    },
+    {
+      purchase_id: 1,
+      item_name: "アイス",
+      input_price: 180,
       menu_flag: false,
     },
   ]);

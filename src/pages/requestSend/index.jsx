@@ -1,77 +1,78 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Button from "../../components/customeButton";
+import CustomeButton from "../../components/customeButton";
 import style from "./style.module.scss";
 import clsx from "clsx";
 import OrderCard from "../../components/orderCard";
-import Grid from "@mui/material/Grid2";
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 
 const RequestSend = () => {
   const navigate = useNavigate();
 
-  const [menuList, setMenuList] = useState([])
-  const [gratitudeList, setGratitudeList] = useState([])
-  const [selectedMenu, setSelectedMenu] = useState([])
-  const [selectedGratitude, setSelectedGratitude] = useState([])
-  const [totalMenuPrice, setTotalMenuPrice] = useState()
-  const [totalGratitudePrice, setTotalGratitudePrice] = useState()
-  const [totalPrice, setTotalPrice] = useState()
+  const [menuList, setMenuList] = useState([]);
+  const [gratitudeList, setGratitudeList] = useState([]);
+  const [selectedMenu, setSelectedMenu] = useState([]);
+  const [selectedGratitude, setSelectedGratitude] = useState([]);
+  const [totalMenuPrice, setTotalMenuPrice] = useState();
+  const [totalGratitudePrice, setTotalGratitudePrice] = useState();
+  const [totalPrice, setTotalPrice] = useState();
 
   useEffect(() => {
-
     //todo:画像処理(sprint.react参照)
 
-
-    const fetchMenuList = async() => {
+    const fetchMenuList = async () => {
       try {
-        const response = await fetch("http://localhost:3000/requests/items");
+        const response = await fetch(
+          `${import.meta.env.VITE_API_HOST}/requests/items`
+        );
         const data = await response.json();
         setMenuList(data);
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
     };
     fetchMenuList();
-  
 
     //GratitudeのGET
 
-    const fetchGratitude = async() => {
+    const fetchGratitude = async () => {
       try {
-         const response = await fetch("http://localhost:3000/requests/gratitudes");
-         const data = await response.json();
-         setGratitudeList(data);
+        const response = await fetch(
+          `${import.meta.env.VITE_API_HOST}/requests/gratitudes`
+        );
+        const data = await response.json();
+        setGratitudeList(data);
       } catch (error) {
         console.log(error);
       }
-    }
+    };
     fetchGratitude();
   }, []);
 
   //menuクリック時
   const selectMenu = (selected) => {
     if (selectedMenu.includes(selected)) {
-      setSelectedMenu(selectedMenu.filter(item => item !== selected));  //セレクト解除
+      setSelectedMenu(selectedMenu.filter((item) => item !== selected)); //セレクト解除
     } else {
-      setSelectedMenu([...selectedMenu, selected]);  //セレクト
+      setSelectedMenu([...selectedMenu, selected]); //セレクト
     }
   };
 
   //お礼クリック時
   const selectGratitude = (selected) => {
     if (selectedGratitude.includes(selected)) {
-      setSelectedGratitude(selectedGratitude.filter(price => price !== selected)); //セレクト解除
+      setSelectedGratitude(
+        selectedGratitude.filter((price) => price !== selected)
+      ); //セレクト解除
     } else {
       setSelectedGratitude([selected]); //セレクト
     }
   };
 
   useEffect(() => {
-
     //メニューの最大金額計算
     const menuPrice = selectedMenu.reduce((acc, menuItem) => {
-      if (menuItem) { 
+      if (menuItem) {
         acc += menuItem.maxPrice;
       }
       return acc;
@@ -82,54 +83,51 @@ const RequestSend = () => {
       if (gratitude) {
         acc += gratitude.maxPrice;
       }
-      return acc; 
+      return acc;
     }, 0);
-    
+
     setTotalMenuPrice(menuPrice);
     setTotalGratitudePrice(gratitudePrice);
     setTotalPrice(menuPrice + gratitudePrice);
-
   }, [selectedMenu, selectedGratitude, menuList]);
 
-  
-  const sendRequest = async() => {
-    //リクエストのPost、status更新
-// TODO: localStrageに保存したuserIdをセットする。
+  const sendRequest = async () => {
+    const userId = JSON.parse(sessionStorage.getItem("user")).user_id;
     const requestBody = {
-      userId: "1", 
+      userId: userId,
       gratitudeId: selectedGratitude[0].gratitudeId,
       requesterComment: "テスト",
       totalMaxPrice: totalPrice,
-      itemIds: selectedMenu.map(item => item.itemId)
+      itemIds: selectedMenu.map((item) => item.itemId),
     };
-
-    console.log(requestBody);
 
     const param = {
       method: "POST",
       headers: {
-        "Content-Type": "application/json; charset=utf-8"
+        "Content-Type": "application/json; charset=utf-8",
       },
-      body: JSON.stringify(requestBody)
+      body: JSON.stringify(requestBody),
     };
 
-    try{
-      const response = await fetch("http://localhost:3000/requests/requests", param);
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_HOST}/requests/requests`,
+        param
+      );
       if (!response.ok) {
         throw new Error("ネットワークに問題があります");
       }
       const data = response.json();
       console.log("作成内容:", data);
       showRequestList();
-    }catch(error){
-      console.log("リクエスト送信エラー：",error);
-    };
-
-  }
+    } catch (error) {
+      console.log("リクエスト送信エラー：", error);
+    }
+  };
 
   const showRequestList = () => {
-    navigate("../requestList")
-  }
+    navigate("../requestList");
+  };
 
   return (
     <>
@@ -186,11 +184,13 @@ const RequestSend = () => {
         </div>
       </div>
       <br></br>
-      <div>
-        <Grid item size={6}>
-          <Button text="登録" onClick={sendRequest}></Button>
-          <Button text="リストへ戻る" onClick={showRequestList}></Button>
-        </Grid>
+      <div className={clsx(style.RequestButton)}>
+        <div>
+          <CustomeButton text="戻る" onClick={showRequestList} buttonColor={clsx(style.BackButton)} ></CustomeButton>
+        </div>
+        <div>
+          <CustomeButton text="登録" onClick={sendRequest}></CustomeButton>
+        </div>
       </div>
     </>
   );

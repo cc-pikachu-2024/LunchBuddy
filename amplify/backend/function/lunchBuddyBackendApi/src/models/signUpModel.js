@@ -18,6 +18,7 @@ module.exports = {
           "seat",
           "tel_number",
         ]);
+        console.log("登録結果:", result);
       return result;
     } catch (err) {
       console.error("Insert failed:", err);

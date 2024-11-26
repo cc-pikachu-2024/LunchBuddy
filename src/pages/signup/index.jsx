@@ -15,12 +15,13 @@ const Signup = () => {
   const [seat, setSeat] = useState(""); //座席
   const [phoneNumber, setPhoneNumber] = useState(""); //電話番号
 
-
   const navigate = useNavigate();
 
   const fetchOffices = async () => {
     try {
-      const response = await fetch("http://localhost:3000/requests/offices");
+      const response = await fetch(
+        `${import.meta.env.VITE_API_HOST}/requests/offices`
+      );
       if (!response.ok) {
         throw new Error("オフィス取得に失敗");
       }
@@ -52,18 +53,22 @@ const Signup = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:3000/requests/users", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newUser),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_HOST}/requests/users`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newUser),
+        }
+      );
       if (!response.ok) {
-        throw new Error("POSTに失敗");
+        throw new Error("登録に失敗しました");
       }
-      const data = await response.json();
-      console.log("登録内容:", data);
+
+      const result = (await response.json())[0];
+      sessionStorage.setItem("user", JSON.stringify(result));
       navigate("/requestList");
     } catch (error) {
       console.error("登録に失敗しました:", error);

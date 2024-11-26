@@ -11,8 +11,11 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Login />} />
+        {/* // TODO: ルートパスをLoginへ変更*/}
+        {/* <Route path="/" element={<Login />} /> */}
+        <Route path="/" element={<Signup />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/Login" element={<Login />} />
         <Route path="/requestList" element={<RequestList />} />
         <Route path="/requestDetail" element={<RequestDetail />} />
         <Route path="/requestSend" element={<RequestSend />} />

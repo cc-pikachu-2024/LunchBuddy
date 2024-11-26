@@ -9,38 +9,38 @@ exports.seed = async function (knex) {
     {
       request_id: 1,
       status_id: 1,
-      user_id: 1,
-      created_at: "2024-11-23 21:53:18.174768+09",
-    },
-    {
-      request_id: 1,
-      status_id: 2,
-      user_id: 1,
-      created_at: "2024-11-23 21:54:18.174768+09",
-    },
-    {
-      request_id: 1,
-      status_id: 3,
-      user_id: 1,
-      created_at: "2024-11-23 21:55:18.174768+09",
+      status_changed_user_id: 1,
+      created_at: "2024-11-22 10:53:18.174768+09",
     },
     {
       request_id: 2,
       status_id: 1,
-      user_id: 1,
-      created_at: "2024-11-23 21:56:18.174768+09",
-    },
-    {
-      request_id: 2,
-      status_id: 2,
-      user_id: 1,
-      created_at: "2024-11-23 21:57:18.174768+09",
+      status_changed_user_id: 2,
+      created_at: "2024-11-22 10:56:18.174768+09",
     },
     {
       request_id: 3,
       status_id: 1,
-      user_id: 2,
-      created_at: "2024-11-23 21:58:18.174768+09",
+      status_changed_user_id: 4,
+      created_at: "2024-11-21 11:58:18.174768+09",
+    },
+    {
+      request_id: 3,
+      status_id: 2,
+      status_changed_user_id: 1,
+      created_at: "2024-11-21 12:58:18.174768+09",
+    },
+    {
+      request_id: 3,
+      status_id: 3,
+      status_changed_user_id: 1,
+      created_at: "2024-11-21 13:58:18.174768+09",
+    },
+    {
+      request_id: 3,
+      status_id: 4,
+      status_changed_user_id: 4,
+      created_at: "2024-11-21 14:58:18.174768+09",
     },
   ]);
 };

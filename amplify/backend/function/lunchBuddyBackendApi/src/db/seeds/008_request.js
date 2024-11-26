@@ -7,21 +7,21 @@ exports.seed = async function (knex) {
   await knex("request").del();
   await knex("request").insert([
     {
-      user_id: 1,
+      requester_id: 1,
       menu_id: 1,
       gratitude_id: 1,
-      requester_comment: "hello",
+      requester_comment: "",
     },
     {
-      user_id: 1,
+      requester_id: 2,
       menu_id: 2,
       gratitude_id: 2,
-      requester_comment: "good morning",
+      requester_comment: "",
     },
     {
-      user_id: 2,
+      requester_id: 4,
       menu_id: 3,
-      gratitude_id: 2,
+      gratitude_id: 3,
       requester_comment: "",
     },
   ]);

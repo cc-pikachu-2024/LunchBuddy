@@ -3,6 +3,7 @@ import RequestCard from "../../components/requestCard";
 import CustomeButton from "../../components/customeButton";
 import { useNavigate } from "react-router-dom";
 import InfoCard from "../../components/infoCard";
+import CustomeTab from "../../components/customeTab";
 
 const RequestList = () => {
   const [requestList, setRequestList] = useState([]);
@@ -10,94 +11,61 @@ const RequestList = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // TODO: ユーザ情報取得APIに置き換え
-    setUser({
-      id: 1,
-      name: "柴田洋佑",
-      totalGratitude: 12000,
-      officeId: 1,
-      floor: 12,
-      seat: "トイレの近く",
-      telNumber: "999-9999-9999",
-    });
+    // TODO: 認証基盤（Cognito）を使ったAPIにリプレイス
+    // 一旦 sessionStorageに格納しているデータを参照
+    (async () => {
+      const sessionUser = JSON.parse(sessionStorage.getItem("user"));
+      const totalGratitude = (
+        await fetch(
+          `${import.meta.env.VITE_API_HOST}/requests/gratitudesSum?userId=${
+            sessionUser.user_id
+          }`
+        ).then((res) => res.json())
+      )?.sum;
+      setUser({
+        id: sessionUser.user_id,
+        name: sessionUser.user_name,
+        office_id: sessionUser.office_id,
+        floor: sessionUser.floor,
+        totalGratitude,
+      });
+    })();
   }, []);
 
   useEffect(() => {
-    // TODO: リクエスト情報取得のAPIに置き換え
-    // TODO: GET /requests/ は以下の形で欲しいかも
-    const requests = [
-      {
-        id: 1,
-        requesterId: 2,
-        requesterName: "田中太郎",
-        requesterFloor: "2",
-        requesterSheet: "トイレの近く",
-        responderId: 3,
-        menuId: 1,
-        menu: ["おにぎり", "お茶"],
-        gratitudeId: 1,
-        gratitudePrice: 200,
-        statusId: 0,
-        purchaseId: 1,
-        requesterComment: "",
-        createdAt: "2020-19-19",
-      },
-      {
-        id: 2,
-        requesterId: 1,
-        requesterName: "山田花子",
-        requesterFloor: "12",
-        requesterSheet: "トイレ",
-        responderId: 2,
-        menuId: 2,
-        menu: ["おにぎり", "おにぎり", "お茶"],
-        gratitudeId: 1,
-        gratitudePrice: 200,
-        statusId: 2,
-        purchaseId: 2,
-        requesterComment: "",
-        createdAt: "2020-19-20",
-      },
-      {
-        id: 3,
-        requesterId: 4,
-        requesterName: "鈴木じろう",
-        requesterFloor: "22",
-        requesterSheet: "トイレのそば",
-        responderId: 3,
-        menuId: 3,
-        menu: ["サンドイッチ"],
-        gratitudeId: 2,
-        gratitudePrice: 300,
-        statusId: 1,
-        purchaseId: 1,
-        requesterComment: "",
-        createdAt: "2020-19-21",
-      },
-    ];
-    setRequestList(requests);
+    (async () => {
+      const requests = await fetch(
+        `${import.meta.env.VITE_API_HOST}/requests/requestsList`
+      ).then((res) => res.json());
+      setRequestList(requests);
+    })();
   }, []);
 
-  const updateRequestList = (id, newRequest) => {
-    setRequestList((currentRequestList) => {
-      return currentRequestList.map((request) => {
-        if (request.id == id) {
-          return newRequest;
-        } else {
-          return request;
-        }
+  const updateRequestList = (id, newRequest, isDelete) => {
+    if (!isDelete) {
+      setRequestList((currentRequestList) => {
+        return currentRequestList.map((request) => {
+          if (request.id == id) {
+            return newRequest;
+          } else {
+            return request;
+          }
+        });
       });
-    });
-  };
-
-  const deleteRequestList = (id) => {
-    setRequestList((currentRequestList) => {
-      return currentRequestList.filter((request) => request.id != id);
-    });
+    } else {
+      setRequestList((currentRequestList) => {
+        return currentRequestList.filter((request) => request.id != id);
+      });
+    }
   };
 
   return (
     <>
+      <CustomeTab>
+        <a>TODO: リクエストリスト受注待ち画面</a>
+        <a>TODO: リクエストリスト自分の依頼画面</a>
+        <a>TODO: リクエストリスト受注した依頼画面</a>
+      </CustomeTab>
       <h1>おねがいリスト</h1>
       <InfoCard user={user} />
       {requestList?.length ? (
@@ -105,7 +73,6 @@ const RequestList = () => {
           <RequestCard
             request={request}
             updateRequestList={updateRequestList}
-            deleteRequestList={deleteRequestList}
             user={user}
             key={`request-${request.id}`}
           />
@@ -116,6 +83,7 @@ const RequestList = () => {
       <CustomeButton
         onClick={() => navigate("/requestSend/")}
         text={"リクエスト作成"}
+        fixed={true}
       />
     </>
   );
