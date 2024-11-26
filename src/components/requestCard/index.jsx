@@ -1,11 +1,10 @@
 import PropTypes from "prop-types";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import Grid from "@mui/material/Grid2";
 import style from "./style.module.scss";
 import clsx from "clsx";
 import StatusButton from "../StatusButton";
 import { updateRequest } from "../../common/requests";
+import { Box } from "@mui/material";
 
 const RequestCard = ({ request, updateRequestList, user }) => {
   const itemList = request.itemList.map((item) => item.itemName);
@@ -24,7 +23,7 @@ const RequestCard = ({ request, updateRequestList, user }) => {
     }
   };
   return (
-    <Card className={clsx(style.Card)} onClick={() => settlement()}>
+    <Box className={clsx(style.RequestCard)} onClick={() => settlement()}>
       <Grid container className={clsx(style.Grid)}>
         <Grid size={9} container className={clsx(style.Grid)}>
           <Grid size={12} className={clsx(style.Grid)}>
@@ -45,16 +44,14 @@ const RequestCard = ({ request, updateRequestList, user }) => {
           </Grid>
         </Grid>
         <Grid size={3} className={clsx(style.Grid)}>
-          <CardActions>
-            <StatusButton
-              request={request}
-              updateRequestList={updateRequestList}
-              user={user}
-            />
-          </CardActions>
+          <StatusButton
+            request={request}
+            updateRequestList={updateRequestList}
+            user={user}
+          />
         </Grid>
       </Grid>
-    </Card>
+    </Box>
   );
 };
 
