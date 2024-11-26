@@ -20,6 +20,7 @@ const Login = () => {
     };
 
     try {
+      console.log("!!!!!!!");
       const response = await fetch(
         `${import.meta.env.VITE_API_HOST}/requests/loginUser`,
         {
@@ -34,13 +35,22 @@ const Login = () => {
         throw new Error("ログインに失敗しました");
       }
 
-      const result = (await response.json())[0];
-      const { loginFlag, ...userWithoutLoginFlag } = result;
+      console.log("!!!!!!!", response);
 
-      if (loginFlag === true) {
-        sessionStorage.setItem("user", JSON.stringify(userWithoutLoginFlag));
-        navigate("/requestList");
-      } else {
+      // const result = (await response.json())[0];
+      try {
+        const result = await response.json();
+        console.log("???????", result);
+        const { loginFlag, ...userWithoutLoginFlag } = result;
+        console.log("!!!!!!!", loginFlag);
+
+        if (loginFlag === true) {
+          sessionStorage.setItem("user", JSON.stringify(userWithoutLoginFlag));
+          navigate("/requestList");
+        } else {
+          throw new Error("ログインに失敗しました");
+        }
+      } catch {
         throw new Error("ログインに失敗しました");
       }
     } catch (error) {
