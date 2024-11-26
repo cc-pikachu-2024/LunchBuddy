@@ -51,9 +51,10 @@ const Login = () => {
   return (
     <div className={style.container}>
       <h1 className={style.title}>LunchBuddy</h1>
-      <Paper className={style.formContainer}>
+      <Paper elevation={0} className={style.formContainer}>
         <h1>ログイン</h1>
         <CustomeTextField
+          className={style.textField}
           label="電話番号"
           value={phoneNumber}
           onChange={setPhoneNumber}
