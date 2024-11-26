@@ -1,4 +1,5 @@
 const knex = require("../db/knex");
+const bcrypt = require("bcrypt");
 
 module.exports = {
   async getAllOffices() {
@@ -7,8 +8,10 @@ module.exports = {
 
   async postUserInfo(userInfo) {
     try {
+      const hashedPassword = await bcrypt.hash(userInfo.password , 10);//ハッシュ化
+      console.log(hashedPassword);
       const result = await knex("user")
-        .insert(userInfo)
+        .insert({...userInfo, password: hashedPassword})
         .returning([
           "user_id",
           "user_name",

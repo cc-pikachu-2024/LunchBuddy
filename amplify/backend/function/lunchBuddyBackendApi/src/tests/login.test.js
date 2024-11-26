@@ -41,19 +41,18 @@ describe("Login API", async () => {
     it("ログインに成功したときステータス:200,レスポンスを返却する",async () =>{
         const res = await request.post("/requests/loginUser")
         .send({
-            phoneNumber:"111-1111-1111",
-            password:"yyy",
+            phoneNumber:"888-8888-8888",
+            password:"maho0217",
         });
 
             expect(res).to.have.status(200);
             expect(res.body).to.be.an("object");
             expect(res.body).to.have.property("loginFlag",true);
-            expect(res.body).to.have.property("userId",2);
-            expect(res.body).to.have.property("userName","田中太郎");
+            expect(res.body).to.have.property("userId",6);
+            expect(res.body).to.have.property("userName","maho");
             expect(res.body).to.have.property("officeId",1);
-            expect(res.body).to.have.property("floor","2");
-            expect(res.body).to.have.property("seat","2A-11");
-            expect(res.body).to.have.property("password","yyy");
+            expect(res.body).to.have.property("floor","12");
+            expect(res.body).to.have.property("seat","A14");
     });
 
     it("存在しない電話番号のときステータス:401,レスポンスを返却する",async () =>{
