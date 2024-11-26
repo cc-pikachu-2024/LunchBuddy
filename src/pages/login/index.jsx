@@ -57,7 +57,6 @@ const Login = () => {
       <Paper elevation={0} className={style.formContainer}>
         <h1>ログイン</h1>
         <CustomeTextField
-          className={style.textField}
           label="電話番号"
           value={phoneNumber}
           onChange={setPhoneNumber}
