@@ -8,7 +8,7 @@ exports.seed = async function (knex) {
   await knex("user").insert([
     {
       user_name: "山田花子",
-      password: "$2a$08$IYhM44xSXp2RkJZEy/VoOO62oIHwVEQorxxACLvSeTc/1EMyphDV6",
+      password: "$2a$10$e7/rjsBndgXa.2/MNtkm0OkqaMrFgrmDPgTnReLX39f8QkhLtSP.G",
       office_id: 1,
       floor: 12,
       seat: "S12の柱の横のプーさんのぬいぐるみが置いてある席",
@@ -16,7 +16,7 @@ exports.seed = async function (knex) {
     },
     {
       user_name: "田中太郎",
-      password: "$2a$08$IYhM44xSXp2RkJZEy/VoOO62oIHwVEQorxxACLvSeTc/1EMyphDV6",
+      password: "$2a$10$e7/rjsBndgXa.2/MNtkm0OkqaMrFgrmDPgTnReLX39f8QkhLtSP.G",
       office_id: 1,
       floor: 2,
       seat: "2A-11",
@@ -24,7 +24,7 @@ exports.seed = async function (knex) {
     },
     {
       user_name: "佐藤優子",
-      password: "$2a$08$IYhM44xSXp2RkJZEy/VoOO62oIHwVEQorxxACLvSeTc/1EMyphDV6",
+      password: "$2a$10$e7/rjsBndgXa.2/MNtkm0OkqaMrFgrmDPgTnReLX39f8QkhLtSP.G",
       office_id: 1,
       floor: 4,
       seat: "5112",
@@ -32,7 +32,7 @@ exports.seed = async function (knex) {
     },
     {
       user_name: "鈴木じろう",
-      password: "$2a$08$IYhM44xSXp2RkJZEy/VoOO62oIHwVEQorxxACLvSeTc/1EMyphDV6",
+      password: "$2a$10$e7/rjsBndgXa.2/MNtkm0OkqaMrFgrmDPgTnReLX39f8QkhLtSP.G",
       office_id: 1,
       floor: 22,
       seat: "22F南トイレの入り口横",
@@ -40,7 +40,7 @@ exports.seed = async function (knex) {
     },
     {
       user_name: "原三郎",
-      password: "$2a$08$IYhM44xSXp2RkJZEy/VoOO62oIHwVEQorxxACLvSeTc/1EMyphDV6",
+      password: "$2a$10$e7/rjsBndgXa.2/MNtkm0OkqaMrFgrmDPgTnReLX39f8QkhLtSP.G",
       office_id: 1,
       floor: 8,
       seat: "8F北区画D21",
