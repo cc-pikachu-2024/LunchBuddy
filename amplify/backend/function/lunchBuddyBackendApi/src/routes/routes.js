@@ -19,6 +19,7 @@ router.post("/requests", createRequestController.postRequest);
 router.get("/requestsList", listRequestsController.getAllRequests);
 router.get("/gratitudesSum", listRequestsController.getGratitudesPriceSum);
 router.post("/statuses", listRequestsController.postStatus);
+router.get("/purchasedItems", listRequestsController.getPurchasedItemList);
 
 router.post("/purchase", purchaseController.postPurchase);
 

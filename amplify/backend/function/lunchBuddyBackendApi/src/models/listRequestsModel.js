@@ -89,4 +89,14 @@ module.exports = {
       console.error("Insert failed:", err);
     }
   },
+
+  async getPurchasedItemList(requestId) {
+    return knex("purchase")
+      .join(
+        "purchase_detail",
+        "purchase.purchase_id",
+        "purchase_detail.purchase_id"
+      )
+      .where("purchase.request_id", requestId);
+  },
 };

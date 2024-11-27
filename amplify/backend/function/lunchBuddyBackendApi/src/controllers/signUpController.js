@@ -40,7 +40,7 @@ exports.postUserInfo = async (req, res) => {
 
 exports.getUserInfo = async (req, res) => {
   try {
-    const userId = req.body.userId;
+    const userId = req.query.userId;
     const userInfo = await signUpModel.getUserInfo(userId);
     const capitalCasedUserInfo = {
       userId: userInfo[0].user_id,
