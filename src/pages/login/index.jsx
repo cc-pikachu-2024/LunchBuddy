@@ -42,6 +42,7 @@ const Login = () => {
         const { loginFlag, ...userWithoutLoginFlag } = result;
         if (loginFlag === true) {
           sessionStorage.setItem("user", JSON.stringify(userWithoutLoginFlag));
+          console.log(userWithoutLoginFlag);
           navigate("/requestList");
         } else {
           throw new Error();
