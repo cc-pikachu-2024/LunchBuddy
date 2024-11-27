@@ -4,18 +4,12 @@ import style from "./style.module.scss";
 import clsx from "clsx";
 import { createButtonStatus } from "./createButtonStatus";
 
-const StatusButton = ({
+const RequestDetailStatusButton = ({
   request,
-  updateRequestList,
   user,
   color = "success", // "success" か "error" を入力
 }) => {
-  const buttonContent = createButtonStatus(
-    request,
-    user,
-    updateRequestList,
-    color
-  );
+  const buttonContent = createButtonStatus(request, user);
 
   const changeContent = (e) => {
     e.stopPropagation();
@@ -49,11 +43,10 @@ const StatusButton = ({
   );
 };
 
-export default StatusButton;
+export default RequestDetailStatusButton;
 
-StatusButton.propTypes = {
+RequestDetailStatusButton.propTypes = {
   request: PropTypes.object,
-  updateRequestList: PropTypes.func,
   user: PropTypes.object,
   color: PropTypes.string,
 };

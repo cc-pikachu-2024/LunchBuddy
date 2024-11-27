@@ -94,11 +94,15 @@ const RequestDetail = () => {
       </div>
       <Grid size={6} container direction="column" justifyContent="flex-end">
         <Grid size={12} display="flex">
-          <RequestDetailStatusButton
-            request={request}
-            user={user}
-            color="success"
-          />
+          {request.statusId === 1 ? (
+            <RequestDetailStatusButton
+              request={request}
+              user={user}
+              color="success"
+            />
+          ) : (
+            "自分の依頼ページへ"
+          )}
         </Grid>
       </Grid>
     </>
