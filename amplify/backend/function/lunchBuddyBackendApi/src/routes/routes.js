@@ -7,6 +7,7 @@ const loginController = require("../controllers/loginController");
 const purchaseController = require("../controllers/purchaseController");
 
 router.get("/offices", signUpController.getAllOffices);
+router.get("/users", signUpController.getUserInfo);
 router.post("/users", signUpController.postUserInfo);
 
 router.post("/loginUser", loginController.postLogin);
