@@ -29,12 +29,14 @@ $g-font-white-color: #ffffff;
   font-size: 14px;
   font-weight: bold;
 }
-.g-font-p {
+
+.g-font-p-large {
   color: $g-font-color;
-  font-size: 12px;
-}
-.g-font-p-highlight {
-  color: $g-font-color;
-  font-size: 15px;
+  font-size: 18px;
   font-weight: bold !important;
+}
+
+.g-font-p-small {
+  color: $g-font-color;
+  font-size: 14px;
 }
