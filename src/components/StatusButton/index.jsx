@@ -10,7 +10,12 @@ const StatusButton = ({
   user,
   color = "success",
 }) => {
-  const buttonContent = createButtonStatus(request, user, updateRequestList);
+  const buttonContent = createButtonStatus(
+    request,
+    user,
+    updateRequestList,
+    color
+  );
 
   const changeContent = (e) => {
     e.stopPropagation();
@@ -18,23 +23,29 @@ const StatusButton = ({
   };
 
   return (
-    <Button
-      variant="outlined"
-      onClick={changeContent}
-      className={clsx(
-        color == "success" ? style.SuccessStatusButton : style.ErrorStatusButton
+    <>
+      {buttonContent.isDisplay && (
+        <Button
+          variant="outlined"
+          onClick={changeContent}
+          className={clsx(
+            color == "success"
+              ? style.SuccessStatusButton
+              : style.ErrorStatusButton
+          )}
+        >
+          <p
+            className={
+              color == "success"
+                ? style.SuccessCustomeButtonText
+                : style.ErrorCustomeButtonText
+            }
+          >
+            {buttonContent.text}
+          </p>
+        </Button>
       )}
-    >
-      <p
-        className={
-          color == "success"
-            ? style.SuccessCustomeButtonText
-            : style.ErrorCustomeButtonText
-        }
-      >
-        {buttonContent.text}
-      </p>
-    </Button>
+    </>
   );
 };
 
