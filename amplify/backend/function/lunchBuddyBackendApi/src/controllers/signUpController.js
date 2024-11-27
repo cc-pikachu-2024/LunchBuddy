@@ -24,6 +24,7 @@ exports.postUserInfo = async (req, res) => {
       tel_number: userInfo.phoneNumber,
     };
     const createdUserInfo = await signUpModel.postUserInfo(convertedUserInfo);
+    console.log("createdUserInfo",createdUserInfo);
     res.status(200).json(createdUserInfo);
   } catch (err) {
     res.status(500).json({ error: "Failed to post users" });

@@ -13,19 +13,25 @@ const RequestList = () => {
     // 一旦 sessionStorageに格納しているデータを参照
     (async () => {
       const sessionUser = JSON.parse(sessionStorage.getItem("user"));
-      console.log("sessionUser:" ,sessionUser);
+      const unifiedUser = {
+        user_id: sessionUser.user_id || sessionUser.userId,
+        user_name: sessionUser.user_name || sessionUser.userName,
+        office_id: sessionUser.office_id || sessionUser.officeId,
+        floor: sessionUser.floor,
+      }
+      console.log("unifiedUser:" ,unifiedUser);
       const totalGratitude = (
         await fetch(
           `${import.meta.env.VITE_API_HOST}/requests/gratitudesSum?userId=${
-            sessionUser.userId
+            unifiedUser.user_id
           }`
         ).then((res) => res.json())
       )?.sum;
       setUser({
-        id: sessionUser.userId,
-        name: sessionUser.userName,
-        office_id: sessionUser.officeId,
-        floor: sessionUser.floor,
+        id: unifiedUser.user_id,
+        name: unifiedUser.user_name,
+        office_id: unifiedUser.office_id,
+        floor: unifiedUser.floor,
         totalGratitude,
       });
     })();

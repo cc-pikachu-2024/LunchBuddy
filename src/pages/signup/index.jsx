@@ -68,6 +68,7 @@ const Signup = () => {
       }
 
       const result = (await response.json())[0];
+      console.log("result:",result);
       sessionStorage.setItem("user", JSON.stringify(result));
       navigate("/requestList");
     } catch (error) {
