@@ -4,11 +4,14 @@ import CustomeTextField from "../../components/customeTextField";
 import { useNavigate } from "react-router-dom";
 import Paper from "@mui/material/Paper";
 import style from "./style.module.scss";
+import Alert from "@mui/material/Alert"; 
+import Snackbar from "@mui/material/Snackbar";
 
 const Login = () => {
   const [password, setPassword] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-
+  const [errorMessage, setErrorMessage] = useState(""); // エラーメッセージの状態
+  const [open, setOpen] = useState(false); // Snackbarの表示状態
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
@@ -47,8 +50,17 @@ const Login = () => {
         throw new Error("パスワード認証に失敗しました");
       }
     } catch (error) {
+      setErrorMessage(error.message); 
+      setOpen(true); 
       console.error(error);
     }
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
   };
 
   return (
@@ -71,6 +83,11 @@ const Login = () => {
         />
         <CustomeButton text="ログイン" onClick={() => handleSubmit()} />
       </Paper>
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
+        <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+          {errorMessage}
+        </Alert>
+      </Snackbar>
     </div>
   );
 };

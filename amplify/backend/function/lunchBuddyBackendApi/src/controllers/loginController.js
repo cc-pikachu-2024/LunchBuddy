@@ -1,5 +1,5 @@
 const loginModel = require("../models/loginModel");
-// const bcrypt = require("bcrypt");
+const bcrypt = require("bcrypt");
 
 exports.postLogin = async (req, res) => {
     const { phoneNumber, password } = req.body;
@@ -12,8 +12,10 @@ exports.postLogin = async (req, res) => {
                 return res.status(401).json({ message: "ユーザーが見つかりませんでした"});
             }
 
+            const isPasswordValid = await bcrypt.compare(password, user.password); // ハッシュ化されたパスワードと比較
+
             // パスワード照合
-            if (password != user.password) {
+            if (!isPasswordValid) {
                 return res.status(401).json({ message: "パスワードが一致しません" });
             }
 
