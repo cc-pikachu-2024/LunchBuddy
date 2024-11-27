@@ -1,22 +1,23 @@
 const knex = require("../db/knex");
 
 module.exports = {
-  async putPurchase() {
+  async postPurchase(obj) {
     try {
-      const hoge = await knex();
-      return hoge;
-    } catch (error) {
+      const purchaseId = await knex("purchase")
+        .insert(obj)
+        .returning(["purchase_id"]);
+      return purchaseId;
+    } catch {
       throw new Error("Database error");
     }
   },
 };
 
 module.exports = {
-  async putPurchaseDetail() {
+  async postPurchaseDetail(obj) {
     try {
-      const hoge = await knex();
-      return hoge;
-    } catch (error) {
+      await knex("purchase").insert(obj);
+    } catch {
       throw new Error("Database error");
     }
   },
