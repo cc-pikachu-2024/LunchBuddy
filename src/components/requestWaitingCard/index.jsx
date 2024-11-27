@@ -1,17 +1,12 @@
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
-import Grid from "@mui/material/Grid2";
 import style from "./style.module.scss";
 import clsx from "clsx";
-import StatusButton from "../StatusButton";
-import { updateRequest } from "../../common/requests";
 import Card from "@mui/material/Card";
 import PersonIcon from "@mui/icons-material/Person";
 import ApartmentIcon from "@mui/icons-material/Apartment";
 import ChairAltIcon from "@mui/icons-material/ChairAlt";
 import LocalDiningIcon from "@mui/icons-material/LocalDining";
-import TextsmsIcon from "@mui/icons-material/Textsms";
-import CurrencyYenIcon from "@mui/icons-material/CurrencyYen";
 import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
 import { Divider } from '@mui/material';
 
@@ -34,7 +29,7 @@ const RequestCard = ({ user, request, updateRequestList }) => {
                 <PersonIcon /> {req.requesterName}
               </div>
               <div className={clsx(style.Office)}>
-                <ApartmentIcon /> {req.requesterFloor}F
+                <ApartmentIcon />{req.requesterFloor}F
                 &emsp;
                 <ChairAltIcon /> {req.requesterSeat}
               </div>

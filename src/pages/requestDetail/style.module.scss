@@ -1,20 +1,20 @@
 @use "@/styles/globals.scss" as *;
 
 .ReceivedRequestCardP {
-  @extend .g-font-p-highlight;
+  @extend .g-font-p-large;
   margin-top: 0px;
   margin-left: 6px;
 }
 
 .RequestDetailComment {
-  @extend .g-font-p-highlight;
+  @extend .g-font-p-large;
   margin-top: 0px;
 }
 
 .ReceivedRequestCardPWeight {
   @extend .ReceivedRequestCardP;
-  @extend .g-font-p-highlight;
-  margin-top: 0px;
+  @extend .g-font-p-large;
+  margin-top: 0 !important;
 }
 
 .back-button {
