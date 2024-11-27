@@ -1,17 +1,69 @@
-@use "@/styles/globals.scss" as *;
-
-.RequestCard {
-  margin: 10px 0 !important;
-  padding: 10px;
-  border-radius: 0px !important;
-  border-bottom: solid 1px $g-secondary-grey !important;
+.Card{
+  margin: 5% 0;
+  box-shadow: none !important;
 }
 
-.Grid {
-  margin: 0 !important;
+.UserRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 3% 2%;
+  align-items: center;
 }
 
-.CustomP {
-  margin: 0 10px !important;
+.User{
+  width: 60%;
+  display: flex; 
+  align-items: center;
+  font-weight: bold;
+  font-size: large;
+}
+
+.Office{
+  width: 40%;
   text-align: left;
+  white-space: nowrap;         /* テキストを1行に固定 */
+  overflow: hidden;            /* はみ出した部分を隠す */
+  text-overflow: ellipsis;     /* はみ出した部分に...を表示 */
+}
+
+.PriceRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 2% 2%;
+  align-items: center;
+}
+
+.FoodItem {
+  width: 60%;
+  display: flex; 
+  align-items: center;
+}
+
+.GratitudeItem {
+  width: 40%;
+  display: flex;
+  align-items: center;
+}
+
+.Item {
+  text-align: left;
+  margin-left: 5px;
+  font-size: 15px;
+  white-space: nowrap;         /* テキストを1行に固定 */
+  overflow: hidden;            /* はみ出した部分を隠す */
+  text-overflow: ellipsis;     /* はみ出した部分に...を表示 */
+  width: 80%;                
+}
+
+.Gratitude {
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.Price {
+  display: flex;
+  justify-content: flex-start;
+  font-weight: bold;
+  font-size: 20px;
 }

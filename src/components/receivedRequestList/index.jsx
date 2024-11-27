@@ -3,14 +3,24 @@ import Box from "@mui/material/Box";
 import ReceivedRequestCard from "../receivedRequestCard";
 import style from "./style.module.scss";
 
-const ReceivedRequestList = ({ user, requestList, updateRequestList }) => {
-  const receivedRequestList = requestList.filter(
-    (request) => request.responderId == user.id
-  );
+  const ReceivedRequestList = ({ user, requestList, updateRequestList }) => {
+    //ResponderIdが自分のuserIdと一致し、ステータスが2, 3, 4のリクエストをフィルタリング
+    console.log(requestList);
+    const filteredRequests = requestList.filter(
+      (request) => request.responderId == user.id && (request.statusId === 2 || request.statusId === 3 || request.statusId === 4)
+    );
+    //ステータスに応じてソート
+    const sortedRequests = filteredRequests.sort((a, b) => {
+      if (a.statusId === 4 && b.statusId !== 4) return 1;
+      if (a.statusId !== 4 && b.statusId === 4) return -1;
+      return a.id - b.id;
+    });
+
+
   return (
     <Box className={style.ReceivedRequestList}>
-      {receivedRequestList.length ? (
-        receivedRequestList.map((request) => (
+      {sortedRequests.length ? (
+        sortedRequests.map((request) => (
           <ReceivedRequestCard
             request={request}
             user={user}
@@ -21,6 +31,7 @@ const ReceivedRequestList = ({ user, requestList, updateRequestList }) => {
       ) : (
         <p>現在受注したリクエストはありません。</p>
       )}
+      
     </Box>
   );
 };
