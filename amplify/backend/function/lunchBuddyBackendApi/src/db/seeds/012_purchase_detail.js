@@ -54,5 +54,29 @@ exports.seed = async function (knex) {
       input_price: 80,
       menu_flag: false,
     },
+    {
+      purchase_id: 3,
+      item_name: "サンドイッチ",
+      input_price: 220,
+      menu_flag: true,
+    },
+    {
+      purchase_id: 3,
+      item_name: "コーヒー",
+      input_price: 180,
+      menu_flag: true,
+    },
+    {
+      purchase_id: 3,
+      item_name: "スムージー",
+      input_price: 160,
+      menu_flag: false,
+    },
+    {
+      purchase_id: 3,
+      item_name: "蒲焼さん太郎",
+      input_price: 30,
+      menu_flag: false,
+    },
   ]);
 };

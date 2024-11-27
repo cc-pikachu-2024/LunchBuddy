@@ -1,8 +1,4 @@
 import { useEffect, useState } from "react";
-// import RequestCard from "../../components/requestCard";
-// import CustomeButton from "../../components/customeButton";
-// import { useNavigate } from "react-router-dom";
-// import InfoCard from "../../components/infoCard";
 import CustomeTab from "../../components/customeTab";
 import ReceivedRequestList from "../../components/receivedRequestList";
 import RequestMyList from "../../components/requestMyList";
@@ -11,7 +7,6 @@ import RequestWaitingList from "../../components/requestWaitingList";
 const RequestList = () => {
   const [requestList, setRequestList] = useState([]);
   const [user, setUser] = useState({});
-  // const navigate = useNavigate();
 
   useEffect(() => {
     // TODO: 認証基盤（Cognito）を使ったAPIにリプレイス
