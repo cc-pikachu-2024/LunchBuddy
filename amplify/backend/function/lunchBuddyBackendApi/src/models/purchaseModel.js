@@ -11,12 +11,12 @@ module.exports = {
       throw new Error("Database error");
     }
   },
-};
-
-module.exports = {
   async postPurchaseDetail(obj) {
     try {
-      await knex("purchase").insert(obj);
+      console.log(obj);
+      return await knex("purchase_detail")
+        .insert(obj)
+        .returning(["purchase_detail_id"]);
     } catch {
       throw new Error("Database error");
     }

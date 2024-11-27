@@ -30,6 +30,7 @@
     "@types/aws-lambda": "^8.10.92",
     "chai": "^4.5.0",
     "chai-http": "^4.4.0",
+    "chai-subset": "^1.6.0",
     "mocha": "^10.8.2",
     "nodemon": "^3.1.7",
     "sinon": "^19.0.2"

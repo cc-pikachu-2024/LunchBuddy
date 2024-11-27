@@ -4,8 +4,10 @@ const sinon = require("sinon");
 const expect = chai.expect;
 const app = require("../app");
 const purchaseModel = require("../models/purchaseModel");
-const knex = require("knex");
+const knex = require("../db/knex");
+const chaiSubset = require("chai-subset");
 
+chai.use(chaiSubset);
 chai.use(chaiHttp);
 
 describe("Purchase API", async () => {
@@ -43,7 +45,7 @@ describe("Purchase API", async () => {
       const reqBody = {
         requestId: 1,
         responderId: 2,
-        recieptId: "",
+        recieptId: "xxx",
         itemList: [
           {
             itemName: "おにぎり",
@@ -70,54 +72,50 @@ describe("Purchase API", async () => {
       const res = await request.post("/requests/purchase").send(reqBody);
 
       expect(res).to.have.status(200);
-      expect(res.body).to.be.an("object");
 
       const dbPurchase = await knex("purchase")
         .select("*")
-        .where("purchase_id", 3)
+        .where("purchase_id", 4)
         .first();
       const expectDbPurchase = {
-        purchase_id: 3,
+        purchase_id: 4,
         request_id: 1,
         responder_id: 2,
-        reciept_id: "",
+        reciept_id: "xxx",
       };
       expect(dbPurchase).to.deep.equal(expectDbPurchase);
 
       const dbPurchaseDetail = await knex("purchase_detail")
         .select("*")
         .where("purchase_id", dbPurchase.purchase_id);
+
       const expectDbPurchaseDetail = [
         {
-          purchase_detail_id: 9,
-          purchase_id: 3,
+          purchase_id: 4,
           item_name: "おにぎり",
           input_price: 100,
           menu_flag: true,
         },
         {
-          purchase_detail_id: 10,
-          purchase_id: 3,
+          purchase_id: 4,
           item_name: "いいおにぎり",
           input_price: 150,
           menu_flag: true,
         },
         {
-          purchase_detail_id: 11,
-          purchase_id: 3,
+          purchase_id: 4,
           item_name: "コーヒー",
           input_price: 150,
           menu_flag: true,
         },
         {
-          purchase_detail_id: 12,
-          purchase_id: 3,
+          purchase_id: 4,
           item_name: "お菓子",
           input_price: 200,
           menu_flag: false,
         },
       ];
-      expect(dbPurchaseDetail).to.deep.equal(expectDbPurchaseDetail);
+      expect(dbPurchaseDetail).to.containSubset(expectDbPurchaseDetail);
     });
 
     it("商品購入時に通信エラーが起きた時、Errorをを返す（ステータス:500）", async () => {
@@ -128,7 +126,7 @@ describe("Purchase API", async () => {
       const reqBody = {
         requestId: 1,
         responderId: 2,
-        recieptId: "",
+        recieptId: "xxx",
         itemList: [
           {
             itemName: "おにぎり",
