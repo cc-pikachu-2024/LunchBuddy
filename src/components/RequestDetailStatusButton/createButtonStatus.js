@@ -1,23 +1,17 @@
-export const createButtonStatus = (request, user) => {
+export const createButtonStatus = (request, user, setIsPushed) => {
   const updateStatus = async (request, user, statusId) => {
     try {
-      const res = await fetch(
-        `${import.meta.env.VITE_API_HOST}/requests/statuses`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            requestId: request.id,
-            userId: user.userId,
-            statusId: statusId,
-          }),
-        }
-      );
-      console.log(res);
-      const resJson = await res.json();
-      console.log(resJson);
+      await fetch(`${import.meta.env.VITE_API_HOST}/requests/statuses`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          requestId: request.id,
+          userId: user.userId,
+          statusId: statusId,
+        }),
+      });
     } catch (err) {
       console.log(err);
     }
@@ -26,6 +20,7 @@ export const createButtonStatus = (request, user) => {
   const isDisplay = true;
   const text = "まかせて！";
   const onClick = async () => {
+    setIsPushed(true);
     await updateStatus(request, user, 2);
   };
 
