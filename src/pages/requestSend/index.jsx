@@ -94,7 +94,7 @@ const RequestSend = () => {
   const sendRequest = async () => {
     const userId = JSON.parse(sessionStorage.getItem("user")).user_id;
     const requestBody = {
-      userId: userId,
+      requesterId: userId,
       gratitudeId: selectedGratitude[0].gratitudeId,
       requesterComment: "テスト",
       totalMaxPrice: totalPrice,

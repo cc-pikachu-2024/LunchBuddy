@@ -6,7 +6,6 @@ exports.postLogin = async (req, res) => {
 
         try {
             const user = await loginModel.findByPhoneNumber(phoneNumber);
-            console.log(user);
 
             if (!user) {
                 return res.status(401).json({ message: "ユーザーが見つかりませんでした"});

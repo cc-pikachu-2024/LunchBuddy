@@ -42,6 +42,7 @@ const Login = () => {
         const { loginFlag, ...userWithoutLoginFlag } = result;
         if (loginFlag === true) {
           sessionStorage.setItem("user", JSON.stringify(userWithoutLoginFlag));
+          console.log(userWithoutLoginFlag);
           navigate("/requestList");
         } else {
           throw new Error();
@@ -55,6 +56,7 @@ const Login = () => {
       console.error(error);
     }
   };
+
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -82,6 +84,7 @@ const Login = () => {
           required={true}
         />
         <CustomeButton text="ログイン" onClick={() => handleSubmit()} />
+        <CustomeButton text="アカウント登録" onClick={() =>  navigate("/signup")} />
       </Paper>
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
         <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>

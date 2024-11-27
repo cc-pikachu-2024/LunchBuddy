@@ -1,0 +1,42 @@
+@use "@/styles/globals.scss" as *;
+
+.ReceivedRequestCardP {
+  @extend .g-font-p-highlight;
+  margin-top: 0px;
+  margin-left: 6px;
+}
+
+.RequestDetailComment {
+  @extend .g-font-p-highlight;
+  margin-top: 0px;
+}
+
+.ReceivedRequestCardPWeight {
+  @extend .ReceivedRequestCardP;
+  @extend .g-font-p-highlight;
+  margin-top: 0px;
+}
+
+.back-button {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0px;
+  display: flex;
+  align-items: center;
+}
+
+.back-button svg {
+  font-size: 24px;
+}
+
+.image {
+  height: 25vw;
+  width: 25vw;
+  // width: "100%";
+  // height: "auto";
+  display: "block";
+}

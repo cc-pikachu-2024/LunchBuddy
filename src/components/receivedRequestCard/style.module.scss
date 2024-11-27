@@ -18,3 +18,8 @@
   @extend .g-font-p-highlight;
   margin-top: 0 !important;
 }
+
+.grayedOut {
+  opacity: 0.5; 
+  pointer-events: none;
+}

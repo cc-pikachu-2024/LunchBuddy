@@ -3,9 +3,7 @@ const chaiHttp = require("chai-http");
 const sinon = require("sinon");
 const expect = chai.expect;
 const app = require("../app");
-// const signUpModel = require("../models/signUpModel");
 const listRequestsModel = require("../models/listRequestsModel");
-// const createRequestModel = require("../models/createRequestModel");
 const knex = require("../db/knex");
 
 chai.use(chaiHttp);
