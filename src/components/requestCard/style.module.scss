@@ -1,17 +1,81 @@
 @use "@/styles/globals.scss" as *;
 
-.RequestCard {
-  margin: 10px 0 !important;
-  padding: 10px;
-  border-radius: 0px !important;
-  border-bottom: solid 1px $g-secondary-grey !important;
+// .RequestCard {
+//   margin: 10px 0 !important;
+//   padding: 10px;
+//   border-radius: 0px !important;
+//   border-bottom: solid 1px $g-secondary-grey !important;
+// }
+
+// .Grid {
+//   margin: 0 !important;
+// }
+
+// .CustomP {
+//   margin: 0 10px !important;
+//   text-align: left;
+// }
+
+.Card{
+  margin: 3% 0;
+  box-shadow: none !important;
+  background-color: aqua !important;
 }
 
-.Grid {
-  margin: 0 !important;
+.Divider{
+  flex-grow: 3 !important;
 }
 
-.CustomP {
-  margin: 0 10px !important;
-  text-align: left;
+.UserRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 3% 5%;
+  align-items: center;
+}
+
+.User{
+  display: flex; 
+  align-items: center;
+}
+
+.Office{
+  display: flex; 
+  align-items: center;
+  width: 42%;
+}
+
+.PriceRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 1% 5%;
+  align-items: center;
+}
+
+.FoodItem {
+  display: flex; 
+  align-items: center;
+}
+
+.GratitudeItem {
+  display: flex;
+  align-items: center;
+}
+
+.Item {
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 5px;
+  font-size: 12px;
+}
+
+.LocalDiningIcon{
+  size:10px;
+}
+
+.Price {
+  display: flex;
+  justify-content: flex-start;
+  font-weight: bold;
+  font-size: 20px;
+  width: 26vw;
 }

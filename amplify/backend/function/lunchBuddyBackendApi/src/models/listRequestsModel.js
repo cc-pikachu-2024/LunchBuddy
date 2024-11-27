@@ -17,7 +17,7 @@ module.exports = {
       .join("menu_detail", "menu.menu_id", "menu_detail.menu_id")
       .join("item_master", "menu_detail.item_id", "item_master.item_id")
       .join("gratitude", "request.gratitude_id", "gratitude.gratitude_id")
-      .join("user", "request.user_id", "user.user_id")
+      .join("user", "request.requester_id", "user.user_id")
       .join(
         "request_status_history",
         "request.request_id",
@@ -41,7 +41,7 @@ module.exports = {
         "request_status_history.request_history_id as request_status_history_id",
         "request_status_history.status_id as status_id",
         "request_status_history.created_at as created_at",
-        "responder.user_id as responder_id",
+        "responder.responder_id as responder_id",
         "item_master.item_id as item_id",
         "item_master.item_image_name as item_image_name",
         "item_master.item_name as item_name",
@@ -56,7 +56,7 @@ module.exports = {
         "purchase.purchase_id",
         "purchase_detail.purchase_id"
       )
-      .where("purchase.user_id", userId)
+      .where("purchase.responder_id", userId)
       .andWhere("purchase_detail.menu_flag", false)
       .sum("purchase_detail.input_price")
       .first();
@@ -69,7 +69,7 @@ module.exports = {
         "request_history_id",
         "request_id",
         "status_id",
-        "user_id",
+        "status_changed_user_id",
         "created_at",
       ]);
   },

@@ -52,7 +52,7 @@ exports.postRequest = async (req, res) => {
     );
 
     const requestResult = await createRequestModel.postRequest({
-      user_id: reqBodyObj.userId,
+      requester_id: reqBodyObj.requesterId,
       menu_id: menuResult[0].menu_id,
       gratitude_id: reqBodyObj.gratitudeId,
       requester_comment: reqBodyObj.requesterComment,
@@ -61,7 +61,7 @@ exports.postRequest = async (req, res) => {
     await listRequestsModel.postStatus({
       request_id: requestResult[0].request_id,
       status_id: 1,
-      user_id: reqBodyObj.userId,
+      status_changed_user_id: reqBodyObj.requesterId,
     });
 
     res.status(200).json(requestResult);

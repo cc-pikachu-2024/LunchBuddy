@@ -6,12 +6,8 @@ import clsx from "clsx";
 const InfoCard = ({ user }) => {
   return (
     <Card className={clsx(style.InfoCard)}>
-      <h2 className={style.CustomeCardH2}>
-        {user.name}さんは今まで{user.totalGratitude}
-        円分の
-        <br />
-        お礼をもらいました。
-      </h2>
+      <div>獲得したお礼金額</div>
+      <div>￥{user.totalGratitude}</div>
     </Card>
   );
 };

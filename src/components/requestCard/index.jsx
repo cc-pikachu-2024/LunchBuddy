@@ -4,57 +4,71 @@ import style from "./style.module.scss";
 import clsx from "clsx";
 import StatusButton from "../StatusButton";
 import { updateRequest } from "../../common/requests";
-import { Box } from "@mui/material";
+import Card from "@mui/material/Card";
+import PersonIcon from "@mui/icons-material/Person";
+import ApartmentIcon from "@mui/icons-material/Apartment";
+import ChairAltIcon from "@mui/icons-material/ChairAlt";
+import LocalDiningIcon from "@mui/icons-material/LocalDining";
+import TextsmsIcon from "@mui/icons-material/Textsms";
+import CurrencyYenIcon from "@mui/icons-material/CurrencyYen";
+import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
+import { Divider } from '@mui/material';
 
 const RequestCard = ({ request, updateRequestList, user }) => {
-  const itemList = request.itemList.map((item) => item.itemName);
-  const settlement = async () => {
-    if (request.responderId == user.id && request.statusId == 2) {
-      const res = confirm("精算しましたか？");
-      if (res) {
-        await updateRequest(
-          request,
-          updateRequestList,
-          3,
-          request.responderId,
-          false
-        );
-      }
-    }
-  };
+  console.log(user);
+  console.log(request);
+  console.log(updateRequestList);
+
   return (
-    <Box className={clsx(style.RequestCard)} onClick={() => settlement()}>
-      <Grid container className={clsx(style.Grid)}>
-        <Grid size={9} container className={clsx(style.Grid)}>
-          <Grid size={12} className={clsx(style.Grid)}>
-            <p className={clsx(style.CustomP)}>
-              {request.requesterName} ： {request.requesterFloor} /{" "}
-              {request.requesterSeat}
-            </p>
-          </Grid>
-          <Grid size={12} className={clsx(style.Grid)}>
-            <p className={clsx(style.CustomP)}>
-              買ってきて欲しいもの：{itemList.join(", ")}
-            </p>
-          </Grid>
-          <Grid size={12} className={clsx(style.Grid)}>
-            <p className={clsx(style.CustomP)}>
-              お礼：〜{request.gratitudeMaxPrice}円
-            </p>
-          </Grid>
-        </Grid>
-        <Grid size={3} className={clsx(style.Grid)}>
-          <StatusButton
-            request={request}
-            updateRequestList={updateRequestList}
-            user={user}
-          />
-        </Grid>
-      </Grid>
-    </Box>
+    <>
+      {request &&
+        request.map((req, index) => (
+          <>
+          <Card key={index} className={clsx(style.Card)}>
+            <div className={clsx(style.UserRow)}>
+              <div className={clsx(style.User)}>
+                <PersonIcon /> {req.requesterName}
+              </div>
+              <div className={clsx(style.Office)}>
+                <ApartmentIcon /> {req.requesterFloor}F
+                <ChairAltIcon /> {req.requesterSeat}
+              </div>
+            </div>
+            <div className={clsx(style.PriceRow)}>
+              <div>
+                {req.itemList &&
+                  req.itemList.map((item, index) => (
+                    <div key={index} className={clsx(style.FoodItem)}>
+                      <div>
+                        <LocalDiningIcon />
+                      </div>
+                      <div>
+                        <div className={clsx(style.Item)}>{item.itemName}</div>
+                        <div className={clsx(style.Price)}>~￥{req.totalMaxPrice}</div>
+                      </div>
+                    </div>
+                  ))}
+              </div>
+
+              <div>
+                <div className={clsx(style.GratitudeItem)}>
+                  <div>
+                    <CardGiftcardIcon/>
+                  </div>
+                  <div>
+                    <div className={clsx(style.Item)}>お礼品</div>
+                    <div className={clsx(style.Price)}>~￥{req.gratitudeMaxPrice}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Card>
+          <Divider lassName={clsx(style.Divider)}></Divider>
+          </>
+        ))}
+    </>
   );
 };
-
 export default RequestCard;
 
 RequestCard.propTypes = {
