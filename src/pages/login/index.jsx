@@ -57,6 +57,7 @@ const Login = () => {
     }
   };
 
+
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
@@ -83,6 +84,7 @@ const Login = () => {
           required={true}
         />
         <CustomeButton text="ログイン" onClick={() => handleSubmit()} />
+        <CustomeButton text="アカウント登録" onClick={() =>  navigate("/signup")} />
       </Paper>
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
         <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
