@@ -17,7 +17,7 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_DB: tmp_db
         ports:
-          - 3000:3000
+          - 3000:5432
         options: >-
           --health-cmd "pg_isready -U postgres -d tmp_db" 
           --health-interval 10s 
