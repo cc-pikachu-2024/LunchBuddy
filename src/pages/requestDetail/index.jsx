@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import style from "./style.module.scss";
 
@@ -12,59 +13,20 @@ import CurrencyYenIcon from "@mui/icons-material/CurrencyYen";
 import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
 
 import Grid from "@mui/material/Grid2";
-// import RequestDetailStatusButton from "../../components/RequestDetailStatusButton";
+import RequestDetailStatusButton from "../../components/RequestDetailStatusButton";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 const RequestDetail = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { req } = location.state;
 
-  const mockRequest = {
-    id: 6,
-    requesterId: 5,
-    requesterName: "原三郎",
-    requesterFloor: "8",
-    requesterSeat: "8F北区画D21",
-    menuId: 6,
-    gratitudeId: 2,
-    gratitudeMaxPrice: 200,
-    requesterComment: "何でも大丈夫です！",
-    totalMaxPrice: 500,
-    menuDetailId: 7,
-    requestStatusHistoryId: 8,
-    responderId: 1,
-    statusId: 3,
-    createdAt: "2024-11-22 12:42:18.174+09:00",
-    itemList: [
-      {
-        itemId: 4,
-        itemImageName:
-          "https://lunch-buddy-images.s3.us-east-1.amazonaws.com/sandwich.png",
-        itemName: "サンドイッチ",
-      },
-      {
-        itemId: 5,
-        itemImageName:
-          "https://lunch-buddy-images.s3.us-east-1.amazonaws.com/coffee.png",
-        itemName: "コーヒー",
-      },
-    ],
-  };
-  const itemListArray = mockRequest.itemList.map((value) => value);
-  console.log(itemListArray);
-  const [request] = useState(mockRequest);
+  const itemListArray = req.itemList.map((value) => value);
+  const [request] = useState(req);
 
-  // const sessionUser = JSON.parse(sessionStorage.getItem("user"));
-  const mockSessionUser = {
-    userId: 1,
-    userName: "山田花子",
-    password: "$2a$10$e7/rjsBndgXa.2/MNtkm0OkqaMrFgrmDPgTnReLX39f8QkhLtSP.G",
-    officeId: 1,
-    floor: "12",
-    seat: "S12の柱の横のプーさんのぬいぐるみが置いてある席",
-    phoneNumber: "000-0000-0000",
-  };
-  const [user] = useState(mockSessionUser);
+  const sessionUser = JSON.parse(sessionStorage.getItem("user"));
+  const [user] = useState(sessionUser);
 
   return (
     <>
@@ -81,19 +43,22 @@ const RequestDetail = () => {
       <Grid size={3} display="flex">
         <ApartmentIcon />
         <p className={style.ReceivedRequestCardP}>
-          {request ? request.requesterFloor : "No Data"}
+          フロア：{request ? request.requesterFloor : "No Data"}
         </p>
       </Grid>
       <Grid size={3} display="flex">
         <ChairAltIcon />
         <p className={style.ReceivedRequestCardP}>
-          {request ? request.requesterSeat : "No Data"}
+          座席：{request ? request.requesterSeat : "No Data"}
         </p>
       </Grid>
       <Grid size={12} display="flex">
         <LocalDiningIcon />
         <p className={style.ReceivedRequestCardP}>
-          {itemListArray.map((value) => value.itemName).join(", ")}
+          {itemListArray
+            ? itemListArray.map((value) => value.itemName).join(", ")
+            : "No Data"}
+          の購入をお願いします。
         </p>
       </Grid>
       <Grid size={12} display="flex">
@@ -107,6 +72,7 @@ const RequestDetail = () => {
           <CurrencyYenIcon />
           <p className={style.ReceivedRequestCardPWeight}>
             〜￥{request ? request.totalMaxPrice : "No Data"}
+            までで依頼商品を購入してください。
           </p>
         </Grid>
         <Grid size={12} display="flex">
@@ -114,6 +80,7 @@ const RequestDetail = () => {
           <p className={style.ReceivedRequestCardPWeight}>
             〜￥
             {request ? request.gratitudeMaxPrice : "No Data"}
+            までのお礼品を購入できます。
           </p>
         </Grid>
       </Grid>
@@ -125,6 +92,15 @@ const RequestDetail = () => {
           </>
         ))}
       </div>
+      <Grid size={6} container direction="column" justifyContent="flex-end">
+        <Grid size={12} display="flex">
+          <RequestDetailStatusButton
+            request={request}
+            user={user}
+            color="success"
+          />
+        </Grid>
+      </Grid>
     </>
   );
 };
