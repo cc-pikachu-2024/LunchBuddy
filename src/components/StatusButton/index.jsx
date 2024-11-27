@@ -8,7 +8,7 @@ const StatusButton = ({
   request,
   updateRequestList,
   user,
-  color = "success",
+  color = "success", // "success" か "error" を入力
 }) => {
   const buttonContent = createButtonStatus(
     request,
