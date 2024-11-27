@@ -1,0 +1,19 @@
+@use "@/styles/globals.scss" as *;
+
+.RequestMyList {
+  margin: 30px auto !important;
+  padding-bottom: 10px !important;
+  box-sizing: border-box !important;
+  width: 100%;
+}
+
+.myRequestCardP {
+  margin-top: 6px;
+  margin-left: 8px;
+}
+
+.myRequestCardPWeight {
+  @extend .myRequestCardP;
+  @extend .g-font-p-highlight;
+  margin-top: 0 !important;
+}
