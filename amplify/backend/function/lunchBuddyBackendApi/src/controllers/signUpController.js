@@ -24,8 +24,16 @@ exports.postUserInfo = async (req, res) => {
       tel_number: userInfo.phoneNumber,
     };
     const createdUserInfo = await signUpModel.postUserInfo(convertedUserInfo);
-    console.log("createdUserInfo",createdUserInfo);
-    res.status(200).json(createdUserInfo);
+    console.log("createdUserInfo",createdUserInfo);//スネークケースで返している
+    const capitalCasedUserInfo = {
+      userId: createdUserInfo[0].user_id,
+      userName: createdUserInfo[0].user_name,
+      officeId: createdUserInfo[0].office_id,
+      floor: createdUserInfo[0].floor,
+      seat: createdUserInfo[0].seat,
+      telNumber: createdUserInfo[0].tel_number,
+    };
+    res.status(200).json(capitalCasedUserInfo);
   } catch (err) {
     res.status(500).json({ error: "Failed to post users" });
   }

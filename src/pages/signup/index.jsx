@@ -67,8 +67,7 @@ const Signup = () => {
         throw new Error("登録に失敗しました");
       }
 
-      const result = (await response.json())[0];
-      console.log("result:",result);
+      const result = await response.json();
       sessionStorage.setItem("user", JSON.stringify(result));
       navigate("/requestList");
     } catch (error) {
