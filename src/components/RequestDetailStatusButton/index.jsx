@@ -8,8 +8,9 @@ const RequestDetailStatusButton = ({
   request,
   user,
   color = "success", // "success" か "error" を入力
+  setIsPushed,
 }) => {
-  const buttonContent = createButtonStatus(request, user);
+  const buttonContent = createButtonStatus(request, user, setIsPushed);
 
   const changeContent = (e) => {
     e.stopPropagation();
@@ -49,4 +50,5 @@ RequestDetailStatusButton.propTypes = {
   request: PropTypes.object,
   user: PropTypes.object,
   color: PropTypes.string,
+  setIsPushed: PropTypes.func,
 };
