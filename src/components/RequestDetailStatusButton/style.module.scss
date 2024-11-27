@@ -20,12 +20,12 @@
 }
 
 .SuccessCustomeButtonText {
-  @extend .g-font-p;
+  @extend .g-font-p-small;
   color: $g-success-color;
 }
 
 .ErrorCustomeButtonText {
-  @extend .g-font-p;
+  @extend .g-font-p-small;
   color: $g-error-color;
 }
 
