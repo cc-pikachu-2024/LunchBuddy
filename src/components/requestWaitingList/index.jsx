@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import InfoCard from "../../components/infoCard";
-import RequestCard from "../../components/requestCard";
+import RequestWaitingCard from "../../components/requestWaitingCard";
 import CustomeButton from "../customeButton";
 import CreateIcon from '@mui/icons-material/Create';
 import clsx from "clsx";
@@ -22,7 +22,7 @@ const RequestWaitingList = ({user, requestList, updateRequestList}) => {
   return <>
     <div className={clsx(style.PageContainer)}>
       <InfoCard user={user}></InfoCard>
-      <RequestCard user={user} request={waitingRequestList}></RequestCard>
+      <RequestWaitingCard user={user} request={waitingRequestList}></RequestWaitingCard>
       <CustomeButton 
         fixed
         text={<><CreateIcon/>&emsp;購入を依頼する</>}

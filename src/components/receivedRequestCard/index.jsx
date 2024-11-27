@@ -21,7 +21,7 @@ const ReceivedRequestCard = ({ request, user, updateRequestList }) => {
       </Grid>
       <Grid size={6} display="flex">
         <PersonIcon />
-        <p className={style.ReceivedRequestCardP}>{request.requesterName}</p>
+        <p className={style.ReceivedRequestCardPLarge}>{request.requesterName}</p>
       </Grid>
       <Grid size={3} display="flex">
         <ApartmentIcon />
