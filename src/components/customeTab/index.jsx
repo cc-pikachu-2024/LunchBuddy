@@ -3,6 +3,7 @@ import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import PropTypes from "prop-types";
 import { useState } from "react";
+import style from "./style.module.scss";
 
 const CustomTabPanel = (props) => {
   const { children, value, index, ...other } = props;
@@ -42,8 +43,8 @@ const CustomeTab = (props) => {
   };
 
   return (
-    <Box sx={{ width: "100%" }}>
-      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+    <Box className={style.CustomeTabBox}>
+      <Box className={style.CustomeTabs}>
         <Tabs
           value={value}
           onChange={handleChange}

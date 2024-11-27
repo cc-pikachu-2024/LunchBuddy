@@ -74,17 +74,17 @@ module.exports = {
       ]);
   },
 
-  async postResponder(request_id, user_id) {
+  async postResponder(request_id, responder_id) {
     try {
-      return knex("responder").insert({ request_id, user_id });
+      return knex("responder").insert({ request_id, responder_id });
     } catch (err) {
       console.error("Insert failed:", err);
     }
   },
 
-  async deleteResponder(request_id, user_id) {
+  async deleteResponder(request_id, responder_id) {
     try {
-      await knex("responder").where({ request_id, user_id }).del();
+      await knex("responder").where({ request_id, responder_id }).del();
     } catch (err) {
       console.error("Insert failed:", err);
     }

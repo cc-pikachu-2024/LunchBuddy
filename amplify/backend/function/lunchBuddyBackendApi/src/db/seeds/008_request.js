@@ -24,5 +24,11 @@ exports.seed = async function (knex) {
       gratitude_id: 3,
       requester_comment: "",
     },
+    {
+      requester_id: 5,
+      menu_id: 4,
+      gratitude_id: 3,
+      requester_comment: "",
+    },
   ]);
 };

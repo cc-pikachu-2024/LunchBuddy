@@ -10,5 +10,9 @@ exports.seed = async function (knex) {
       request_id: 3,
       responder_id: 1,
     },
+    {
+      request_id: 4,
+      responder_id: 1,
+    },
   ]);
 };

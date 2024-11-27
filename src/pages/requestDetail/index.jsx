@@ -1,7 +1,7 @@
 import React from "react";
 
-const RequestDetial = () => {
-  return <div>RequestDetial</div>;
+const RequestDetail = () => {
+  return <div>RequestDetail</div>;
 };
 
-export default RequestDetial;
+export default RequestDetail;
