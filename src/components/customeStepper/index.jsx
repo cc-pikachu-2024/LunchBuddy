@@ -5,7 +5,7 @@ import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import BackHandIcon from "@mui/icons-material/BackHand";
-import HourglassBottomIcon from "@mui/icons-material/HourglassBottom";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import RequestQuoteIcon from "@mui/icons-material/RequestQuote";
 import StepConnector, {
   stepConnectorClasses,
@@ -66,7 +66,7 @@ function ColorlibStepIcon(props) {
 
   const icons = {
     1: <BackHandIcon />,
-    2: <HourglassBottomIcon />,
+    2: <ShoppingCartIcon />,
     3: <RequestQuoteIcon />,
     4: <Check />,
   };
@@ -88,8 +88,18 @@ ColorlibStepIcon.propTypes = {
   icon: PropTypes.node,
 };
 
-const requesterSteps = ["依頼中", "金額入力待ち", "金額確認", "完了"];
-const responderSteps = ["依頼中", "金額入力待ち", "金額確認", "完了"];
+const requesterSteps = [
+  "依頼中",
+  "商品購入中",
+  "受け取り& <br />金額確認",
+  "完了",
+];
+const responderSteps = [
+  "受注中",
+  "商品購入& <br />金額入力",
+  "受け渡し",
+  "完了",
+];
 
 const CustomeStepper = ({ isRequester, statusId }) => {
   const steps = isRequester ? requesterSteps : responderSteps;
@@ -97,13 +107,13 @@ const CustomeStepper = ({ isRequester, statusId }) => {
     <Stack className={style.CustomStepper} spacing={4}>
       <Stepper
         alternativeLabel
-        activeStep={statusId}
+        activeStep={statusId - 1}
         connector={<ColorlibConnector />}
       >
         {steps.map((label) => (
           <Step key={label}>
             <StepLabel StepIconComponent={ColorlibStepIcon}>
-              <p>{label}</p>
+              <p dangerouslySetInnerHTML={{ __html: label }} />
             </StepLabel>
           </Step>
         ))}
