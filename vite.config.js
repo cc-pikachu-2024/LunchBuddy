@@ -11,9 +11,9 @@ export default defineConfig({
       registerType: "autoUpdate",
       includeAssets: ["favicon.ico", "apple-touch-icon.png"],
       manifest: {
-        name: "PWA Sample Apps",
+        name: "Lunch Buddy",
         short_name: "Lunch Buddy",
-        description: "PWAサンプルアプリ",
+        description: "Lunch Buddy",
         theme_color: "#ffffff",
         icons: [
           {
