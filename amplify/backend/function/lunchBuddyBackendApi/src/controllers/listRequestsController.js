@@ -11,7 +11,7 @@ exports.getAllRequests = async (req, res) => {
         itemId: current.item_id,
         itemImageName: current.item_image_name,
         itemName: current.item_name,
-        maxPrice: current.max_price,
+        maxPrice: current.item_max_price,
       };
       if (existingEntry) {
         existingEntry.itemList.push(itemList);

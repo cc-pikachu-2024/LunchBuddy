@@ -10,7 +10,7 @@
     "migrate:prod": "NODE_ENV=production knex migrate:latest",
     "seed:dev": "NODE_ENV=development knex seed:run",
     "seed:prod": "NODE_ENV=production knex seed:run",
-    "start": "cross-env NODE_ENV=development nodemon app.js",
+    "start:dev": "NODE_ENV=development nodemon app.js",
     "start:prod": "NODE_ENV=production nodemon app.js",
     "restore:dev": "NODE_ENV=development knex migrate:rollback --all && NODE_ENV=development knex migrate:latest && NODE_ENV=development knex seed:run",
     "restore:prod": "NODE_ENV=production knex migrate:rollback --all && NODE_ENV=production knex migrate:latest && NODE_ENV=production knex seed:run"
@@ -30,7 +30,6 @@
     "@types/aws-lambda": "^8.10.92",
     "chai": "^4.5.0",
     "chai-http": "^4.4.0",
-    "cross-env": "^7.0.3",
     "mocha": "^10.8.2",
     "nodemon": "^3.1.7",
     "sinon": "^19.0.2"
