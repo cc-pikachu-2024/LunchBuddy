@@ -13,8 +13,9 @@ import StatusButton from "../StatusButton";
 
 const ReceivedRequestCard = ({ request, user, updateRequestList }) => {
   const itemList = request.itemList.map((item) => item.itemName);
+  const isGrayedOut = request.statusId === 4;
   return (
-    <Grid container className={style.ReceivedRequestCard}>
+    <Grid container className={`${style.ReceivedRequestCard} ${isGrayedOut ? style.grayedOut : ""}`}>
       <Grid size={12} display="flex">
         <CustomeStepper isRequester={false} statusId={request.statusId} />
       </Grid>

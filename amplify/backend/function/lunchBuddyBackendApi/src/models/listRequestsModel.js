@@ -25,7 +25,7 @@ module.exports = {
       )
       .leftJoin("responder", "request.request_id", "responder.request_id")
       .whereIn("request_status_history.request_history_id", latestStatusIds)
-      .whereIn("request_status_history.status_id", [1, 2, 3])
+      .whereIn("request_status_history.status_id", [1, 2, 3 ,4])
       .select(
         "request.request_id as request_id",
         "request.requester_comment as requester_comment",
