@@ -18,13 +18,6 @@ app.use(function (req, res, next) {
 
 app.use("/requests", routes);
 
-// ローカル環境用のサーバー起動コード
-if (process.env.NODE_ENV !== "production") {
-  const PORT = process.env.PORT || 3000;
-  app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
-  });
-}
 // Export the app object. When executing the application local this does nothing. However,
 // to port it to AWS Lambda we will create a wrapper around that will load the app from
 // this file
