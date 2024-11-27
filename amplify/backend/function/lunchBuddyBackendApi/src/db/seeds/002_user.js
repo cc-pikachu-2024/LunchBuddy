@@ -25,7 +25,7 @@ exports.seed = async function (knex) {
     {
       user_name: "佐藤優子",
       password: "zzz",
-      office_id: 2,
+      office_id: 3,
       floor: 4,
       seat: "5112",
       tel_number: "222-2222-2222",

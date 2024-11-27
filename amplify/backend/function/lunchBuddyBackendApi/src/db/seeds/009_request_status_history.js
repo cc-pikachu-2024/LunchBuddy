@@ -9,7 +9,7 @@ exports.seed = async function (knex) {
     {
       request_id: 1,
       status_id: 1,
-      status_changed_user_id: 1,
+      status_changed_user_id: 4,
       created_at: "2024-11-22 10:53:18.174768+09",
     },
     {
@@ -65,6 +65,36 @@ exports.seed = async function (knex) {
       status_id: 4,
       status_changed_user_id: 5,
       created_at: "2024-11-21 14:59:18.174768+09",
+    },
+    {
+      request_id: 5,
+      status_id: 1,
+      status_changed_user_id: 3,
+      created_at: "2024-11-22 12:59:18.174768+09",
+    },
+    {
+      request_id: 5,
+      status_id: 2,
+      status_changed_user_id: 1,
+      created_at: "2024-11-22 13:29:18.174768+09",
+    },
+    {
+      request_id: 6,
+      status_id: 1,
+      status_changed_user_id: 5,
+      created_at: "2024-11-22 10:59:18.174768+09",
+    },
+    {
+      request_id: 6,
+      status_id: 2,
+      status_changed_user_id: 1,
+      created_at: "2024-11-22 12:09:18.174768+09",
+    },
+    {
+      request_id: 6,
+      status_id: 3,
+      status_changed_user_id: 1,
+      created_at: "2024-11-22 12:42:18.174768+09",
     },
   ]);
 };

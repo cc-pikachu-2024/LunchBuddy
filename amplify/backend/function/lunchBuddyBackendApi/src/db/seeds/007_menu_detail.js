@@ -26,5 +26,17 @@ exports.seed = async function (knex) {
       menu_id: 4,
       item_id: 5,
     },
+    {
+      menu_id: 5,
+      item_id: 2,
+    },
+    {
+      menu_id: 6,
+      item_id: 4,
+    },
+    {
+      menu_id: 6,
+      item_id: 5,
+    },
   ]);
 };
