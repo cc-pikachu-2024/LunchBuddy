@@ -1,87 +1,81 @@
 import { updateRequest } from "../../common/requests";
 
-export const createButtonStatus = (request, user, updateRequestList) => {
-  let text;
-  let color;
-  let onClick;
+export const createButtonStatus = (request, user, updateRequestList, color) => {
+  let isDisplay = true;
+  let text = "";
+  let onClick = () => {};
+
   const isRequester = request.requesterId == user.id;
   const isResponder = request?.responderId == user.id;
+
   switch (request.statusId) {
     case 1: // 状態が「waiting」
-      if (isRequester) {
-        // 「取り下げ」ボタン
-        text = "取り下げ";
-        color = "ErrorColor";
+      if (request.responderId == null) {
+        text = "任せて！";
         onClick = async () => {
-          // status_id を 1 -> 5 に更新
+          await updateRequest(request, updateRequestList, 2, user.id, false);
+        };
+      } else if (isRequester) {
+        text = "取り下げる";
+        onClick = async () => {
           await updateRequest(request, updateRequestList, 5, user.id, false);
         };
       } else {
-        // 「まかせて」ボタン
-        text = "まかせて！";
-        color = "SuccessColor";
-        onClick = async () => {
-          // status_id を 1 -> 2 に更新
-          // responder テーブル作成
-          await updateRequest(request, updateRequestList, 2, user.id, false);
-        };
+        isDisplay = false;
       }
       break;
     case 2: // 状態が「progress」
-      if (isRequester) {
-        // 「金額入力待ち」ボタン
-        text = "金額入力待ち";
-        color = "SuccessSecondaryColor";
-        onClick = () => {
-          alert("現在金額入力待ちのリクエストです");
-        };
+      if (request.responderId == null) {
+        isDisplay = false;
+      } else if (isRequester) {
+        isDisplay = false;
       } else if (isResponder) {
-        // 「キャンセル」ボタン
-        text = "キャンセル";
-        color = "ErrorColor";
-        onClick = async () => {
-          // status_id を 2 -> 1 に更新
-          // responder レコード削除
-          await updateRequest(request, updateRequestList, 1, user.id, true);
-        };
-      } else {
-        // 「進行中」ボタン
-        text = "進行中";
-        color = "SecondaryColor";
-        onClick = () => alert("現在進行中のリクエストです");
+        if (color == "success") {
+          text = "金額入力";
+          // TODO: 金額入力画面に遷移する挙動に修正
+          onClick = async () => {
+            const res = confirm("品物を渡しましたか？");
+            if (res) {
+              await updateRequest(
+                request,
+                updateRequestList,
+                3,
+                user.id,
+                false
+              );
+            }
+          };
+        } else if (color == "error") {
+          text = "キャンセル";
+          onClick = async () => {
+            await updateRequest(request, updateRequestList, 1, user.id, true);
+          };
+        } else {
+          isDisplay = false;
+        }
       }
       break;
     case 3: // 状態が「settlement」
-      if (isRequester) {
-        // 「金額確認」ボタン
+      if (request.responderId == null) {
+        isDisplay = false;
+      } else if (isRequester) {
         text = "金額確認";
-        color = "InfoColor";
         // TODO: 金額確認画面に遷移する挙動に修正
-        // TODO: DBでstatus_idを4に更新
         onClick = async () => {
           const res = confirm("品物を受け取りましたか？");
           if (res) {
-            // status_id を 3 -> 4 に更新
             await updateRequest(request, updateRequestList, 4, user.id, false);
           }
         };
       } else if (isResponder) {
-        // 「金額確認待ち」ボタン
-        text = "金額確認待ち";
-        color = "InfoColor";
-        onClick = () => alert("金額確認待ちです。");
+        isDisplay = false;
       } else {
-        // 「進行中」ボタン
-        text = "進行中";
-        color = "SecondaryColor";
-        onClick = () => alert("現在進行中のリクエストです");
+        isDisplay = false;
       }
       break;
     default:
-      text = "-";
-      color = "GreyColor";
-      onClick = () => {};
+      isDisplay = false;
       break;
   }
-  return { text, color, onClick };
+  return { isDisplay, text, onClick };
 };
