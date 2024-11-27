@@ -28,7 +28,7 @@ export const updateRequest = async (
       createdAt: requests[0].created_at,
       responderId: isCancel ? null : responderId,
     };
-    if ([1, 2, 3].includes(statusId)) {
+    if ([1, 2, 3, 4].includes(statusId)) {
       updateRequestList(request.id, newRequest, false);
     } else {
       updateRequestList(request.id, newRequest, true);
