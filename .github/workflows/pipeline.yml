@@ -64,15 +64,34 @@ jobs:
       - name: Install Amplify CLI
         run: npm install -g @aws-amplify/cli
 
+      - name: Configure AWS CLI
+        run: |
+          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws configure set default.region us-east-1  # 適切なリージョンを指定
+
       # Amplifyプロジェクトの初期化と公開
-      - name: Deploy with Amplify
-        env: # 環境変数にAWS認証情報を設定
+      - name: Amplify Pull Backend
+        run: amplify pull --amplify --envName dev --yes
+        env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: ${{ secrets.AWS_REGION }}
-        working-directory: . # プロジェクトルートで作業
+
+      # 6. Amplify Functions のデプロイ
+      - name: Deploy Amplify Functions
+        run: amplify push --yes
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      # 7. Amplify Hosting のデプロイ
+      - name: Deploy to Amplify Hosting
         run: |
           amplify publish --yes
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AMPLIFY_DEPLOY_TOKEN: ${{ secrets.AMPLIFY_DEPLOY_TOKEN }}
 
     # 手動トリガー時にブランチをmainに限定
     if: github.ref == 'refs/heads/main'
