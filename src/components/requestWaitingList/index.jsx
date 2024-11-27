@@ -19,10 +19,19 @@ const RequestWaitingList = ({user, requestList, updateRequestList}) => {
     (request) => request.statusId === 1
   );
 
+  //フロアが近い順に並べ替え
+  const sortedRequestList = waitingRequestList.sort((a, b) => {
+    //aのフロアとuserのフロアの距離
+    const distanceA = Math.abs(a.requesterFloor - user.floor);
+    //bのフロアとuserのフロアの距離
+    const distanceB = Math.abs(b.requesterFloor - user.floor);
+    return distanceA - distanceB;
+  });
+
   return <>
     <div className={clsx(style.PageContainer)}>
       <InfoCard user={user}></InfoCard>
-      <RequestWaitingCard user={user} request={waitingRequestList}></RequestWaitingCard>
+      <RequestWaitingCard user={user} request={sortedRequestList}></RequestWaitingCard>
       <CustomeButton 
         fixed
         text={<><CreateIcon/>&emsp;購入を依頼する</>}
