@@ -71,7 +71,6 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
         run: |
-          amplify init --yes
           amplify publish --yes
 
     # 手動トリガー時にブランチをmainに限定
