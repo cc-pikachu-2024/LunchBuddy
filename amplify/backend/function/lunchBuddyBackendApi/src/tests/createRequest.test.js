@@ -147,7 +147,7 @@ describe("", async () => {
     it("登録に成功したら200のステータスコードを返す。", async () => {
       // Setup
       const reqBody = {
-        userId: 1,
+        requesterId: 1,
         gratitudeId: 3,
         requesterComment: "nice to meet you!",
         totalMaxPrice: 500,

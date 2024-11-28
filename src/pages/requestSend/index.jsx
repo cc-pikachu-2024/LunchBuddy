@@ -89,7 +89,7 @@ const RequestSend = () => {
 
     setTotalMenuPrice(menuPrice);
     setTotalGratitudePrice(gratitudePrice);
-    setTotalPrice(menuPrice + gratitudePrice);
+    setTotalPrice(menuPrice);
   }, [selectedMenu, selectedGratitude, menuList]);
 
   const sendRequest = async () => {
