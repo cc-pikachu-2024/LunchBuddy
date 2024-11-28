@@ -46,7 +46,7 @@ const ReceivedRequestCard = ({ request, user, updateRequestList }) => {
         <TextsmsIcon />
         <p className={style.ReceivedRequestCardP}>{request.requesterComment}</p>
       </Grid>
-      <Grid size={6}>
+      <Grid size={5}>
         <Grid size={12} display="flex">
           <CurrencyYenIcon />
           <p className={style.ReceivedRequestCardPWeight}>
@@ -60,8 +60,8 @@ const ReceivedRequestCard = ({ request, user, updateRequestList }) => {
           </p>
         </Grid>
       </Grid>
-      <Grid size={6} container direction="column" justifyContent="flex-end">
-        <Grid size={12} display="flex" justifyContent="space-between">
+      <Grid size={7} container direction="column" justifyContent="flex-end">
+        <Grid size={12} display="flex" justifyContent="flex-end">
           <StatusButton
             request={request}
             updateRequestList={updateRequestList}
