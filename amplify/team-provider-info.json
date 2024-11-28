@@ -15,7 +15,7 @@
       "function": {
         "lunchBuddyBackendApi": {
           "deploymentBucketName": "amplify-lunchbuddy-dev-efcdc-deployment",
-          "s3Key": "amplify-builds/lunchBuddyBackendApi-4f4f684d677476625054-build.zip",
+          "s3Key": "amplify-builds/lunchBuddyBackendApi-4e72744a4d4e2f6c6d69-build.zip",
           "dbUser": "postgres",
           "dbHost": "lunch-buddy.c5o2uao42si7.us-east-1.rds.amazonaws.com",
           "dbPassword": "lunchbuddypostgres",
