@@ -1,11 +1,13 @@
 import { useState } from "react";
 import CustomeButton from "../../components/customeButton";
 import CustomeTextField from "../../components/customeTextField";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import Paper from "@mui/material/Paper";
 import style from "./style.module.scss";
-import Alert from "@mui/material/Alert"; 
+import Alert from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
+import LunchBuddyIcon from "../../assets/LunchBuddy_icon.png";
+import { Box } from "@mui/material";
 
 const Login = () => {
   const [password, setPassword] = useState("");
@@ -51,12 +53,11 @@ const Login = () => {
         throw new Error("パスワード認証に失敗しました");
       }
     } catch (error) {
-      setErrorMessage(error.message); 
-      setOpen(true); 
+      setErrorMessage(error.message);
+      setOpen(true);
       console.error(error);
     }
   };
-
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -67,7 +68,12 @@ const Login = () => {
 
   return (
     <div className={style.container}>
-      <h1 className={style.title}>LunchBuddy</h1>
+      <Box
+        component="img"
+        src={LunchBuddyIcon}
+        alt="LunchBuddy Icon"
+        className={style.Image}
+      />
       <Paper elevation={0} className={style.formContainer}>
         <h1>ログイン</h1>
         <CustomeTextField
@@ -84,10 +90,19 @@ const Login = () => {
           required={true}
         />
         <CustomeButton text="ログイン" onClick={() => handleSubmit()} />
-        <CustomeButton text="アカウント登録" onClick={() =>  navigate("/signup")} />
+        <p style={{ fontSize: '14px', textAlign: 'center' }}>
+          <Link to="/signup" style={{ textDecoration: 'underline', color: "gray" }}>
+            アカウント登録はこちら
+          </Link>
+        </p>
       </Paper>
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
-        <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
           {errorMessage}
         </Alert>
       </Snackbar>
