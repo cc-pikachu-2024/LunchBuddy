@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import style from "./style.module.scss";
 import StatusButton from "../../components/StatusButton";
-import CustomeTextField from "../../components/customeTextField";
+// import CustomeTextField from "../../components/customeTextField";
+import TextField from "@mui/material/TextField";
 import CustomeStepper from "../../components/customeStepper";
 import clsx from "clsx";
 import Grid from "@mui/material/Grid2";
@@ -97,8 +98,6 @@ const PurchasingDetail = () => {
 
   return (
     <>
-      {/* {console.log(request)}
-      {console.log(user)} */}
       <Grid container className={style.RequestMyList}>
         <Grid size={12} display="flex">
           <CustomeStepper isRequester={true} statusId={request.statusId} />
@@ -166,18 +165,39 @@ const PurchasingDetail = () => {
             {request.itemList.map((item) => {
               return (
                 <Grid size={12} display="flex" className={style.textboxGrid}>
-                  <CustomeTextField
+                  {/* <CustomeTextField
                     type="text"
                     value={item.itemName}
                     disabled
                     className={style.itemNameTextbox}
                     key="itemName"
+                  /> */}
+                  <TextField
+                    label=""
+                    value={item.itemName}
+                    type="text"
+                    required={true}
+                    size="small"
+                    className={clsx(style.itemNameTextbox)}
+                    margin={"none"}
+                    name={item.itemName}
                   />
-                  <CustomeTextField
+                  {/* <CustomeTextField
                     type="text"
                     className={style.inputPriceTextBox}
                     name={item.itemName}
                     onChange={handleItemPriceChange}
+                  /> */}
+                  <TextField
+                    label=""
+                    value={request.itemList[item.Name]}
+                    type="text"
+                    onChange={(e) => handleItemPriceChange(e.target)}
+                    required={true}
+                    size="small"
+                    className={clsx(style.inputPriceTextBox)}
+                    margin={"none"}
+                    name={item.itemName}
                   />
                 </Grid>
               );
@@ -190,11 +210,22 @@ const PurchasingDetail = () => {
                 </p>
               </Grid>
               <Grid size={8}>
-                <CustomeTextField
+                {/* <CustomeTextField
                   type="text"
                   className={style.inputPriceTextBox}
                   name="gratitude" //ここは固定でいい？
                   onChange={handleGratitudePriceChange}
+                /> */}
+                <TextField
+                  label=""
+                  value={purchasedGratitudeList["gratitude"]}
+                  type="text"
+                  onChange={(e) => handleGratitudePriceChange(e.target)}
+                  required={true}
+                  size="small"
+                  className={clsx(style.inputPriceTextBox)}
+                  margin={"none"}
+                  name={"gratitude"}
                 />
               </Grid>
             </Grid>

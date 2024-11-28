@@ -111,8 +111,6 @@ const RequestSend = () => {
     };
 
     try {
-      console.log(userId);
-      console.log(requestBody);
       const response = await fetch(
         `${import.meta.env.VITE_API_HOST}/requests/requests`,
         param
