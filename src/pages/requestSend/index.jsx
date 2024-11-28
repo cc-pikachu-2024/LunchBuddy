@@ -97,7 +97,7 @@ const RequestSend = () => {
     const requestBody = {
       requesterId: userId,
       gratitudeId: selectedGratitude[0].gratitudeId,
-      requesterComment: "テスト",
+      requesterComment: "特になし",
       totalMaxPrice: totalPrice,
       itemIds: selectedMenu.map((item) => item.itemId),
     };
