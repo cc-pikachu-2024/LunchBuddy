@@ -42,10 +42,10 @@ describe("", async () => {
       const expected = [
         {
           id: 1,
-          requesterId: 1,
-          requesterName: "山田花子",
-          requesterFloor: "12",
-          requesterSeat: "S12の柱の横のプーさんのぬいぐるみが置いてある席",
+          requesterId: 4,
+          requesterName: "鈴木じろう",
+          requesterFloor: "22",
+          requesterSeat: "22F南トイレの入り口横",
           menuId: 1,
           gratitudeId: 1,
           gratitudeMaxPrice: 150,
@@ -62,6 +62,7 @@ describe("", async () => {
               itemImageName:
                 "https://lunch-buddy-images.s3.us-east-1.amazonaws.com/setmenu1_onigiri%26tea.png",
               itemName: "おにぎり&お茶",
+              maxPrice: 400,
             },
           ],
         },
@@ -87,8 +88,127 @@ describe("", async () => {
               itemImageName:
                 "https://lunch-buddy-images.s3.us-east-1.amazonaws.com/setmenu2_onigiri2%26tea.png",
               itemName: "おにぎり×2 & お茶",
+              maxPrice: 600,
             },
           ],
+        },
+        {
+          createdAt: "2024-11-22 14:58:18.174+09:00",
+          gratitudeId: 3,
+          gratitudeMaxPrice: 300,
+          id: 3,
+          itemList: [
+            {
+              itemId: 4,
+              itemImageName:
+                "https://lunch-buddy-images.s3.us-east-1.amazonaws.com/sandwich.png",
+              itemName: "サンドイッチ",
+              maxPrice: 300,
+            },
+            {
+              itemId: 5,
+              itemImageName:
+                "https://lunch-buddy-images.s3.us-east-1.amazonaws.com/coffee.png",
+              itemName: "コーヒー",
+              maxPrice: 200,
+            },
+          ],
+          menuDetailId: 3,
+          menuId: 3,
+          requestStatusHistoryId: 14,
+          requesterComment: "",
+          requesterFloor: "22",
+          requesterId: 4,
+          requesterName: "鈴木じろう",
+          requesterSeat: "22F南トイレの入り口横",
+          responderId: 1,
+          statusId: 4,
+          totalMaxPrice: 500,
+        },
+        {
+          createdAt: "2024-11-22 14:59:18.174+09:00",
+          gratitudeId: 3,
+          gratitudeMaxPrice: 300,
+          id: 4,
+          itemList: [
+            {
+              itemId: 5,
+              itemImageName:
+                "https://lunch-buddy-images.s3.us-east-1.amazonaws.com/coffee.png",
+              itemName: "コーヒー",
+              maxPrice: 200,
+            },
+          ],
+          menuDetailId: 5,
+          menuId: 4,
+          requestStatusHistoryId: 15,
+          requesterComment: "",
+          requesterFloor: "8",
+          requesterId: 5,
+          requesterName: "原三郎",
+          requesterSeat: "8F北区画D21",
+          responderId: 1,
+          statusId: 4,
+          totalMaxPrice: 200,
+        },
+        {
+          createdAt: "2024-11-22 13:29:18.174+09:00",
+          gratitudeId: 3,
+          gratitudeMaxPrice: 300,
+          id: 5,
+          itemList: [
+            {
+              itemId: 2,
+              itemImageName:
+                "https://lunch-buddy-images.s3.us-east-1.amazonaws.com/setmenu2_onigiri2%26tea.png",
+              itemName: "おにぎり×2 & お茶",
+              maxPrice: 600,
+            },
+          ],
+          menuDetailId: 6,
+          menuId: 5,
+          requestStatusHistoryId: 11,
+          requesterComment: "鮭とおかかで",
+          requesterFloor: "4",
+          requesterId: 3,
+          requesterName: "佐藤優子",
+          requesterSeat: "5112",
+          responderId: 1,
+          statusId: 2,
+          totalMaxPrice: 600,
+        },
+        {
+          createdAt: "2024-11-22 12:42:18.174+09:00",
+          gratitudeId: 2,
+          gratitudeMaxPrice: 200,
+          id: 6,
+          itemList: [
+            {
+              itemId: 4,
+              itemImageName:
+                "https://lunch-buddy-images.s3.us-east-1.amazonaws.com/sandwich.png",
+              itemName: "サンドイッチ",
+              maxPrice: 300,
+            },
+            {
+              itemId: 5,
+              itemImageName:
+                "https://lunch-buddy-images.s3.us-east-1.amazonaws.com/coffee.png",
+              itemName: "コーヒー",
+              maxPrice: 200,
+            },
+          ],
+          menuDetailId: 7,
+          menuId: 6,
+          requestStatusHistoryId: 8,
+          requesterComment: "何でも大丈夫です！",
+          requesterFloor: "8",
+          requesterId: 5,
+          requesterName: "原三郎",
+          requesterSeat: "8F北区画D21",
+          responderId: 1,
+          statusId: 3,
+          totalMaxPrice: 500,
         },
       ];
 
@@ -116,7 +236,7 @@ describe("", async () => {
   describe("get gratitudesSum", () => {
     it("参照に成功したら200のステータスコードを返す。", async () => {
       // Setup
-      const expected = { sum: "560" };
+      const expected = { sum: "750" };
 
       // Execute
       const res = await request.get("/requests//gratitudesSum?userId=1");
@@ -198,7 +318,7 @@ describe("", async () => {
       expect(res.body[0]).to.have.property("created_at");
 
       // created_at以外の要素が期待通りであることを確認
-      expect(res.body[0].request_history_id).to.deep.equal(11);
+      expect(res.body[0].request_history_id).to.deep.equal(16);
       expect(res.body[0].request_id).to.deep.equal(1);
       expect(res.body[0].status_id).to.deep.equal(2);
       expect(res.body[0].status_changed_user_id).to.deep.equal(2);
