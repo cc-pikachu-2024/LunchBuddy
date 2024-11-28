@@ -4,10 +4,16 @@ import CustomeTab from "../../components/customeTab";
 import ReceivedRequestList from "../../components/receivedRequestList";
 import RequestMyList from "../../components/requestMyList";
 import RequestWaitingList from "../../components/requestWaitingList";
+import { Button } from "@mui/material";
+import ReplayIcon from "@mui/icons-material/Replay";
+import { useNavigate } from "react-router";
+import style from "./style.module.scss";
+import clsx from "clsx";
 
 const RequestList = () => {
   const [requestList, setRequestList] = useState([]);
   const [user, setUser] = useState({});
+  const navigate = useNavigate();
 
   useEffect(() => {
     // TODO: 認証基盤（Cognito）を使ったAPIにリプレイス
@@ -88,6 +94,13 @@ const RequestList = () => {
           updateRequestList={updateRequestList}
         />
       </CustomeTab>
+      <Button
+        variant="contained"
+        className={clsx(style.Button)}
+        onClick={() => navigate(0)}
+      >
+        <ReplayIcon />
+      </Button>
     </>
   );
 };
