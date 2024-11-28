@@ -5,5 +5,5 @@
 exports.seed = async function (knex) {
   // Deletes ALL existing entries
   await knex("responder").del();
-  await knex("responder").insert();
+  // await knex("responder").insert();
 };

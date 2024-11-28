@@ -5,5 +5,5 @@
 exports.seed = async function (knex) {
   // Deletes ALL existing entries
   await knex("purchase").del();
-  await knex("purchase").insert();
+  // await knex("purchase").insert();
 };
