@@ -18,7 +18,7 @@ const CustomeTextFeild = ({
       label={label}
       value={value}
       type={type}
-      onChange={(e) => onChange(e.target)}
+      onChange={(e) => onChange(e.target.value)}
       required={required}
       size="small"
       className={clsx(style.CustomeTextField)}
