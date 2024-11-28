@@ -17,14 +17,14 @@
   margin-top: 0 !important;
 }
 
-.back-button {
+.BackButton {
   position: absolute;
-  top: 0px;
-  left: 0px;
-  background: none;
+  top: 10px;
+  left: 10px;
+  padding: 5px 7px;
+  margin-bottom: 10px;
   border: none;
   cursor: pointer;
-  padding: 0px;
   display: flex;
   align-items: center;
 }

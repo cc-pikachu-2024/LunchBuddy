@@ -15,6 +15,7 @@
 .myRequestCardPWeight {
   @extend .myRequestCardP;
   margin-top: 0 !important;
+  @extend .g-font-p-large;
 }
 
 .itemImage {
