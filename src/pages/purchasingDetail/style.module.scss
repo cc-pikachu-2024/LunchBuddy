@@ -1,0 +1,111 @@
+@use "@/styles/globals.scss" as *;
+
+.RequestMyList {
+  margin: 30px auto !important;
+  padding-bottom: 10px !important;
+  box-sizing: border-box !important;
+  width: 100%;
+}
+
+.myRequestCardP {
+  margin-top: 6px;
+  margin-left: 8px;
+}
+
+.myRequestCardPWeight {
+  @extend .myRequestCardP;
+  margin-top: 0 !important;
+}
+
+.itemImage {
+  width: 100px;
+  height: 100px;
+}
+
+.horizontalBar {
+  margin: 12px auto !important;
+  width: 100%;
+  height: 1px;
+  background-color: #f3f3f2;
+}
+
+.itemNameTextbox {
+  color: "#000";
+  border: "1px solid #ccc";
+  height: "20px";
+  cursor: "not-allowed";
+  width: "100%";
+  margin-right: 5px;
+  margin-left: 5px;
+  margin-bottom: 0px !important;
+}
+
+._textboxGrid {
+  margin-bottom: 0 !important;
+}
+
+.inputPriceTextBox {
+  color: "#000";
+  border: "1px solid #ccc";
+  height: "20px";
+  cursor: "not-allowed";
+  width: "100%";
+  margin-right: 5px;
+  margin-left: 5px;
+  margin-bottom: 0px !important;
+}
+
+.textboxGrid {
+  margin-bottom: 10px;
+}
+
+.MaxPrice {
+  margin-top: 5%;
+  border: 1px solid #bd8451 !important;
+  border-radius: 5px;
+}
+
+.PriceTagHelpIcon {
+  display: flex;
+  justify-content: space-between;
+  padding: 1% 1%;
+}
+
+.InputPriceTag {
+  font-size: 12px;
+  padding-left: 7%;
+}
+
+.CalculatedPrice {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+.Help {
+  display: flex;
+  align-items: flex-start;
+}
+.HelpIcon {
+  font-size: 10px !important;
+}
+
+.ReceivedRequestCard {
+  margin: 30px auto !important;
+  padding-bottom: 10px !important;
+  box-sizing: border-box !important;
+  width: 100%;
+  border-bottom: solid 1px $g-secondary-grey;
+}
+
+.ReceivedRequestCardPLarge {
+  margin-top: 1px;
+  margin-left: 8px;
+  @extend .g-font-p-large;
+}
+
+.ReceivedRequestCardP {
+  margin-top: 3px;
+  margin-left: 8px;
+}

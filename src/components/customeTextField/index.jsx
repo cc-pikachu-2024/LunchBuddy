@@ -11,6 +11,7 @@ const CustomeTextFeild = ({
   onChange,
   disabled = false,
   margin = "none",
+  name = "",
 }) => {
   return (
     <TextField
@@ -23,6 +24,7 @@ const CustomeTextFeild = ({
       className={clsx(style.CustomeTextField)}
       disabled={disabled}
       margin={margin}
+      name={name}
     />
   );
 };
@@ -36,4 +38,5 @@ CustomeTextFeild.propTypes = {
   required: PropTypes.bool,
   onChange: PropTypes.func,
   disabled: PropTypes.bool,
+  name: PropTypes.string,
 };

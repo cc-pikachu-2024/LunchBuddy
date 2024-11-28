@@ -1,9 +1,12 @@
 import { updateRequest } from "../../common/requests";
+import { useNavigate } from "react-router-dom";
 
 export const createButtonStatus = (request, user, updateRequestList, color) => {
   let isDisplay = true;
   let text = "";
   let onClick = () => {};
+
+  const navigate = useNavigate();
 
   const isRequester = request.requesterId == user.id;
   const isResponder = request?.responderId == user.id;
@@ -44,6 +47,12 @@ export const createButtonStatus = (request, user, updateRequestList, color) => {
                 false
               );
             }
+            await navigate("/purchasingDetail", {
+              state: {
+                user: user,
+                request: request,
+              },
+            });
           };
         } else if (color == "error") {
           text = "キャンセル";
