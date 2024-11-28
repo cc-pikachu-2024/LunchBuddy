@@ -17,9 +17,9 @@
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda",
-      "lastBuildTimeStamp": "2024-11-28T15:04:36.143Z",
+      "lastBuildTimeStamp": "2024-11-28T15:46:09.979Z",
       "lastBuildType": "PROD",
-      "lastPackageTimeStamp": "2024-11-28T15:04:40.817Z",
+      "lastPackageTimeStamp": "2024-11-28T15:46:15.022Z",
       "distZipFilename": "lunchBuddyBackendApi-6d544467645878505043-build.zip",
       "s3Bucket": {
         "deploymentBucketName": "amplify-lunchbuddy-dev-efcdc-deployment",
@@ -29,7 +29,7 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-lunchbuddy-dev-efcdc-deployment/amplify-cfn-templates/function/lunchBuddyBackendApi-cloudformation-template.json",
         "logicalId": "functionlunchBuddyBackendApi"
       },
-      "lastPushTimeStamp": "2024-11-28T15:04:53.838Z",
+      "lastPushTimeStamp": "2024-11-28T15:47:29.365Z",
       "output": {
         "LambdaExecutionRoleArn": "arn:aws:iam::908027386854:role/lunchbuddyLambdaRoleb31afba4-dev",
         "Region": "us-east-1",
@@ -37,7 +37,7 @@
         "Name": "lunchBuddyBackendApi-dev",
         "LambdaExecutionRole": "lunchbuddyLambdaRoleb31afba4-dev"
       },
-      "lastPushDirHash": "fSG8Iggpv1C9ewrpCyyjWv1nsdU=",
+      "lastPushDirHash": "EkfYQnmhWS4inNj5r0yhHTcEGVU=",
       "dependsOn": [],
       "lastDevBuildTimeStamp": "2024-11-22T15:39:04.256Z"
     }
@@ -60,7 +60,7 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-lunchbuddy-dev-efcdc-deployment/amplify-cfn-templates/api/backendApi-cloudformation-template.json",
         "logicalId": "apibackendApi"
       },
-      "lastPushTimeStamp": "2024-11-28T15:04:30.309Z",
+      "lastPushTimeStamp": "2024-11-28T15:47:28.683Z",
       "output": {
         "ApiName": "backendApi",
         "RootUrl": "https://q1vmi7h4m4.execute-api.us-east-1.amazonaws.com/dev",
@@ -83,7 +83,7 @@
         "HostingBucketName": "lunch-buddy-bucket-dev",
         "CloudFrontDomainName": "d2u2m5k0sq6pri.cloudfront.net"
       },
-      "lastPushTimeStamp": "2024-11-28T15:04:30.309Z",
+      "lastPushTimeStamp": "2024-11-28T15:47:28.685Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-lunchbuddy-dev-efcdc-deployment/amplify-cfn-templates/hosting/template.json",
         "logicalId": "hostingS3AndCloudFront"

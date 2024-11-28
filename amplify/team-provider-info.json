@@ -21,8 +21,14 @@
           "dbUser": "postgres",
           "nodeEnv": "production",
           "deploymentBucketName": "amplify-lunchbuddy-dev-efcdc-deployment",
-          "s3Key": "amplify-builds/lunchBuddyBackendApi-4e72744a4d4e2f6c6d69-build.zip"
+          "s3Key": "amplify-builds/lunchBuddyBackendApi-6d544467645878505043-build.zip"
         }
+      },
+      "api": {
+        "backendApi": {}
+      },
+      "hosting": {
+        "S3AndCloudFront": {}
       }
     }
   }
