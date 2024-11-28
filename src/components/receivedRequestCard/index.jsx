@@ -61,7 +61,7 @@ const ReceivedRequestCard = ({ request, user, updateRequestList }) => {
         </Grid>
       </Grid>
       <Grid size={6} container direction="column" justifyContent="flex-end">
-        <Grid size={12} display="flex">
+        <Grid size={12} display="flex" justifyContent="space-between">
           <StatusButton
             request={request}
             updateRequestList={updateRequestList}
