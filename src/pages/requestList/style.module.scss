@@ -1,0 +1,16 @@
+@use "@/styles/globals.scss" as *;
+
+.Button {
+  @extend .g-font-h2;
+  background-color: $g-primary-color !important;
+  margin: 10px !important;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  height: 40px;
+  cursor: pointer;
+  position: fixed !important;
+  bottom: 10px;
+  left: 10px;
+  height: 40px;
+  z-index: 1000;
+}
