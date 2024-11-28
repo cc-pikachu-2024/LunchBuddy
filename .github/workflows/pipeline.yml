@@ -45,13 +45,13 @@ jobs:
           echo "DB_USER=${{ secrets.DB_USER }}" >> ./amplify/backend/function/lunchBuddyBackendApi/src/.env.development
 
       # Mocha/Chaiのテストを実行
-      # - name: Run backend tests
-      #   working-directory: ./amplify/backend/function/lunchBuddyBackendApi/src
-      #   run: |
-      #     npm i
-      #     npm run migrate:dev
-      #     npm run seed:dev
-      #     npm run test
+      - name: Run backend tests
+        working-directory: ./amplify/backend/function/lunchBuddyBackendApi/src
+        run: |
+          npm i
+          npm run migrate:dev
+          npm run seed:dev
+          npm run test
 
       # フロントエンドの依存関係インストールとビルド
       - name: Build frontend with Vite
