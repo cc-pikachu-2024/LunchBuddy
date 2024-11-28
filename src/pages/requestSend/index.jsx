@@ -89,7 +89,7 @@ const RequestSend = () => {
 
     setTotalMenuPrice(menuPrice);
     setTotalGratitudePrice(gratitudePrice);
-    setTotalPrice(menuPrice + gratitudePrice);
+    setTotalPrice(menuPrice);
   }, [selectedMenu, selectedGratitude, menuList]);
 
   const sendRequest = async () => {
@@ -97,7 +97,7 @@ const RequestSend = () => {
     const requestBody = {
       requesterId: userId,
       gratitudeId: selectedGratitude[0].gratitudeId,
-      requesterComment: "テスト",
+      requesterComment: "",
       totalMaxPrice: totalPrice,
       itemIds: selectedMenu.map((item) => item.itemId),
     };
