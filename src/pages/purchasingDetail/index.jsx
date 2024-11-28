@@ -86,8 +86,8 @@ const PurchasingDetail = () => {
   }, []);
 
   const updateInputPrice = (value, id) => {
-    setPurchasedItem((currentPurchasedList) => {
-      return currentPurchasedList.map((request) => {
+    setPurchasedItem((currentPurchasedItem) => {
+      return currentPurchasedItem.map((purchase) => {
         if (request.id == id) {
           return newRequest;
         } else {
