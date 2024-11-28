@@ -107,12 +107,6 @@ const RequestMyList = ({ user, requestList, updateRequestList }) => {
 
   return (
     <>
-      {console.log(requestList)}
-      {console.log(user)}
-      {console.log(myRequest)}
-      {console.log(purchasedItemList)}
-      {console.log(purchasedMenuList)}
-      {console.log(purchasedGratitudeList)}
       {myRequest ? (
         <>
           <Grid container className={style.RequestMyList}>
@@ -182,12 +176,18 @@ const RequestMyList = ({ user, requestList, updateRequestList }) => {
                             value={item.itemName}
                             disabled
                             className={style.itemNameTextbox}
+                            sx={{
+                              my: "0 !important",
+                            }}
                           />
                           <CustomeTextField
                             type="text"
                             value={item.inputPrice}
                             disabled
                             className={style.inputPriceTextBox}
+                            sx={{
+                              my: "0 !important",
+                            }}
                           />
                         </Grid>
                       );
@@ -205,6 +205,10 @@ const RequestMyList = ({ user, requestList, updateRequestList }) => {
                           value={totalGratitudePrice}
                           disabled
                           className={style.inputPriceTextBox}
+                          sx={{
+                            mx: "0 !important",
+                            my: "0 !important",
+                          }}
                         />
                       </Grid>
                     </Grid>
