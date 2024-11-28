@@ -7,7 +7,7 @@ const signUpModel = require("../models/signUpModel");
 // const listRequestsModel = require("../models/listRequestsModel");
 // const createRequestModel = require("../models/createRequestModel");
 const knex = require("../db/knex");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 
 chai.use(chaiHttp);
 
@@ -23,7 +23,7 @@ describe("", async () => {
     request.close();
   });
 
-  beforeEach(async function ()  {
+  beforeEach(async function () {
     this.timeout(5000);
     try {
       await knex.migrate.rollback(null, true);
@@ -94,19 +94,22 @@ describe("", async () => {
       };
 
       // Assert
-    const res = await request.post("/requests/users").send(reqBody);
-    expect(res).to.have.status(200);
-    const createdUser = res.body[0];
-    const isPasswordMatch = await bcrypt.compare(reqBody.password, createdUser.password); // ハッシュ化されたパスワードとの比較
-    expect(createdUser).to.include({
-      user_name: reqBody.name,
-      office_id: reqBody.officeId,
-      floor: reqBody.floor,
-      seat: reqBody.seat,
-      tel_number: reqBody.phoneNumber,
-    });
+      const res = await request.post("/requests/users").send(reqBody);
+      expect(res).to.have.status(200);
+      const createdUser = res.body[0];
+      const isPasswordMatch = await bcrypt.compare(
+        reqBody.password,
+        createdUser.password
+      ); // ハッシュ化されたパスワードとの比較
+      expect(createdUser).to.include({
+        user_name: reqBody.name,
+        office_id: reqBody.officeId,
+        floor: reqBody.floor,
+        seat: reqBody.seat,
+        tel_number: reqBody.phoneNumber,
+      });
 
-    expect(isPasswordMatch).to.be.true;
+      expect(isPasswordMatch).to.be.true;
     });
 
     it("登録に失敗したら500のステータスコードを返す。", async () => {
