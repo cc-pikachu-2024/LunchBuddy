@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import Paper from "@mui/material/Paper";
 import style from "./style.module.scss";
 import CustomeSelect from "../../components/customeSelect";
+import LunchBuddyIcon from "../../assets/LunchBuddy_icon.png";
+import { Box } from "@mui/material";
 
 const Signup = () => {
   const [name, setName] = useState(""); //氏名
@@ -77,7 +79,12 @@ const Signup = () => {
 
   return (
     <div className={style.container}>
-      <h1 className={style.title}>LunchBuddy</h1>
+      <Box
+        component="img"
+        src={LunchBuddyIcon}
+        alt="LunchBuddy Icon"
+        className={style.Image}
+      />
       <Paper elevation={4} className={style.formContainer}>
         <h1>アカウント登録</h1>
         <CustomeTextField
@@ -95,7 +102,7 @@ const Signup = () => {
         />
         <CustomeSelect
           label="オフィス"
-          value={officeId}
+          value={officeId || ""}
           targetList={offices}
           required={true}
           onChange={setOfficeId}
