@@ -102,12 +102,14 @@
 .ReceivedRequestCardPLarge {
   margin-top: 1px;
   margin-left: 8px;
+  text-align: left;
   @extend .g-font-p-large;
 }
 
 .ReceivedRequestCardP {
   margin-top: 3px;
   margin-left: 8px;
+  text-align: left;
 }
 
 .StatusButton {
@@ -137,4 +139,46 @@
 .ErrorCustomeButtonText {
   @extend .g-font-p-small;
   color: $g-error-color;
+}
+
+.Header {
+  background-color: $g-background-color !important;
+  position: relative;
+}
+
+.BackButton {
+  position: absolute !important;
+  top: 0px !important;
+  left: -20px !important;
+  padding: 4px 10px !important;
+  margin-bottom: 10px;
+  border: none;
+  cursor: pointer;
+  color: $g-font-color !important;
+  z-index: 1000;
+}
+
+.BackButtonLink {
+  color: $g-font-color !important;
+}
+
+.PageTitle {
+  width: initial;
+  border-bottom: solid 0px black !important;
+  position: absolute !important;
+  display: block !important;
+  right: 0 !important;
+  left: 0 !important;
+  margin: 0 auto !important;
+}
+
+.DetailContent {
+  margin-top: 70px;
+}
+
+.ReceivedRequestCardPSmall {
+  @extend .g-font-p-small;
+  text-align: left;
+  margin-left: 8px !important;
+  margin: 0;
 }

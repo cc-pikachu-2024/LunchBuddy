@@ -1,9 +1,6 @@
-import React from "react";
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import style from "./style.module.scss";
-import StatusButton from "../../components/StatusButton";
-// import CustomeTextField from "../../components/customeTextField";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import CustomeStepper from "../../components/customeStepper";
@@ -17,55 +14,13 @@ import TextsmsIcon from "@mui/icons-material/Textsms";
 import CurrencyYenIcon from "@mui/icons-material/CurrencyYen";
 import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import { Box } from "@mui/material";
 
 const PurchasingDetail = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { user, request } = location.state || {};
-  // const [purchasedItemList, setPurchasedItemList] = useState([]); // responderによる購入商品の情報
-  // const [purchasedMenuList, setPurchasedMenuList] = useState([]);
-  // const [purchasedGratitudeList, setPurchasedGratitudeList] = useState([]);
-
-  // const [totalMenuPrice, setTotalMenuPrice] = useState();
-  // const [totalGratitudePrice, setTotalGratitudePrice] = useState();
-  // const [totalPrice, setTotalPrice] = useState();
-
-  // useEffect(() => {
-  //メニューの合計購入金額計算　//この辺りの実装全然ダメなはずなので要修正
-  //   const menuPrice = purchasedMenuList.reduce((acc, purchasedItem) => {
-  //     return Number(Object.values(purchasedItem)[0]);
-  //   }, 0);
-
-  //   //お礼の合計購入金額計算
-  //   const gratitudePrice = purchasedGratitudeList.reduce((acc, gratitude) => {
-  //     return Number(gratitude["gratitude"]);
-  //   }, 0);
-  //   setTotalMenuPrice(menuPrice);
-  //   setTotalGratitudePrice(gratitudePrice);
-  //   setTotalPrice(menuPrice + gratitudePrice);
-  // }, [purchasedMenuList, purchasedGratitudeList]);
-
-  // useEffect(() => {
-  //   const itemList = purchasedMenuList.concat(purchasedGratitudeList);
-  //   setPurchasedItemList(itemList);
-  // }, [purchasedMenuList, purchasedGratitudeList]);
-
-  // const handleItemPriceChange = (target) => {
-  //   const { name, value } = target;
-  //   console.log(name, value);
-  //   setPurchasedMenuList((prevValues) => [...prevValues, [name]]);
-  //   // setPurchasedMenuList((prevValues) => [...prevValues, { [name]: value }]);
-  // };
-
-  // const handleGratitudePriceChange = (target) => {
-  //   const { name, value } = target;
-  //   console.log(name, value);
-  //   setPurchasedGratitudeList((prevValues) => [
-  //     ...prevValues,
-  //     { [name]: value },
-  //   ]);
-  // };
-
+  const { _, request } = location.state || {};
   // >>>>>>>>>>>>>>>>>>>
   const [gratitude, setGratitude] = useState({
     itemName: "gratitude",
@@ -169,53 +124,104 @@ const PurchasingDetail = () => {
 
   return (
     <>
-      <Grid container className={style.RequestMyList}>
+      <Box className={style.Header}>
+        <Button className={clsx(style.BackButton)}>
+          <Link
+            to={"/requestList"}
+            state={{ activeTab: 2 }}
+            className={clsx(style.BackButtonLink)}
+          >
+            <ArrowBackIosNewIcon />
+          </Link>
+        </Button>
+        <h2 className={style.PageTitle}>金額入力</h2>
+      </Box>
+      <Box className={style.DetailContent}>
         <Grid size={12} display="flex">
           <CustomeStepper isRequester={true} statusId={request.statusId} />
         </Grid>
-        <Grid size={12} display="flex">
-          <PersonIcon />
-          <p className={style.ReceivedRequestCardPLarge}>
-            {request.requesterName}
-          </p>
+        <Grid container spacing={2} alignItems="center">
+          <Grid size={1}>
+            <PersonIcon />
+          </Grid>
+          <Grid size={11}>
+            <p className={style.ReceivedRequestCardPSmall}>依頼者</p>
+            <p className={style.ReceivedRequestCardPLarge}>
+              {request.requesterName}
+            </p>
+          </Grid>
         </Grid>
-        <Grid size={12} display="flex">
-          <ApartmentIcon />
-          <p className={style.ReceivedRequestCardP}>
-            フロア：{request.requesterFloor}F
-          </p>
+        <Grid container spacing={2} alignItems="center">
+          <Grid size={1}>
+            <ApartmentIcon />
+          </Grid>
+          <Grid size={11}>
+            <p className={style.ReceivedRequestCardPSmall}>フロア</p>
+            <p className={style.ReceivedRequestCardP}>
+              {request.requesterFloor}F
+            </p>
+          </Grid>
         </Grid>
-        <Grid size={12} display="flex">
-          <ChairAltIcon />
-          <p className={style.ReceivedRequestCardP}>
-            座席：{request.requesterSeat}
-          </p>
+        <Grid container spacing={2} alignItems="center">
+          <Grid size={1}>
+            <ChairAltIcon />
+          </Grid>
+          <Grid size={11}>
+            <p className={style.ReceivedRequestCardPSmall}>座席</p>
+            <p className={style.ReceivedRequestCardP}>
+              {request.requesterSeat}
+            </p>
+          </Grid>
         </Grid>
-        <Grid size={12} display="flex">
-          <LocalDiningIcon />
-          {purchasedItem.map((item) => {
-            return (
-              <p className={style.myRequestCardP} key={item.tmpId}>
+        <Grid container spacing={2} alignItems="center">
+          <Grid size={1}>
+            <LocalDiningIcon />
+          </Grid>
+          <Grid size={11}>
+            <p className={style.ReceivedRequestCardPSmall}>依頼品</p>
+            {purchasedItem.map((item) => (
+              <p className={style.ReceivedRequestCardPLarge} key={item.tmpId}>
                 {item.itemName}
               </p>
-            );
-          })}
+            ))}
+          </Grid>
         </Grid>
-        <Grid size={12} display="flex">
-          <TextsmsIcon />
-          <p className={style.myRequestCardP}>{request.requesterComment}</p>
+        <Grid container spacing={2} alignItems="center">
+          <Grid size={1}>
+            <TextsmsIcon />
+          </Grid>
+          <Grid size={11}>
+            <p className={style.ReceivedRequestCardPSmall}>コメント</p>
+            <p className={style.ReceivedRequestCardPSmall}>
+              {request.requesterComment || "-"}
+            </p>
+          </Grid>
         </Grid>
-        <Grid size={12} display="flex">
-          <CurrencyYenIcon />
-          <p className={style.myRequestCardPWeight}>
-            〜￥{request.totalMaxPrice}までで依頼商品を購入してください。
-          </p>
+        <Grid container spacing={2} alignItems="center">
+          <Grid size={1}>
+            <CurrencyYenIcon />
+          </Grid>
+          <Grid size={11}>
+            <p className={style.ReceivedRequestCardPSmall}>
+              以下金額で依頼商品を購入してください。
+            </p>
+            <p className={style.ReceivedRequestCardPLarge}>
+              〜￥{request.totalMaxPrice}
+            </p>
+          </Grid>
         </Grid>
-        <Grid size={12} display="flex">
-          <CardGiftcardIcon />
-          <p className={style.myRequestCardPWeight}>
-            〜￥{request.gratitudeMaxPrice}までのお礼品を購入できます。
-          </p>
+        <Grid container spacing={2} alignItems="center">
+          <Grid size={1}>
+            <CardGiftcardIcon />
+          </Grid>
+          <Grid size={11}>
+            <p className={style.ReceivedRequestCardPSmall}>
+              以下金額でお礼品を購入できます。
+            </p>
+            <p className={style.ReceivedRequestCardPLarge}>
+              〜￥{request.gratitudeMaxPrice}
+            </p>
+          </Grid>
         </Grid>
         <Grid size={12} className={style.itemImageGrid}>
           {request.itemList.map((item) => {
@@ -224,34 +230,28 @@ const PurchasingDetail = () => {
                 className={style.itemImage}
                 src={item.itemImageName}
                 alt={item.itemName}
+                key={item.tmpId}
               />
             );
           })}
         </Grid>
         <div className={style.horizontalBar}></div>
-        <Grid>
+        <Box>
           <Grid size={12}>
             <Grid size={12} display="flex">
               <CurrencyYenIcon />
-              <p className={style.myRequestCardPWeight}>
+              <p className={style.ReceivedRequestCardPLarge}>
                 〜￥{request.totalMaxPrice}
               </p>
             </Grid>
-            {purchasedItem.map((item, idx) => {
-              return (
-                <Grid
-                  size={12}
-                  display="flex"
-                  className={style.textboxGrid}
-                  key={item.tmpId}
-                >
-                  {/* <CustomeTextField
-                    type="text"
-                    value={item.itemName}
-                    disabled
-                    className={style.itemNameTextbox}
-                    key="itemName"
-                  /> */}
+            {purchasedItem.map((item, idx) => (
+              <Grid
+                container
+                display="flex"
+                className={style.textboxGrid}
+                key={item.tmpId}
+              >
+                <Grid size={8}>
                   <TextField
                     label=""
                     value={item.itemName}
@@ -263,12 +263,8 @@ const PurchasingDetail = () => {
                     disabled
                     name={item.itemName}
                   />
-                  {/* <CustomeTextField
-                    type="text"
-                    className={style.inputPriceTextBox}
-                    name={item.itemName}
-                    onChange={handleItemPriceChange}
-                  /> */}
+                </Grid>
+                <Grid size={4}>
                   <TextField
                     label=""
                     value={item.inputPrice}
@@ -281,33 +277,41 @@ const PurchasingDetail = () => {
                     name={item.itemName}
                   />
                 </Grid>
-              );
-            })}
-            <Grid size={12} display="flex">
-              <Grid size={4} display="flex">
+              </Grid>
+            ))}
+            <Grid size={12}>
+              <Grid size={12} display="flex">
                 <CardGiftcardIcon />
-                <p className={style.myRequestCardPWeight}>
+                <p className={style.ReceivedRequestCardPLarge}>
                   〜￥{request.gratitudeMaxPrice}
                 </p>
               </Grid>
-              <Grid size={8}>
-                {/* <CustomeTextField
-                  type="text"
-                  className={style.inputPriceTextBox}
-                  name="gratitude" //ここは固定でいい？
-                  onChange={handleGratitudePriceChange}
-                /> */}
-                <TextField
-                  label=""
-                  value={gratitude.inputPrice}
-                  type="text"
-                  onChange={(e) => updateGratitudePrice(e.target.value)}
-                  required={true}
-                  size="small"
-                  className={clsx(style.inputPriceTextBox)}
-                  margin={"none"}
-                  name={"gratitude"}
-                />
+              <Grid container display="flex" className={style.textboxGrid}>
+                <Grid size={8}>
+                  <TextField
+                    label=""
+                    value={"お礼品"}
+                    type="text"
+                    size="small"
+                    className={clsx(style.itemNameTextbox)}
+                    margin={"none"}
+                    disabled
+                    name={"お礼品"}
+                  />
+                </Grid>
+                <Grid size={4}>
+                  <TextField
+                    label=""
+                    value={gratitude.inputPrice}
+                    type="text"
+                    onChange={(e) => updateGratitudePrice(e.target.value)}
+                    required={true}
+                    size="small"
+                    className={clsx(style.inputPriceTextBox)}
+                    margin={"none"}
+                    name={"gratitude"}
+                  />
+                </Grid>
               </Grid>
             </Grid>
             <div className={clsx(style.MaxPrice)}>
@@ -332,20 +336,6 @@ const PurchasingDetail = () => {
             <p>
               {request.requesterName}さんに{totalPrice}円の明細を送付します。
             </p>
-            {/* <StatusButton
-              request={request}
-              user={user}
-              color="success"
-              onClick={sendPurchaseDetail}
-            /> */}
-            <Button
-              variant="outlined"
-              className={style.ErrorStatusButton}
-            >
-              <Link to={"/requestList"} state={{activeTab:2}}>
-                <p className={style.ErrorCustomeButtonText}>戻る</p>
-              </Link>
-            </Button>
             <Button
               variant="outlined"
               onClick={() => sendPurchaseDetail()}
@@ -354,8 +344,8 @@ const PurchasingDetail = () => {
               <p className={style.SuccessCustomeButtonText}>明細送付</p>
             </Button>
           </Grid>
-        </Grid>
-      </Grid>
+        </Box>
+      </Box>
     </>
   );
 };
