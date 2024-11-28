@@ -15,13 +15,20 @@ const ReceivedRequestCard = ({ request, user, updateRequestList }) => {
   const itemList = request.itemList.map((item) => item.itemName);
   const isGrayedOut = request.statusId === 4;
   return (
-    <Grid container className={`${style.ReceivedRequestCard} ${isGrayedOut ? style.grayedOut : ""}`}>
+    <Grid
+      container
+      className={`${style.ReceivedRequestCard} ${
+        isGrayedOut ? style.grayedOut : ""
+      }`}
+    >
       <Grid size={12} display="flex">
         <CustomeStepper isRequester={false} statusId={request.statusId} />
       </Grid>
       <Grid size={6} display="flex">
         <PersonIcon />
-        <p className={style.ReceivedRequestCardPLarge}>{request.requesterName}</p>
+        <p className={style.ReceivedRequestCardPLarge}>
+          {request.requesterName}
+        </p>
       </Grid>
       <Grid size={3} display="flex">
         <ApartmentIcon />
@@ -64,6 +71,7 @@ const ReceivedRequestCard = ({ request, user, updateRequestList }) => {
           <StatusButton
             request={request}
             updateRequestList={updateRequestList}
+            nav={true}
             user={user}
             color="success"
           />

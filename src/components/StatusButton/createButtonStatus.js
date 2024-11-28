@@ -1,7 +1,13 @@
 import { updateRequest } from "../../common/requests";
 import { useNavigate } from "react-router-dom";
 
-export const createButtonStatus = (request, user, updateRequestList, color) => {
+export const createButtonStatus = (
+  request,
+  user,
+  updateRequestList,
+  nav,
+  color
+) => {
   let isDisplay = true;
   let text = "";
   let onClick = () => {};
@@ -13,15 +19,15 @@ export const createButtonStatus = (request, user, updateRequestList, color) => {
 
   switch (request.statusId) {
     case 1: // 状態が「waiting」
-      if (request.responderId == null) {
-        text = "任せて！";
-        onClick = async () => {
-          await updateRequest(request, updateRequestList, 2, user.id, false);
-        };
-      } else if (isRequester) {
+      if (isRequester) {
         text = "取り下げる";
         onClick = async () => {
           await updateRequest(request, updateRequestList, 5, user.id, false);
+        };
+      } else if (request.responderId == null) {
+        text = "任せて！";
+        onClick = async () => {
+          await updateRequest(request, updateRequestList, 2, user.id, false);
         };
       } else {
         isDisplay = false;
@@ -34,26 +40,33 @@ export const createButtonStatus = (request, user, updateRequestList, color) => {
         isDisplay = false;
       } else if (isResponder) {
         if (color == "success") {
-          text = "金額入力";
-          // TODO: 金額入力画面に遷移する挙動に修正
-          onClick = async () => {
-            const res = confirm("品物を渡しましたか？");
-            if (res) {
-              await updateRequest(
-                request,
-                updateRequestList,
-                3,
-                user.id,
-                false
-              );
-            }
-            await navigate("/purchasingDetail", {
-              state: {
-                user: user,
-                request: request,
-              },
-            });
-          };
+          if (nav) {
+            text = "金額入力";
+            onClick = () => {
+              navigate("/purchasingDetail", {
+                state: {
+                  user: user,
+                  request: request,
+                },
+              });
+            };
+          } else {
+            text = "明細送付";
+            onClick = async () => {
+              // TODO: purchasing API を叩く
+              const res = confirm("金額に誤りはありませんか？");
+              if (res) {
+                await updateRequest(
+                  request,
+                  updateRequestList,
+                  3,
+                  user.id,
+                  false
+                );
+                navigate("/requestList");
+              }
+            };
+          }
         } else if (color == "error") {
           text = "キャンセル";
           onClick = async () => {

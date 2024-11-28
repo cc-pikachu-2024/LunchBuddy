@@ -4,7 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import style from "./style.module.scss";
 import StatusButton from "../../components/StatusButton";
-import CustomeTextField from "../../components/customeTextField";
+// import CustomeTextField from "../../components/customeTextField";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
 import CustomeStepper from "../../components/customeStepper";
 import clsx from "clsx";
 import Grid from "@mui/material/Grid2";
@@ -21,7 +23,7 @@ const PurchasingDetail = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { user, request } = location.state || {};
-  const [purchasedItemList, setPurchasedItemList] = useState([]); // responderによる購入商品の情報
+  // const [purchasedItemList, setPurchasedItemList] = useState([]); // responderによる購入商品の情報
   const [purchasedMenuList, setPurchasedMenuList] = useState([]);
   const [purchasedGratitudeList, setPurchasedGratitudeList] = useState([]);
 
@@ -52,7 +54,8 @@ const PurchasingDetail = () => {
   const handleItemPriceChange = (target) => {
     const { name, value } = target;
     console.log(name, value);
-    setPurchasedMenuList((prevValues) => [...prevValues, { [name]: value }]);
+    setPurchasedMenuList((prevValues) => [...prevValues, [name]]);
+    // setPurchasedMenuList((prevValues) => [...prevValues, { [name]: value }]);
   };
 
   const handleGratitudePriceChange = (target) => {
@@ -64,41 +67,68 @@ const PurchasingDetail = () => {
     ]);
   };
 
+  // >>>>>>>>>>>>>>>>>>>
+  const [purchasedItem, setPurchasedItem] = useState([]); // responderによる購入商品の情報
+
+  useEffect(() => {
+    console.log(request);
+    const purchasedObj = request.itemList.map((item) => {
+      return {
+        itemName: item.itemName,
+        maxPrice: item.maxPrice,
+        menuFlag: true,
+        inputPrice: 0,
+      };
+    });
+    setPurchasedItem(purchasedObj);
+  }, []);
+
   const sendPurchaseDetail = async () => {
-    const requestBody = {
-      requestId: request.requestId,
-      responderId: request.responderId,
-      recieptId: "xxx", //TODO: レシートアップロード機能の追加
-      itemList: purchasedItemList,
-    };
-
-    const param = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json; charset=utf-8",
-      },
-      body: JSON.stringify(requestBody),
-    };
-
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_HOST}/requests/purchase`,
-        param
+    const res = confirm("金額に誤りはありませんか？");
+    if (res) {
+      const newItemList = Object.entries(purchasedItemList).map(
+        ([key, value]) => ({
+          itemName: key,
+          inputPrice: value,
+          menuFlag: key == "gratitude" ? false : true,
+        })
       );
-      if (!response.ok) {
-        throw new Error("ネットワークに問題があります");
-      }
-      const data = response.json();
-      console.log("作成内容:", data);
-    } catch (error) {
-      console.log("リクエスト送信エラー：", error);
+      const requestBody = {
+        requestId: request.id,
+        responderId: request.responderId,
+        recieptId: "xxx", //TODO: レシートアップロード機能の追加
+        itemList: newItemList,
+      };
+      console.log(newItemList);
+      console.log(requestBody);
+
+      // const param = {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json; charset=utf-8",
+      //   },
+      //   body: JSON.stringify(requestBody),
+      // };
+
+      // try {
+      //   const response = await fetch(
+      //     `${import.meta.env.VITE_API_HOST}/requests/purchase`,
+      //     param
+      //   );
+      //   if (!response.ok) {
+      //     throw new Error("ネットワークに問題があります");
+      //   }
+      //   const data = response.json();
+      //   console.log("作成内容:", data);
+      //   navigate("/requestList");
+      // } catch (error) {
+      //   console.log("リクエスト送信エラー：", error);
+      // }
     }
   };
 
   return (
     <>
-      {/* {console.log(request)}
-      {console.log(user)} */}
       <Grid container className={style.RequestMyList}>
         <Grid size={12} display="flex">
           <CustomeStepper isRequester={true} statusId={request.statusId} />
@@ -163,21 +193,43 @@ const PurchasingDetail = () => {
                 〜￥{request.totalMaxPrice}
               </p>
             </Grid>
-            {request.itemList.map((item) => {
+            {purchasedItem.map((item) => {
               return (
                 <Grid size={12} display="flex" className={style.textboxGrid}>
-                  <CustomeTextField
+                  {/* <CustomeTextField
                     type="text"
                     value={item.itemName}
                     disabled
                     className={style.itemNameTextbox}
                     key="itemName"
+                  /> */}
+                  <TextField
+                    label=""
+                    value={item.itemName}
+                    type="text"
+                    required={true}
+                    size="small"
+                    className={clsx(style.itemNameTextbox)}
+                    margin={"none"}
+                    disabled
+                    name={item.itemName}
                   />
-                  <CustomeTextField
+                  {/* <CustomeTextField
                     type="text"
                     className={style.inputPriceTextBox}
                     name={item.itemName}
                     onChange={handleItemPriceChange}
+                  /> */}
+                  <TextField
+                    label=""
+                    value={item.inputPrice}
+                    type="number"
+                    onChange={(e) => updateInputPrice(e.target.target)}
+                    required={true}
+                    size="small"
+                    className={clsx(style.inputPriceTextBox)}
+                    margin={"none"}
+                    name={item.itemName}
                   />
                 </Grid>
               );
@@ -190,11 +242,22 @@ const PurchasingDetail = () => {
                 </p>
               </Grid>
               <Grid size={8}>
-                <CustomeTextField
+                {/* <CustomeTextField
                   type="text"
                   className={style.inputPriceTextBox}
                   name="gratitude" //ここは固定でいい？
                   onChange={handleGratitudePriceChange}
+                /> */}
+                <TextField
+                  label=""
+                  value={purchasedGratitudeList["gratitude"]}
+                  type="text"
+                  onChange={(e) => handleGratitudePriceChange(e.target)}
+                  required={true}
+                  size="small"
+                  className={clsx(style.inputPriceTextBox)}
+                  margin={"none"}
+                  name={"gratitude"}
                 />
               </Grid>
             </Grid>
@@ -220,12 +283,19 @@ const PurchasingDetail = () => {
             <p>
               {request.requesterName}さんに{totalPrice}円の明細を送付します。
             </p>
-            <StatusButton
+            {/* <StatusButton
               request={request}
               user={user}
               color="success"
               onClick={sendPurchaseDetail}
-            />
+            /> */}
+            <Button
+              variant="outlined"
+              onClick={() => sendPurchaseDetail()}
+              className={style.SuccessStatusButton}
+            >
+              <p className={style.SuccessCustomeButtonText}>明細送付</p>
+            </Button>
           </Grid>
         </Grid>
       </Grid>

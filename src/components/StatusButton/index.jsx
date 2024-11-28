@@ -8,12 +8,14 @@ const StatusButton = ({
   request,
   updateRequestList,
   user,
+  nav = false,
   color = "success", // "success" か "error" を入力
 }) => {
   const buttonContent = createButtonStatus(
     request,
     user,
     updateRequestList,
+    nav,
     color
   );
 
@@ -55,5 +57,6 @@ StatusButton.propTypes = {
   request: PropTypes.object,
   updateRequestList: PropTypes.func,
   user: PropTypes.object,
+  nav: PropTypes.bool,
   color: PropTypes.string,
 };

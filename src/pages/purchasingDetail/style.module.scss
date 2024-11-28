@@ -109,3 +109,32 @@
   margin-top: 3px;
   margin-left: 8px;
 }
+
+.StatusButton {
+  max-width: 80px;
+  width: 80%;
+  margin: 5px !important;
+  padding: 1px !important;
+  border-radius: 5px !important;
+  height: 30px;
+}
+
+.SuccessStatusButton {
+  @extend .StatusButton;
+  border: solid 1px $g-success-color !important;
+}
+
+.ErrorStatusButton {
+  @extend .StatusButton;
+  border: solid 1px $g-error-color !important;
+}
+
+.SuccessCustomeButtonText {
+  @extend .g-font-p-small;
+  color: $g-success-color;
+}
+
+.ErrorCustomeButtonText {
+  @extend .g-font-p-small;
+  color: $g-error-color;
+}

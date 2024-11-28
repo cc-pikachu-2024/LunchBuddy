@@ -9,6 +9,7 @@ exports.postPurchase = async (req, res) => {
       responder_id: reqBodyObj.responderId,
       reciept_id: reqBodyObj.recieptId,
     });
+    console.log(purchaseIdObj);
     await Promise.all(
       reqBodyObj.itemList.map(async (item) => {
         return await purchaseModel.postPurchaseDetail({
