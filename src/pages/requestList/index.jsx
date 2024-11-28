@@ -60,18 +60,18 @@ const RequestList = () => {
     }
   };
 
-    //他のページから画面遷移してくる時にtabの情報が渡されるのでその渡されたtabの情報を保持する用
-    const location = useLocation();
-    const { activeTab } = location.state || { activeTab: 0 };
-    const [tab, setTab] = useState(activeTab || 0);
-    useEffect(() => {
-      setTab(activeTab); 
-    }, [activeTab]);
-    
+  //他のページから画面遷移してくる時にtabの情報が渡されるのでその渡されたtabの情報を保持する用
+  const location = useLocation();
+  const { activeTab } = location.state || { activeTab: 0 };
+  const [tab, setTab] = useState(activeTab || 0);
+  useEffect(() => {
+    setTab(activeTab);
+  }, [activeTab]);
 
   return (
     <>
-    <CustomeTab tab={tab}>{/* tabの情報が渡ってきたときはそのtabに遷移 */}
+      <CustomeTab tab={tab}>
+        {/* tabの情報が渡ってきたときはそのtabに遷移 */}
         <RequestWaitingList
           user={user}
           requestList={requestList}
@@ -88,25 +88,6 @@ const RequestList = () => {
           updateRequestList={updateRequestList}
         />
       </CustomeTab>
-      {/* <h1>おねがいリスト</h1>
-      <InfoCard user={user} />
-      {requestList?.length ? (
-        requestList.map((request) => (
-          <RequestCard
-            request={request}
-            updateRequestList={updateRequestList}
-            user={user}
-            key={`request-${request.id}`}
-          />
-        ))
-      ) : (
-        <p>現在はリクエストがありません。</p>
-      )}
-      <CustomeButton
-        onClick={() => navigate("/requestSend/")}
-        text={"リクエスト作成"}
-        fixed={true}
-      /> */}
     </>
   );
 };

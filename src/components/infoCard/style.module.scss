@@ -1,7 +1,6 @@
 @use "@/styles/globals.scss" as *;
 
 .InfoCard {
-  
   padding: 0px 10px !important;
   border-radius: 5px !important;
   background-color: $g-grey !important;
@@ -9,14 +8,26 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 5vh;
-  width: 80%;
+  // height: 8vh;
+  width: 90%;
+  padding: 5px 10px !important;
   position: fixed;
   top: 8%;
   left: 50%;
   transform: translateX(-50%);
 }
 
+.InfoCardP {
+  margin: 5px 0px !important;
+}
+
 .CustomeCardH2 {
   display: inline-block !important;
+}
+
+.UserName {
+  @extend .g-font-p-medium;
+  //   text-align: left;
+  margin-top: 0px;
+  margin-left: 6px;
 }
