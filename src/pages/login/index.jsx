@@ -1,7 +1,7 @@
 import { useState } from "react";
 import CustomeButton from "../../components/customeButton";
 import CustomeTextField from "../../components/customeTextField";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import Paper from "@mui/material/Paper";
 import style from "./style.module.scss";
 import Alert from "@mui/material/Alert"; 
@@ -84,7 +84,11 @@ const Login = () => {
           required={true}
         />
         <CustomeButton text="ログイン" onClick={() => handleSubmit()} />
-        <CustomeButton text="アカウント登録" onClick={() =>  navigate("/signup")} />
+        <p style={{ fontSize: '14px', textAlign: 'center' }}>
+          <Link to="/signup" style={{ textDecoration: 'underline', color: "gray" }}>
+            アカウント登録はこちら
+          </Link>
+        </p>
       </Paper>
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
         <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>

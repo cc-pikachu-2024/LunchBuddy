@@ -246,7 +246,7 @@ const RequestMyList = ({ user, requestList, updateRequestList }) => {
                 request={myRequest}
                 updateRequestList={updateRequestList}
                 user={user}
-                color="error"
+                color="success"
               />
             </Grid>
           </Grid>
