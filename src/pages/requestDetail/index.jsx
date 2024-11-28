@@ -32,7 +32,7 @@ const RequestDetail = () => {
 
   return (
     <>
-      <button className="back-button" onClick={() => navigate("/requestList")}>
+      <button className={(clsx(style.BackButton))} onClick={() => navigate("/requestList")}>
         <Grid size={6} display="flex">
           <ArrowBackIcon />
           <p className={style.ReceivedRequestCardP}>受注待ち一覧に戻る</p>

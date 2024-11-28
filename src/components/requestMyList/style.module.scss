@@ -15,6 +15,7 @@
 .myRequestCardPWeight {
   @extend .myRequestCardP;
   margin-top: 0 !important;
+  @extend .g-font-p-large;
 }
 
 .itemImage {
@@ -91,4 +92,8 @@
 }
 .HelpIcon {
   font-size: 10px !important;
+}
+
+.svg {
+  padding-top: 5px;
 }
