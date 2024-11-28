@@ -8,7 +8,7 @@ import ApartmentIcon from "@mui/icons-material/Apartment";
 import ChairAltIcon from "@mui/icons-material/ChairAlt";
 import LocalDiningIcon from "@mui/icons-material/LocalDining";
 import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
-import { Divider } from "@mui/material";
+import { Box, Divider } from "@mui/material";
 
 const RequestWaitingCard = ({ request }) => {
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ const RequestWaitingCard = ({ request }) => {
   };
 
   return (
-    <>
+    <Box className={style.RequestWaitingCardBox}>
       {request &&
         request.map((req) => (
           <>
@@ -74,7 +74,7 @@ const RequestWaitingCard = ({ request }) => {
             <Divider className={clsx(style.Divider)}></Divider>
           </>
         ))}
-    </>
+    </Box>
   );
 };
 export default RequestWaitingCard;

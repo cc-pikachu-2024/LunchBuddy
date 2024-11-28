@@ -5,13 +5,7 @@
   flex-direction: column; /* 縦方向に並べる */
   align-items: stretch; /* 幅を揃える */
   padding-top: 20%;
-}
-
-.UserName {
-  @extend .g-font-p-medium;
-  //   text-align: left;
-  margin-top: 0px;
-  margin-left: 6px;
+  margin-top: 60px;
 }
 
 .GridContainer {
