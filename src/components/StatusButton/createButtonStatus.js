@@ -81,7 +81,7 @@ export const createButtonStatus = (
       if (request.responderId == null) {
         isDisplay = false;
       } else if (isRequester) {
-        text = "";
+        text = "金額確認";
         // TODO: 金額確認画面に遷移する挙動に修正
         onClick = async () => {
           const res = confirm("品物を受け取りましたか？");
