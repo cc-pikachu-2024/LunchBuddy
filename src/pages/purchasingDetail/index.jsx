@@ -72,16 +72,30 @@ const PurchasingDetail = () => {
 
   useEffect(() => {
     console.log(request);
-    const purchasedObj = request.itemList.map((item) => {
+    const purchasedObj = request.itemList.map((item, idx) => {
       return {
+        tmpId: idx,
         itemName: item.itemName,
         maxPrice: item.maxPrice,
         menuFlag: true,
         inputPrice: 0,
+        itemImageName: item.itemImageName,
       };
     });
     setPurchasedItem(purchasedObj);
   }, []);
+
+  const updateInputPrice = (value, id) => {
+    setPurchasedItem((currentPurchasedList) => {
+      return currentPurchasedList.map((request) => {
+        if (request.id == id) {
+          return newRequest;
+        } else {
+          return request;
+        }
+      });
+    });
+  };
 
   const sendPurchaseDetail = async () => {
     const res = confirm("金額に誤りはありませんか？");
@@ -195,7 +209,12 @@ const PurchasingDetail = () => {
             </Grid>
             {purchasedItem.map((item) => {
               return (
-                <Grid size={12} display="flex" className={style.textboxGrid}>
+                <Grid
+                  size={12}
+                  display="flex"
+                  className={style.textboxGrid}
+                  key={item.tmpId}
+                >
                   {/* <CustomeTextField
                     type="text"
                     value={item.itemName}
