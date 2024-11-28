@@ -81,7 +81,7 @@ jobs:
           echo ${{ secrets.AWS_ACCESS_KEY_ID }}
           echo ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           echo ${{ secrets.AWS_REGION }}
-          AMPLIFY_CLI_DEBUG=true amplify pull --appId d2enwmup4uuds0 --amplify --envName dev --yes
+          amplify pull --appId d2enwmup4uuds0 --envName dev
 
       # 6. Amplify Functions のデプロイ
       - name: Deploy Amplify Functions
