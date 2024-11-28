@@ -23,7 +23,7 @@ describe("", async () => {
     request.close();
   });
 
-  beforeEach(async function ()  {
+  beforeEach(async function () {
     this.timeout(5000);
     try {
       await knex.migrate.rollback(null, true);
@@ -41,7 +41,7 @@ describe("", async () => {
   });
 
   describe("get offices", () => {
-    xit("参照に成功したら200のステータスコードを返す。", async () => {
+    it("参照に成功したら200のステータスコードを返す。", async () => {
       // Setup
       const mock = [
         {
@@ -66,7 +66,7 @@ describe("", async () => {
       expect(res.body).to.deep.equal(mock);
     });
 
-    xit("参照に失敗したら500のステータスコードを返す。", async () => {
+    it("参照に失敗したら500のステータスコードを返す。", async () => {
       // Setup
       sandbox
         .stub(signUpModel, "getAllOffices")
@@ -93,20 +93,26 @@ describe("", async () => {
         phoneNumber: "xxx-xxx-xxx",
       };
 
-      // Assert
-    const res = await request.post("/requests/users").send(reqBody);
-    expect(res).to.have.status(200);
-    const createdUser = res.body[0];
-    const isPasswordMatch = await bcrypt.compare(reqBody.password, createdUser.password); // ハッシュ化されたパスワードとの比較
-    expect(createdUser).to.include({
-      user_name: reqBody.name,
-      office_id: reqBody.officeId,
-      floor: reqBody.floor,
-      seat: reqBody.seat,
-      tel_number: reqBody.phoneNumber,
-    });
+      const hashedPassword =
+        "$2a$10$fRw44CJ04Hlncy5Nr6MIk.3DV66sgzAqqkE9Hxfw8YWKBK7MTdjhm";
 
-    expect(isPasswordMatch).to.be.true;
+      // Assert
+      const res = await request.post("/requests/users").send(reqBody);
+      expect(res).to.have.status(200);
+      const createdUser = res.body;
+      const isPasswordMatch = await bcrypt.compare(
+        reqBody.password,
+        hashedPassword
+      ); // ハッシュ化されたパスワードとの比較
+      expect(createdUser).to.include({
+        userName: reqBody.name,
+        officeId: reqBody.officeId,
+        floor: reqBody.floor,
+        seat: reqBody.seat,
+        telNumber: reqBody.phoneNumber,
+      });
+
+      expect(isPasswordMatch).to.be.true;
     });
 
     it("登録に失敗したら500のステータスコードを返す。", async () => {
