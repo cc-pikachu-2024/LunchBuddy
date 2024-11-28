@@ -4,11 +4,19 @@
   @extend .g-font-p-large;
   margin-top: 0px;
   margin-left: 6px;
+  text-align: left;
+}
+
+.ReceivedRequestCardPSmall {
+  @extend .g-font-p-small;
+  text-align: left;
+  margin: 0;
 }
 
 .RequestDetailComment {
   @extend .g-font-p-large;
   margin-top: 0px;
+  text-align: left;
 }
 
 .ReceivedRequestCardPWeight {
@@ -17,20 +25,35 @@
   margin-top: 0 !important;
 }
 
+.Header {
+  background-color: $g-background-color !important;
+  position: relative;
+}
+
 .BackButton {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  padding: 5px 7px;
+  position: absolute !important;
+  top: 0px !important;
+  left: -20px !important;
+  padding: 4px 10px !important;
   margin-bottom: 10px;
   border: none;
   cursor: pointer;
-  display: flex;
-  align-items: center;
+  color: $g-font-color !important;
+  z-index: 1000;
 }
 
-.back-button svg {
-  font-size: 24px;
+.PageTitle {
+  width: initial;
+  border-bottom: solid 0px black !important;
+  position: absolute !important;
+  display: block !important;
+  right: 0 !important;
+  left: 0 !important;
+  margin: 0 auto !important;
+}
+
+.DetailContent {
+  margin-top: 70px;
 }
 
 .image {
