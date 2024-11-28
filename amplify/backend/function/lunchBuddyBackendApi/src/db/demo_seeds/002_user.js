@@ -12,7 +12,7 @@ exports.seed = async function (knex) {
       office_id: 3,
       floor: 10,
       seat: "A12",
-      tel_number: "000-0000-0000",
+      tel_number: "111-1111-1111",
     },
     {
       user_name: "生田健",
@@ -20,7 +20,7 @@ exports.seed = async function (knex) {
       office_id: 3,
       floor: 2,
       seat: "C15",
-      tel_number: "111-1111-1111",
+      tel_number: "222-2222-2222",
     },
     {
       user_name: "佐藤翔",
@@ -28,7 +28,7 @@ exports.seed = async function (knex) {
       office_id: 3,
       floor: 2,
       seat: "D16",
-      tel_number: "222-2222-2222",
+      tel_number: "333-3333-3333",
     },
     {
       user_name: "鈴木次郎",
@@ -36,7 +36,7 @@ exports.seed = async function (knex) {
       office_id: 3,
       floor: 10,
       seat: "B10",
-      tel_number: "333-3333-3333",
+      tel_number: "444-4444-4444",
     },
     {
       user_name: "原隆史",
@@ -44,7 +44,7 @@ exports.seed = async function (knex) {
       office_id: 3,
       floor: 2,
       seat: "E17",
-      tel_number: "444-4444-4444",
+      tel_number: "555-5555-5555",
     },
   ]);
 };
