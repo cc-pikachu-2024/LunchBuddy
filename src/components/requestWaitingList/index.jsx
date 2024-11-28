@@ -6,6 +6,8 @@ import CustomeButton from "../customeButton";
 import CreateIcon from "@mui/icons-material/Create";
 import clsx from "clsx";
 import style from "./style.module.scss";
+import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
+import Grid from "@mui/material/Grid2";
 
 const RequestWaitingList = ({ user, requestList, updateRequestList }) => {
   const navigate = useNavigate();
@@ -28,6 +30,11 @@ const RequestWaitingList = ({ user, requestList, updateRequestList }) => {
 
   return (
     <>
+      <Grid className={style.GridContainer} xs={6} display="flex">
+        <VerifiedUserIcon />
+        <p className={style.UserName}>{user.name}</p>
+        <>さん</>
+      </Grid>
       <div className={clsx(style.PageContainer)}>
         <InfoCard user={user}></InfoCard>
         <RequestWaitingCard
