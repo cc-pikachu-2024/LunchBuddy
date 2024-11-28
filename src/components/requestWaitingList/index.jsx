@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import InfoCard from "../../components/infoCard";
 import RequestWaitingCard from "../../components/requestWaitingCard";
@@ -9,7 +9,7 @@ import style from "./style.module.scss";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 import Grid from "@mui/material/Grid2";
 
-const RequestWaitingList = ({ user, requestList, updateRequestList }) => {
+const RequestWaitingList = ({ user, requestList }) => {
   const navigate = useNavigate();
   const createRequest = () => {
     navigate("../requestSend");
@@ -37,10 +37,7 @@ const RequestWaitingList = ({ user, requestList, updateRequestList }) => {
       </Grid>
       <div className={clsx(style.PageContainer)}>
         <InfoCard user={user}></InfoCard>
-        <RequestWaitingCard
-          user={user}
-          request={sortedRequestList}
-        ></RequestWaitingCard>
+        <RequestWaitingCard request={sortedRequestList} />
         <CustomeButton
           fixed
           text={
@@ -57,3 +54,8 @@ const RequestWaitingList = ({ user, requestList, updateRequestList }) => {
 };
 
 export default RequestWaitingList;
+
+RequestWaitingList.propTypes = {
+  user: PropTypes.object,
+  requestList: PropTypes.array,
+};

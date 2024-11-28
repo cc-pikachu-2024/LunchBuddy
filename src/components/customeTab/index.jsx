@@ -34,17 +34,15 @@ const a11yProps = (index) => {
   };
 };
 
-const CustomeTab = (props) => {
-  const { children } = props;
+const CustomeTab = ({ children, tab }) => {
   const [value, setValue] = useState(0);
-
 
   //tab情報が渡されたらそのtabに遷移
   useEffect(() => {
-    if (props) {
-      setValue(props.tab)
+    if (tab) {
+      setValue(tab);
     }
-  },[props]);
+  }, [tab]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -81,4 +79,5 @@ export default CustomeTab;
 
 CustomeTab.propTypes = {
   children: PropTypes.array,
+  tab: PropTypes.number,
 };
