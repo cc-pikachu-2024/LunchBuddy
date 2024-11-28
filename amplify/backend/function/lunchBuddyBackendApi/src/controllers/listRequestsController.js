@@ -95,3 +95,29 @@ exports.postStatus = async (req, res) => {
     res.status(500).json({ error: "Failed to post status" });
   }
 };
+exports.getPurchasedItemList = async (req, res) => {
+  try {
+    const requestId = req.query.requestId;
+    const purchasedItemList = await listRequestsModel.getPurchasedItemList(
+      requestId
+    );
+    const capitalCasedPurchasedItemList = purchasedItemList.map(
+      (purchasedItem) => {
+        return {
+          purchasedId: purchasedItem.purchased_id || null,
+          requestId: purchasedItem.request_id || null,
+          responderId: purchasedItem.office_id || null,
+          recieptId: purchasedItem.reciept_id || null,
+          purchaseDetailId: purchasedItem.purchase_detail_id || null,
+          itemName: purchasedItem.item_name || "Unknown",
+          inputPrice: purchasedItem.input_price || 0,
+          menuFlag: purchasedItem.menu_flag || false,
+        };
+      }
+    );
+    res.status(200).json(capitalCasedPurchasedItemList);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: "Failed to get purchased item list" });
+  }
+};
