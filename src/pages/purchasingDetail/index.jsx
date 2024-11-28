@@ -24,55 +24,59 @@ const PurchasingDetail = () => {
   const location = useLocation();
   const { user, request } = location.state || {};
   // const [purchasedItemList, setPurchasedItemList] = useState([]); // responderによる購入商品の情報
-  const [purchasedMenuList, setPurchasedMenuList] = useState([]);
-  const [purchasedGratitudeList, setPurchasedGratitudeList] = useState([]);
+  // const [purchasedMenuList, setPurchasedMenuList] = useState([]);
+  // const [purchasedGratitudeList, setPurchasedGratitudeList] = useState([]);
 
-  const [totalMenuPrice, setTotalMenuPrice] = useState();
-  const [totalGratitudePrice, setTotalGratitudePrice] = useState();
-  const [totalPrice, setTotalPrice] = useState();
+  // const [totalMenuPrice, setTotalMenuPrice] = useState();
+  // const [totalGratitudePrice, setTotalGratitudePrice] = useState();
+  // const [totalPrice, setTotalPrice] = useState();
 
-  useEffect(() => {
-    //メニューの合計購入金額計算　//この辺りの実装全然ダメなはずなので要修正
-    const menuPrice = purchasedMenuList.reduce((acc, purchasedItem) => {
-      return Number(Object.values(purchasedItem)[0]);
-    }, 0);
+  // useEffect(() => {
+  //メニューの合計購入金額計算　//この辺りの実装全然ダメなはずなので要修正
+  //   const menuPrice = purchasedMenuList.reduce((acc, purchasedItem) => {
+  //     return Number(Object.values(purchasedItem)[0]);
+  //   }, 0);
 
-    //お礼の合計購入金額計算
-    const gratitudePrice = purchasedGratitudeList.reduce((acc, gratitude) => {
-      return Number(gratitude["gratitude"]);
-    }, 0);
-    setTotalMenuPrice(menuPrice);
-    setTotalGratitudePrice(gratitudePrice);
-    setTotalPrice(menuPrice + gratitudePrice);
-  }, [purchasedMenuList, purchasedGratitudeList]);
+  //   //お礼の合計購入金額計算
+  //   const gratitudePrice = purchasedGratitudeList.reduce((acc, gratitude) => {
+  //     return Number(gratitude["gratitude"]);
+  //   }, 0);
+  //   setTotalMenuPrice(menuPrice);
+  //   setTotalGratitudePrice(gratitudePrice);
+  //   setTotalPrice(menuPrice + gratitudePrice);
+  // }, [purchasedMenuList, purchasedGratitudeList]);
 
-  useEffect(() => {
-    const itemList = purchasedMenuList.concat(purchasedGratitudeList);
-    setPurchasedItemList(itemList);
-  }, [purchasedMenuList, purchasedGratitudeList]);
+  // useEffect(() => {
+  //   const itemList = purchasedMenuList.concat(purchasedGratitudeList);
+  //   setPurchasedItemList(itemList);
+  // }, [purchasedMenuList, purchasedGratitudeList]);
 
-  const handleItemPriceChange = (target) => {
-    const { name, value } = target;
-    console.log(name, value);
-    setPurchasedMenuList((prevValues) => [...prevValues, [name]]);
-    // setPurchasedMenuList((prevValues) => [...prevValues, { [name]: value }]);
-  };
+  // const handleItemPriceChange = (target) => {
+  //   const { name, value } = target;
+  //   console.log(name, value);
+  //   setPurchasedMenuList((prevValues) => [...prevValues, [name]]);
+  //   // setPurchasedMenuList((prevValues) => [...prevValues, { [name]: value }]);
+  // };
 
-  const handleGratitudePriceChange = (target) => {
-    const { name, value } = target;
-    console.log(name, value);
-    setPurchasedGratitudeList((prevValues) => [
-      ...prevValues,
-      { [name]: value },
-    ]);
-  };
+  // const handleGratitudePriceChange = (target) => {
+  //   const { name, value } = target;
+  //   console.log(name, value);
+  //   setPurchasedGratitudeList((prevValues) => [
+  //     ...prevValues,
+  //     { [name]: value },
+  //   ]);
+  // };
 
   // >>>>>>>>>>>>>>>>>>>
-  const [purchasedItem, setPurchasedItem] = useState([]); // responderによる購入商品の情報
-
-  useEffect(() => {
-    console.log(request);
-    const purchasedObj = request.itemList.map((item, idx) => {
+  const [gratitude, setGratitude] = useState({
+    itemName: "gratitude",
+    maxPrice: request.gratitudeMaxPrice,
+    menuFlag: false,
+    inputPrice: 0,
+    itemImageName: "",
+  });
+  const [purchasedItem, setPurchasedItem] = useState(
+    request.itemList.map((item, idx) => {
       return {
         tmpId: idx,
         itemName: item.itemName,
@@ -81,63 +85,86 @@ const PurchasingDetail = () => {
         inputPrice: 0,
         itemImageName: item.itemImageName,
       };
-    });
-    setPurchasedItem(purchasedObj);
-  }, []);
+    })
+  ); // responderによる購入商品の情報
+
+  const [totalMenuPrice, setTotalMenuPrice] = useState(0);
+  const [totalGratitudePrice, setTotalGratitudePrice] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
+  useEffect(() => {
+    setTotalMenuPrice(
+      purchasedItem.reduce((sum, item) => {
+        return Number(sum) + Number(item.inputPrice);
+      }, 0)
+    );
+    setTotalGratitudePrice(Number(gratitude.inputPrice));
+  }, [gratitude, purchasedItem]);
+
+  useEffect(() => {
+    setTotalPrice(Number(totalMenuPrice + totalGratitudePrice));
+  }, [totalMenuPrice, totalGratitudePrice]);
 
   const updateInputPrice = (value, id) => {
     setPurchasedItem((currentPurchasedItem) => {
       return currentPurchasedItem.map((purchase) => {
-        if (request.id == id) {
-          return newRequest;
+        if (purchase.tmpId == id) {
+          return { ...purchase, inputPrice: value };
         } else {
-          return request;
+          return purchase;
         }
       });
+    });
+  };
+
+  const updateGratitudePrice = (value) => {
+    setGratitude((currentGratitude) => {
+      return { ...currentGratitude, inputPrice: value };
     });
   };
 
   const sendPurchaseDetail = async () => {
     const res = confirm("金額に誤りはありませんか？");
     if (res) {
-      const newItemList = Object.entries(purchasedItemList).map(
-        ([key, value]) => ({
-          itemName: key,
-          inputPrice: value,
-          menuFlag: key == "gratitude" ? false : true,
-        })
-      );
+      const newItemList = purchasedItem.map((item) => ({
+        itemName: item.itemName,
+        inputPrice: Number(item.inputPrice),
+        menuFlag: item.menuFlag,
+      }));
+      newItemList.push({
+        itemName: gratitude.itemName,
+        inputPrice: gratitude.inputPrice,
+        menuFlag: gratitude.menuFlag,
+      });
       const requestBody = {
         requestId: request.id,
         responderId: request.responderId,
         recieptId: "xxx", //TODO: レシートアップロード機能の追加
         itemList: newItemList,
       };
-      console.log(newItemList);
       console.log(requestBody);
 
-      // const param = {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json; charset=utf-8",
-      //   },
-      //   body: JSON.stringify(requestBody),
-      // };
+      const param = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+        },
+        body: JSON.stringify(requestBody),
+      };
 
-      // try {
-      //   const response = await fetch(
-      //     `${import.meta.env.VITE_API_HOST}/requests/purchase`,
-      //     param
-      //   );
-      //   if (!response.ok) {
-      //     throw new Error("ネットワークに問題があります");
-      //   }
-      //   const data = response.json();
-      //   console.log("作成内容:", data);
-      //   navigate("/requestList");
-      // } catch (error) {
-      //   console.log("リクエスト送信エラー：", error);
-      // }
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_API_HOST}/requests/purchase`,
+          param
+        );
+        if (!response.ok) {
+          throw new Error("ネットワークに問題があります");
+        }
+        const data = response.json();
+        console.log("作成内容:", data);
+        navigate("/requestList");
+      } catch (error) {
+        console.log("リクエスト送信エラー：", error);
+      }
     }
   };
 
@@ -167,8 +194,12 @@ const PurchasingDetail = () => {
         </Grid>
         <Grid size={12} display="flex">
           <LocalDiningIcon />
-          {request.itemList.map((item) => {
-            return <p className={style.myRequestCardP}>{item.itemName}</p>;
+          {purchasedItem.map((item) => {
+            return (
+              <p className={style.myRequestCardP} key={item.tmpId}>
+                {item.itemName}
+              </p>
+            );
           })}
         </Grid>
         <Grid size={12} display="flex">
@@ -207,7 +238,7 @@ const PurchasingDetail = () => {
                 〜￥{request.totalMaxPrice}
               </p>
             </Grid>
-            {purchasedItem.map((item) => {
+            {purchasedItem.map((item, idx) => {
               return (
                 <Grid
                   size={12}
@@ -243,7 +274,7 @@ const PurchasingDetail = () => {
                     label=""
                     value={item.inputPrice}
                     type="number"
-                    onChange={(e) => updateInputPrice(e.target.target)}
+                    onChange={(e) => updateInputPrice(e.target.value, idx)}
                     required={true}
                     size="small"
                     className={clsx(style.inputPriceTextBox)}
@@ -269,9 +300,9 @@ const PurchasingDetail = () => {
                 /> */}
                 <TextField
                   label=""
-                  value={purchasedGratitudeList["gratitude"]}
+                  value={gratitude.inputPrice}
                   type="text"
-                  onChange={(e) => handleGratitudePriceChange(e.target)}
+                  onChange={(e) => updateGratitudePrice(e.target.value)}
                   required={true}
                   size="small"
                   className={clsx(style.inputPriceTextBox)}

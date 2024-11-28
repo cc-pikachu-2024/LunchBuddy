@@ -1,4 +1,5 @@
 const purchaseModel = require("../models/purchaseModel");
+const listRequestsModel = require("../models/listRequestsModel");
 
 exports.postPurchase = async (req, res) => {
   const reqBodyObj = req.body;
@@ -20,6 +21,12 @@ exports.postPurchase = async (req, res) => {
         });
       })
     );
+    const statusObj = {
+      request_id: reqBodyObj.requestId,
+      status_id: 3,
+      status_changed_user_id: reqBodyObj.responder_id,
+    };
+    const _ = await listRequestsModel.postStatus(statusObj);
     res.status(200).json({ msg: "OK" });
   } catch (err) {
     res.status(500).json({ error: err });
