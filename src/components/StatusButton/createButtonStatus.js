@@ -81,13 +81,13 @@ export const createButtonStatus = (
       if (request.responderId == null) {
         isDisplay = false;
       } else if (isRequester) {
-        text = "精算完了";
+        text = "";
+        // TODO: 金額確認画面に遷移する挙動に修正
         onClick = async () => {
           const res = confirm("品物を受け取りましたか？");
           if (res) {
             await updateRequest(request, updateRequestList, 4, user.id, false);
           }
-          navigate("/requestList");
         };
       } else if (isResponder) {
         isDisplay = false;
