@@ -10,6 +10,7 @@ import RequestQuoteIcon from "@mui/icons-material/RequestQuote";
 import StepConnector, {
   stepConnectorClasses,
 } from "@mui/material/StepConnector";
+import clsx from "clsx";
 import style from "./style.module.scss";
 import { Check } from "@mui/icons-material";
 
@@ -97,7 +98,7 @@ const requesterSteps = [
 const responderSteps = [
   "受注中",
   "商品購入& <br />金額入力",
-  "受け渡し",
+  "受け渡し&<br />金額確認中",
   "完了",
 ];
 
@@ -113,7 +114,7 @@ const CustomeStepper = ({ isRequester, statusId }) => {
         {steps.map((label) => (
           <Step key={label}>
             <StepLabel StepIconComponent={ColorlibStepIcon}>
-              <p dangerouslySetInnerHTML={{ __html: label }} />
+              <p className={clsx(style.CustomStepperFont)} dangerouslySetInnerHTML={{ __html: label }} />
             </StepLabel>
           </Step>
         ))}

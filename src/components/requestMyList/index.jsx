@@ -246,13 +246,14 @@ const RequestMyList = ({ user, requestList, updateRequestList }) => {
                 request={myRequest}
                 updateRequestList={updateRequestList}
                 user={user}
-                color="error"
+                color="success"
               />
             </Grid>
           </Grid>
         </>
       ) : (
         <>
+          <br></br>
           <p>現在、依頼はありません</p>
           <CustomeButton
             fixed
