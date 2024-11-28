@@ -7,7 +7,7 @@ const signUpModel = require("../models/signUpModel");
 // const listRequestsModel = require("../models/listRequestsModel");
 // const createRequestModel = require("../models/createRequestModel");
 const knex = require("../db/knex");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 
 chai.use(chaiHttp);
 
@@ -110,6 +110,7 @@ describe("", async () => {
         floor: reqBody.floor,
         seat: reqBody.seat,
         telNumber: reqBody.phoneNumber,
+
       });
 
       expect(isPasswordMatch).to.be.true;

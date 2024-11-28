@@ -45,13 +45,13 @@ jobs:
           echo "DB_USER=${{ secrets.DB_USER }}" >> ./amplify/backend/function/lunchBuddyBackendApi/src/.env.development
 
       # Mocha/Chaiのテストを実行
-      # - name: Run backend tests
-      #   working-directory: ./amplify/backend/function/lunchBuddyBackendApi/src
-      #   run: |
-      #     npm i
-      #     npm run migrate:dev
-      #     npm run seed:dev
-      #     npm run test
+      - name: Run backend tests
+        working-directory: ./amplify/backend/function/lunchBuddyBackendApi/src
+        run: |
+          npm i
+          npm run migrate:dev
+          npm run seed:dev
+          npm run test
 
       # フロントエンドの依存関係インストールとビルド
       - name: Build frontend with Vite
@@ -72,10 +72,13 @@ jobs:
 
       # Amplifyプロジェクトの初期化と公開
       - name: Amplify Pull Backend
-        run: amplify pull --amplify --envName dev --yes
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+        run: |
+          amplify -v
+          amplify pull --appId d2enwmup4uuds0 --envName dev --yes
 
       # 6. Amplify Functions のデプロイ
       - name: Deploy Amplify Functions

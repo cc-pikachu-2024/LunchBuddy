@@ -13,7 +13,7 @@ const RequestList = () => {
     // 一旦 sessionStorageに格納しているデータを参照
     (async () => {
       const sessionUser = JSON.parse(sessionStorage.getItem("user"));
-      console.log("sessionUser:" ,sessionUser);
+      console.log("sessionUser:", sessionUser);
       const totalGratitude = (
         await fetch(
           `${import.meta.env.VITE_API_HOST}/requests/gratitudesSum?userId=${
@@ -37,6 +37,7 @@ const RequestList = () => {
         `${import.meta.env.VITE_API_HOST}/requests/requestsList`
       ).then((res) => res.json());
       setRequestList(requests);
+      console.log(requests);
     })();
   }, []);
 

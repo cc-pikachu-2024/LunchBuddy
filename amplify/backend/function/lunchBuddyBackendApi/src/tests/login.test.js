@@ -5,7 +5,7 @@ const expect = chai.expect;
 const app = require("../app");
 const knex = require("../db/knex");
 const loginModel = require("../models/loginModel");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 
 chai.use(chaiHttp);
 
@@ -41,6 +41,7 @@ describe("Login API", async () => {
   it("ログインに成功したときステータス:200,レスポンスを返却する", async () => {
     const res = await request.post("/requests/loginUser").send({
       phoneNumber: "1234567890",
+
       password: "maho0217",
     });
 
@@ -71,6 +72,7 @@ describe("Login API", async () => {
     const res = await request.post("/requests/loginUser").send({
       phoneNumber: "111-1111-1111",
       password: "yyy",
+
     });
 
     expect(res).to.have.status(401);

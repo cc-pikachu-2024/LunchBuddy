@@ -1,11 +1,12 @@
 const loginModel = require("../models/loginModel");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 
 exports.postLogin = async (req, res) => {
   const { phoneNumber, password } = req.body;
 
   try {
     const user = await loginModel.findByPhoneNumber(phoneNumber);
+
     if (!user) {
       return res
         .status(401)

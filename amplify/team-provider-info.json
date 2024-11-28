@@ -14,21 +14,15 @@
     "categories": {
       "function": {
         "lunchBuddyBackendApi": {
-          "deploymentBucketName": "amplify-lunchbuddy-dev-efcdc-deployment",
-          "s3Key": "amplify-builds/lunchBuddyBackendApi-315644536a7a766f4536-build.zip",
-          "dbUser": "postgres",
           "dbHost": "lunch-buddy.c5o2uao42si7.us-east-1.rds.amazonaws.com",
-          "dbPassword": "lunchbuddypostgres",
           "dbName": "lunchbuddy",
+          "dbPassword": "lunchbuddypostgres",
           "dbPort": "5432",
-          "nodeEnv": "production"
+          "dbUser": "postgres",
+          "nodeEnv": "production",
+          "deploymentBucketName": "amplify-lunchbuddy-dev-efcdc-deployment",
+          "s3Key": "amplify-builds/lunchBuddyBackendApi-4e72744a4d4e2f6c6d69-build.zip"
         }
-      },
-      "api": {
-        "backendApi": {}
-      },
-      "hosting": {
-        "S3AndCloudFront": {}
       }
     }
   }
