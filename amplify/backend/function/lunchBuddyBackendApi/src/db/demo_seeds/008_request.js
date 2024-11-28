@@ -7,40 +7,16 @@ exports.seed = async function (knex) {
   await knex("request").del();
   await knex("request").insert([
     {
-      requester_id: 4,
+      requester_id: 2,
       menu_id: 1,
       gratitude_id: 1,
-      requester_comment: "",
-    },
-    {
-      requester_id: 2,
-      menu_id: 2,
-      gratitude_id: 2,
-      requester_comment: "",
-    },
-    {
-      requester_id: 4,
-      menu_id: 3,
-      gratitude_id: 3,
-      requester_comment: "",
-    },
-    {
-      requester_id: 5,
-      menu_id: 4,
-      gratitude_id: 3,
-      requester_comment: "",
+      requester_comment: "おにぎりは鮭でお願いします。",
     },
     {
       requester_id: 3,
-      menu_id: 5,
-      gratitude_id: 3,
-      requester_comment: "鮭とおかかで",
-    },
-    {
-      requester_id: 5,
-      menu_id: 6,
+      menu_id: 2,
       gratitude_id: 2,
-      requester_comment: "何でも大丈夫です！",
+      requester_comment: "お茶は烏龍茶でお願いします。",
     },
   ]);
 };

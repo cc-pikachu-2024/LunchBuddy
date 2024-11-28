@@ -12,17 +12,5 @@ exports.seed = async function (knex) {
     {
       total_max_price: 600,
     },
-    {
-      total_max_price: 500,
-    },
-    {
-      total_max_price: 200,
-    },
-    {
-      total_max_price: 600,
-    },
-    {
-      total_max_price: 500,
-    },
   ]);
 };
