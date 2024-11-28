@@ -7,15 +7,28 @@
   width: 100%;
 }
 
+.myRequestRow {
+  margin-bottom: 10px;
+}
+
 .myRequestCardP {
   margin-top: 6px;
   margin-left: 8px;
 }
 
+.myRequestCardPSmall {
+  @extend .g-font-p-small;
+  text-align: left;
+  margin: 0;
+  margin-left: 15px !important;
+}
+
 .myRequestCardPWeight {
   @extend .myRequestCardP;
-  margin-top: 0 !important;
   @extend .g-font-p-large;
+  margin: 0 !important;
+  margin-left: 15px !important;
+  text-align: left;
 }
 
 .itemImage {

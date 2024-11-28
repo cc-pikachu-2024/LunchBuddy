@@ -14,6 +14,7 @@ import TextsmsIcon from "@mui/icons-material/Textsms";
 import CurrencyYenIcon from "@mui/icons-material/CurrencyYen";
 import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
+import { Box } from "@mui/material";
 
 const RequestMyList = ({ user, requestList, updateRequestList }) => {
   const myRequest = requestList.filter(
@@ -109,34 +110,48 @@ const RequestMyList = ({ user, requestList, updateRequestList }) => {
     <>
       {myRequest ? (
         <>
-          <Grid container className={style.RequestMyList}>
-            <Grid size={12} display="flex">
+          <Box className={style.RequestMyList}>
+            <Grid size={12}>
               <CustomeStepper
                 isRequester={true}
                 statusId={myRequest.statusId}
               />
             </Grid>
-            <Grid size={12} display="flex">
-              <LocalDiningIcon />
-              {myRequest.itemList.map((item) => {
-                return <p className={style.myRequestCardP}>{item.itemName}</p>;
-              })}
+            <Grid container spacing={2} className={style.myRequestRow}>
+              <Grid size={1}>
+                <LocalDiningIcon />
+              </Grid>
+              <Grid size={11}>
+                <p className={style.myRequestCardPSmall}>
+                  {myRequest.itemList.map((item) => item.itemName).join(" ")}
+                </p>
+              </Grid>
             </Grid>
-            <Grid size={12} display="flex">
-              <TextsmsIcon />
-              <p className={style.myRequestCardP}>
-                {myRequest.requesterComment}
-              </p>
+            <Grid container spacing={2} className={style.myRequestRow}>
+              <Grid size={1}>
+                <TextsmsIcon />
+              </Grid>
+              <Grid size={11}>
+                <p className={style.myRequestCardPSmall}>
+                  {myRequest.requesterComment || "-"}
+                </p>
+              </Grid>
             </Grid>
-            <Grid size={6}>
-              <Grid size={12} display="flex">
+            <Grid container spacing={2} className={style.myRequestRow}>
+              <Grid size={1}>
                 <CurrencyYenIcon />
+              </Grid>
+              <Grid size={11}>
                 <p className={style.myRequestCardPWeight}>
                   〜￥{myRequest.totalMaxPrice}
                 </p>
               </Grid>
-              <Grid size={12} display="flex">
+            </Grid>
+            <Grid container spacing={2} className={style.myRequestRow}>
+              <Grid size={1}>
                 <CardGiftcardIcon />
+              </Grid>
+              <Grid size={11}>
                 <p className={style.myRequestCardPWeight}>
                   〜￥{myRequest.gratitudeMaxPrice}
                 </p>
@@ -149,6 +164,7 @@ const RequestMyList = ({ user, requestList, updateRequestList }) => {
                     className={style.itemImage}
                     src={item.itemImageName}
                     alt={item.itemName}
+                    key={item.id}
                   />
                 );
               })}
@@ -156,10 +172,12 @@ const RequestMyList = ({ user, requestList, updateRequestList }) => {
             {myRequest.statusId === 3 ? (
               <>
                 <div className={style.horizontalBar}></div>
-                <Grid>
-                  <Grid size={12}>
-                    <Grid size={12} display="flex">
+                <Box>
+                  <Grid container spacing={2} className={style.myRequestRow}>
+                    <Grid size={1}>
                       <CurrencyYenIcon />
+                    </Grid>
+                    <Grid size={11}>
                       <p className={style.myRequestCardPWeight}>
                         〜￥{myRequest.totalMaxPrice}
                       </p>
@@ -170,6 +188,7 @@ const RequestMyList = ({ user, requestList, updateRequestList }) => {
                           size={12}
                           display="flex"
                           className={style.textboxGrid}
+                          key={item.id}
                         >
                           <CustomeTextField
                             type="text"
@@ -192,14 +211,16 @@ const RequestMyList = ({ user, requestList, updateRequestList }) => {
                         </Grid>
                       );
                     })}
-                    <Grid size={12} display="flex">
-                      <Grid size={4} display="flex">
+                    <Grid container spacing={2} className={style.myRequestRow}>
+                      <Grid size={1}>
                         <CardGiftcardIcon />
+                      </Grid>
+                      <Grid size={4}>
                         <p className={style.myRequestCardPWeight}>
                           〜￥{myRequest.gratitudeMaxPrice}
                         </p>
                       </Grid>
-                      <Grid size={8}>
+                      <Grid size={7}>
                         <CustomeTextField
                           type="text"
                           value={totalGratitudePrice}
@@ -212,7 +233,7 @@ const RequestMyList = ({ user, requestList, updateRequestList }) => {
                         />
                       </Grid>
                     </Grid>
-                    <div className={clsx(style.MaxPrice)}>
+                    <Grid size={12} className={clsx(style.MaxPrice)}>
                       <div className={clsx(style.PriceTagHelpIcon)}>
                         <div className={clsx(style.InputPriceTag)}>
                           依頼商品金額
@@ -231,16 +252,16 @@ const RequestMyList = ({ user, requestList, updateRequestList }) => {
                       </div>
                       <div className={clsx(style.CalculatedPrice)}>
                         <div>{totalMenuPrice}円</div>
-                        <div>+　{totalGratitudePrice}円</div>
-                        <div>=　{totalPrice}円</div>
+                        <div>+{totalGratitudePrice}円</div>
+                        <div>={totalPrice}円</div>
                       </div>
-                    </div>
+                    </Grid>
                     <p>
                       {responder.userName}さんに{totalPrice}
                       円をお支払いください。
                     </p>
                   </Grid>
-                </Grid>
+                </Box>
               </>
             ) : (
               <></>
@@ -250,10 +271,10 @@ const RequestMyList = ({ user, requestList, updateRequestList }) => {
                 request={myRequest}
                 updateRequestList={updateRequestList}
                 user={user}
-                color="success"
+                color={myRequest.statusId == 1 ? "error" : "success"}
               />
             </Grid>
-          </Grid>
+          </Box>
         </>
       ) : (
         <>
