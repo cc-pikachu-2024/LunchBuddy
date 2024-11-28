@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import StatusButton from "../StatusButton";
 import style from "./style.module.scss";
-import CustomeTextField from "../../components/customeTextField";
 import CustomeButton from "../customeButton";
 import clsx from "clsx";
 import CreateIcon from "@mui/icons-material/Create";
@@ -14,7 +13,7 @@ import TextsmsIcon from "@mui/icons-material/Textsms";
 import CurrencyYenIcon from "@mui/icons-material/CurrencyYen";
 import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
-import { Box } from "@mui/material";
+import { Box, TextField } from "@mui/material";
 
 const RequestMyList = ({ user, requestList, updateRequestList }) => {
   const myRequest = requestList.filter(
@@ -185,52 +184,75 @@ const RequestMyList = ({ user, requestList, updateRequestList }) => {
                     {purchasedMenuList.map((item) => {
                       return (
                         <Grid
-                          size={12}
+                          container
                           display="flex"
                           className={style.textboxGrid}
                           key={item.id}
                         >
-                          <CustomeTextField
-                            type="text"
-                            value={item.itemName}
-                            disabled
-                            className={style.itemNameTextbox}
-                            sx={{
-                              my: "0 !important",
-                            }}
-                          />
-                          <CustomeTextField
-                            type="text"
-                            value={item.inputPrice}
-                            disabled
-                            className={style.inputPriceTextBox}
-                            sx={{
-                              my: "0 !important",
-                            }}
-                          />
+                          <Grid size={8}>
+                            <TextField
+                              label=""
+                              value={item.itemName}
+                              type="text"
+                              required={true}
+                              size="small"
+                              className={clsx(style.itemNameTextbox)}
+                              margin={"none"}
+                              disabled
+                              name={item.itemName}
+                            />
+                          </Grid>
+                          <Grid size={4}>
+                            <TextField
+                              label=""
+                              value={item.inputPrice}
+                              type="number"
+                              size="small"
+                              className={clsx(style.inputPriceTextBox)}
+                              margin={"none"}
+                              disabled
+                              name={item.itemName}
+                            />
+                          </Grid>
                         </Grid>
                       );
                     })}
-                    <Grid container spacing={2} className={style.myRequestRow}>
-                      <Grid size={1}>
+                    <Grid size={12}>
+                      <Grid size={12} display="flex">
                         <CardGiftcardIcon />
-                      </Grid>
-                      <Grid size={4}>
                         <p className={style.myRequestCardPWeight}>
                           〜￥{myRequest.gratitudeMaxPrice}
                         </p>
                       </Grid>
-                      <Grid size={7}>
-                        <CustomeTextField
-                          type="text"
-                          value={totalGratitudePrice}
-                          disabled
-                          className={style.inputPriceTextBox}
-                          sx={{
-                            mx: "0 !important",
-                            my: "0 !important",
-                          }}
-                        />
+                      <Grid
+                        container
+                        display="flex"
+                        className={style.textboxGrid}
+                      >
+                        <Grid size={8}>
+                          <TextField
+                            label=""
+                            value={"お礼品"}
+                            type="text"
+                            size="small"
+                            className={clsx(style.itemNameTextbox)}
+                            margin={"none"}
+                            disabled
+                            name={"お礼品"}
+                          />
+                        </Grid>
+                        <Grid size={4}>
+                          <TextField
+                            label=""
+                            value={totalGratitudePrice}
+                            type="text"
+                            size="small"
+                            disabled
+                            className={clsx(style.inputPriceTextBox)}
+                            margin={"none"}
+                            name={"gratitude"}
+                          />
+                        </Grid>
                       </Grid>
                     </Grid>
                     <Grid size={12} className={clsx(style.MaxPrice)}>
