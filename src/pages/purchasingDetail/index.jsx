@@ -236,7 +236,7 @@ const PurchasingDetail = () => {
           })}
         </Grid>
         <div className={style.horizontalBar}></div>
-        <Grid>
+        <Box>
           <Grid size={12}>
             <Grid size={12} display="flex">
               <CurrencyYenIcon />
@@ -344,7 +344,7 @@ const PurchasingDetail = () => {
               <p className={style.SuccessCustomeButtonText}>明細送付</p>
             </Button>
           </Grid>
-        </Grid>
+        </Box>
       </Box>
     </>
   );

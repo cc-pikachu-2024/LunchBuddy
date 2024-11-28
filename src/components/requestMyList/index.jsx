@@ -172,11 +172,9 @@ const RequestMyList = ({ user, requestList, updateRequestList }) => {
               <>
                 <div className={style.horizontalBar}></div>
                 <Box>
-                  <Grid container spacing={2} className={style.myRequestRow}>
-                    <Grid size={1}>
+                  <Grid size={12}>
+                    <Grid size={12} display="flex">
                       <CurrencyYenIcon />
-                    </Grid>
-                    <Grid size={11}>
                       <p className={style.myRequestCardPWeight}>
                         〜￥{myRequest.totalMaxPrice}
                       </p>
