@@ -77,7 +77,9 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
         run: |
-          AMPLIFY_CLI_DEBUG=true amplify pull --amplify --envName dev --yes
+          rm -rf amplify/.config/local-env-info.json
+          rm -rf amplify/.config/local-aws-info.json
+          AMPLIFY_CLI_DEBUG=true amplify pull --appId d2enwmup4uuds0 --amplify --envName dev --yes
 
       # 6. Amplify Functions のデプロイ
       - name: Deploy Amplify Functions
