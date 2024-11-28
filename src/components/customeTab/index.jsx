@@ -2,7 +2,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import style from "./style.module.scss";
 
 const CustomTabPanel = (props) => {
@@ -37,6 +37,14 @@ const a11yProps = (index) => {
 const CustomeTab = (props) => {
   const { children } = props;
   const [value, setValue] = useState(0);
+
+
+  //tab情報が渡されたらそのtabに遷移
+  useEffect(() => {
+    if (props) {
+      setValue(props.tab)
+    }
+  },[props]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

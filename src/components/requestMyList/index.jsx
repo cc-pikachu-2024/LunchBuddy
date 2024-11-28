@@ -190,22 +190,24 @@ const RequestMyList = ({ user, requestList, updateRequestList }) => {
                           className={style.textboxGrid}
                           key={item.id}
                         >
-                          <Grid size={6}>
-                            <CustomeTextField
-                              type="text"
-                              value={item.itemName}
-                              disabled
-                              className={style.itemNameTextbox}
-                            />
-                          </Grid>
-                          <Grid size={6}>
-                            <CustomeTextField
-                              type="text"
-                              value={item.inputPrice}
-                              disabled
-                              className={style.inputPriceTextBox}
-                            />
-                          </Grid>
+                          <CustomeTextField
+                            type="text"
+                            value={item.itemName}
+                            disabled
+                            className={style.itemNameTextbox}
+                            sx={{
+                              my: "0 !important",
+                            }}
+                          />
+                          <CustomeTextField
+                            type="text"
+                            value={item.inputPrice}
+                            disabled
+                            className={style.inputPriceTextBox}
+                            sx={{
+                              my: "0 !important",
+                            }}
+                          />
                         </Grid>
                       );
                     })}
@@ -224,6 +226,10 @@ const RequestMyList = ({ user, requestList, updateRequestList }) => {
                           value={totalGratitudePrice}
                           disabled
                           className={style.inputPriceTextBox}
+                          sx={{
+                            mx: "0 !important",
+                            my: "0 !important",
+                          }}
                         />
                       </Grid>
                     </Grid>

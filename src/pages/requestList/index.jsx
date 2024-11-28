@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import CustomeTab from "../../components/customeTab";
 import ReceivedRequestList from "../../components/receivedRequestList";
 import RequestMyList from "../../components/requestMyList";
@@ -59,9 +60,18 @@ const RequestList = () => {
     }
   };
 
+    //他のページから画面遷移してくる時にtabの情報が渡されるのでその渡されたtabの情報を保持する用
+    const location = useLocation();
+    const { activeTab } = location.state || { activeTab: 0 };
+    const [tab, setTab] = useState(activeTab || 0);
+    useEffect(() => {
+      setTab(activeTab); 
+    }, [activeTab]);
+    
+
   return (
     <>
-      <CustomeTab>
+    <CustomeTab tab={tab}>{/* tabの情報が渡ってきたときはそのtabに遷移 */}
         <RequestWaitingList
           user={user}
           requestList={requestList}
