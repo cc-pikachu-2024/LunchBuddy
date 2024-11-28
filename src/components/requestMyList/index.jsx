@@ -253,6 +253,7 @@ const RequestMyList = ({ user, requestList, updateRequestList }) => {
         </>
       ) : (
         <>
+          <br></br>
           <p>現在、依頼はありません</p>
           <CustomeButton
             fixed

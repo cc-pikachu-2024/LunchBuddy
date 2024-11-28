@@ -1,5 +1,11 @@
 @use "@/styles/globals.scss" as *;
 
 .CustomStepper {
+  margin: 0;
+  padding: 0;
   width: 100%;
+}
+
+.CustomStepperFont{
+  @extend .g-font-p-xsmall;
 }
