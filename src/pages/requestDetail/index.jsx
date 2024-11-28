@@ -13,9 +13,11 @@ import TextsmsIcon from "@mui/icons-material/Textsms";
 import CurrencyYenIcon from "@mui/icons-material/CurrencyYen";
 import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
 
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+// import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Grid from "@mui/material/Grid2";
 import RequestDetailStatusButton from "../../components/RequestDetailStatusButton";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import { Button, Box } from "@mui/material";
 
 const RequestDetail = () => {
   const navigate = useNavigate();
@@ -32,91 +34,132 @@ const RequestDetail = () => {
 
   return (
     <>
-      <button className={(clsx(style.BackButton))} onClick={() => navigate("/requestList")}>
-        <Grid size={6} display="flex">
-          <ArrowBackIcon />
-          <p className={style.ReceivedRequestCardP}>受注待ち一覧に戻る</p>
-        </Grid>
-      </button>
-
-      <Grid size={6} display="flex">
-        <PersonIcon />
-        <p className={style.ReceivedRequestCardP}>
-          {request ? request.requesterName : "No Data"}
-        </p>
-      </Grid>
-      <Grid size={3} display="flex">
-        <ApartmentIcon />
-        <p className={style.ReceivedRequestCardP}>
-          フロア：{request ? request.requesterFloor : "No Data"}
-        </p>
-      </Grid>
-      <Grid size={3} display="flex">
-        <ChairAltIcon />
-        <p className={style.ReceivedRequestCardP}>
-          座席：{request ? request.requesterSeat : "No Data"}
-        </p>
-      </Grid>
-      <Grid xs={6} display="flex">
-        <LocalDiningIcon />
-        <p className={style.RequestDetailComment}>
-          {itemListArray
-            ? itemListArray.map((value) => value.itemName).join(", ")
-            : "No Data"}
-          の購入をお願いします。
-        </p>
-      </Grid>
-      <Grid xs={6} display="flex">
-        <TextsmsIcon />
-        <p className={style.ReceivedRequestCardP}>
-          {request ? request.requesterComment : "No Data"}
-        </p>
-      </Grid>
-      <Grid xs={6}>
-        <Grid xs={6} display="flex">
-          <CurrencyYenIcon />
-          <p className={style.ReceivedRequestCardPWeight}>
-            〜￥{request ? request.totalMaxPrice : "No Data"}
-            までで依頼商品を購入してください。
-          </p>
-        </Grid>
-        <Grid xs={6} display="flex">
-          <CardGiftcardIcon />
-          <p className={style.ReceivedRequestCardPWeight}>
-            〜￥
-            {request ? request.gratitudeMaxPrice : "No Data"}
-            までのお礼品を購入できます。
-          </p>
-        </Grid>
-      </Grid>
-      <Grid container spacing={2} justifyContent="center" alignItems="center">
-        {itemListArray.map((value) => (
-          <Grid item xs={6} key={value.itemName} justifyContent="center">
-            <img
-              className={clsx(style.image)}
-              src={value.itemImageName}
-              alt={value.itemName}
-            />
-            <div>{value.itemName}</div>
+      <Box className={style.Header}>
+        <Button
+          onClick={() => navigate("/requestList")}
+          className={clsx(style.BackButton)}
+        >
+          <ArrowBackIosNewIcon />
+        </Button>
+        <h2 className={style.PageTitle}>リクエスト詳細</h2>
+      </Box>
+      <Box className={style.DetailContent}>
+        <Grid container spacing={2} alignItems="center">
+          <Grid size={1}>
+            <PersonIcon />
           </Grid>
-        ))}
-      </Grid>
-      {isPushed == false ? (
-        <Grid xs={6} container justifyContent="center">
-          <RequestDetailStatusButton
-            request={request}
-            user={user}
-            color="success"
-            setIsPushed={setIsPushed}
-          />
+          <Grid size={11}>
+            <p className={style.ReceivedRequestCardPSmall}>依頼者</p>
+            <p className={style.ReceivedRequestCardP}>
+              {request ? request.requesterName : "No Data"}
+            </p>
+          </Grid>
         </Grid>
-      ) : (
-        <Grid xs={6} container justifyContent="center">
-          <p className={style.ReceivedRequestCardPWeight}>
-            依頼を引き受けました
-          </p>
+        <Grid container spacing={2} alignItems="center">
+          <Grid size={1}>
+            <ApartmentIcon />
+          </Grid>
+          <Grid size={11}>
+            <p className={style.ReceivedRequestCardPSmall}>フロア</p>
+            <p className={style.ReceivedRequestCardP}>
+              {request ? request.requesterFloor : "No Data"}
+            </p>
+          </Grid>
         </Grid>
-      )}
+        <Grid container spacing={2} alignItems="center">
+          <Grid size={1}>
+            <ChairAltIcon />
+          </Grid>
+          <Grid size={11}>
+            <p className={style.ReceivedRequestCardPSmall}>座席</p>
+            <p className={style.ReceivedRequestCardP}>
+              {request ? request.requesterSeat : "No Data"}
+            </p>
+          </Grid>
+        </Grid>
+        <Grid container spacing={2} alignItems="center">
+          <Grid size={1}>
+            <LocalDiningIcon />
+          </Grid>
+          <Grid size={11}>
+            <p className={style.ReceivedRequestCardPSmall}>
+              以下の商品を購入してください。
+            </p>
+            <p className={style.RequestDetailComment}>
+              {itemListArray
+                ? itemListArray.map((value) => value.itemName).join(", ")
+                : "No Data"}
+            </p>
+          </Grid>
+        </Grid>
+        <Grid container spacing={2} alignItems="center">
+          <Grid size={1}>
+            <TextsmsIcon />
+          </Grid>
+          <Grid size={11}>
+            <p className={style.ReceivedRequestCardPSmall}>コメント</p>
+            <p className={style.ReceivedRequestCardP}>
+              {request.requesterComment ? request.requesterComment : "-"}
+            </p>
+          </Grid>
+        </Grid>
+        <Grid container spacing={2} alignItems="center">
+          <Grid size={1}>
+            <CurrencyYenIcon />
+          </Grid>
+          <Grid size={11}>
+            <p className={style.ReceivedRequestCardPSmall}>
+              以下金額で依頼商品を購入してください。
+            </p>
+            <p className={style.ReceivedRequestCardPWeight}>
+              {request.totalMaxPrice ? `〜￥${request.totalMaxPrice}` : "-"}
+            </p>
+          </Grid>
+        </Grid>
+        <Grid container spacing={2} alignItems="center">
+          <Grid size={1}>
+            <CardGiftcardIcon />
+          </Grid>
+          <Grid size={11}>
+            <p className={style.ReceivedRequestCardPSmall}>
+              以下金額でお礼品を購入できます。
+            </p>
+            <p className={style.ReceivedRequestCardPWeight}>
+              {request.gratitudeMaxPrice
+                ? `〜￥${request.gratitudeMaxPrice}`
+                : "-"}
+            </p>
+          </Grid>
+        </Grid>
+        <Grid container spacing={2} justifyContent="center" alignItems="center">
+          {itemListArray.map((value) => (
+            <Grid item xs={6} key={value.itemName} justifyContent="center">
+              <img
+                className={clsx(style.image)}
+                src={value.itemImageName}
+                alt={value.itemName}
+              />
+              <div>{value.itemName}</div>
+            </Grid>
+          ))}
+        </Grid>
+        {isPushed == false ? (
+          <Grid xs={6} container justifyContent="center">
+            <RequestDetailStatusButton
+              request={request}
+              user={user}
+              color="success"
+              setIsPushed={setIsPushed}
+            />
+          </Grid>
+        ) : (
+          <Grid xs={6} container justifyContent="center">
+            <p className={style.ReceivedRequestCardPWeight}>
+              依頼を引き受けました
+            </p>
+          </Grid>
+        )}
+      </Box>
     </>
   );
 };
