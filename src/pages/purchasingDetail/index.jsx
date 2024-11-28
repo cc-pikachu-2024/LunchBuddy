@@ -1,7 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import style from "./style.module.scss";
 import StatusButton from "../../components/StatusButton";
 // import CustomeTextField from "../../components/customeTextField";
@@ -339,6 +338,14 @@ const PurchasingDetail = () => {
               color="success"
               onClick={sendPurchaseDetail}
             /> */}
+            <Button
+              variant="outlined"
+              className={style.ErrorStatusButton}
+            >
+              <Link to={"/requestList"} state={{activeTab:2}}>
+                <p className={style.ErrorCustomeButtonText}>戻る</p>
+              </Link>
+            </Button>
             <Button
               variant="outlined"
               onClick={() => sendPurchaseDetail()}
