@@ -26,7 +26,6 @@ const RequestSend = () => {
           `${import.meta.env.VITE_API_HOST}/requests/items`
         );
         const data = await response.json();
-        console.log(data);
         setMenuList(data);
       } catch (error) {
         console.log(error);
@@ -89,7 +88,7 @@ const RequestSend = () => {
 
     setTotalMenuPrice(menuPrice);
     setTotalGratitudePrice(gratitudePrice);
-    setTotalPrice(menuPrice);
+    setTotalPrice(menuPrice + gratitudePrice);
   }, [selectedMenu, selectedGratitude, menuList]);
 
   const sendRequest = async () => {
@@ -98,7 +97,7 @@ const RequestSend = () => {
       requesterId: userId,
       gratitudeId: selectedGratitude[0].gratitudeId,
       requesterComment: "",
-      totalMaxPrice: totalPrice,
+      totalMaxPrice: totalMenuPrice,
       itemIds: selectedMenu.map((item) => item.itemId),
     };
 
